@@ -1,140 +1,79 @@
 # Verifyd
 
-**Tamper-evident audit receipts for AI decisions. Zero dependencies. Open protocol.**
+**Tamper-evident audit receipts for AI decisions.**
 
-When an AI helps make a decision — denying a loan, approving a diagnosis, ratifying a paper — you need a receipt. Not a chat log. Not a screenshot. A forensic receipt that proves what was decided, by whom, with what sources, scored against which standards, sealed in a hash chain that re-validates offline.
+13KB of Node.js. Zero dependencies. Every claim grounded in NIST, EU, ISO, IETF, FIPS authority.
 
-That's Verifyd.
+```bash
+verifyd audit your-document.pdf
+verifyd verify your-document.verifyd-receipt.json
+```
+
+Two commands. One artifact. A regulator's first question, already answered.
 
 ---
 
 ## What it does
 
-```bash
-verifyd audit your-document.pdf
-```
+Takes any document or AI output. Produces a forensic-grade receipt:
 
-Produces:
+- **SHA-256 content hash** (FIPS 180-4)
+- **Canonical JSON serialization** (RFC 8785)
+- **Append-only audit chain** (RFC 6962-style)
+- **4 policy checks** each citing the standard it satisfies
+- **Trust score** 0-100 with 4 grounded components
+- **Lattice walk** through 10 status levels with quorum gating
+- **Independent oversight** — no single party can ratify alone
 
-- **Receipt JSON** — machine-verifiable, ~6KB, hash-chained
-- **Certificate TXT** — human-readable, ~10KB, cites every standard
-- **`chain_valid: true`** — provable offline, no central server
+Receipt is portable JSON. Anyone can re-verify offline. No vendor. No central server. No network.
 
 ---
 
-## Real run (this repo)
+## Why it exists
 
-A 22,886-word physics paper, audited in under 3 seconds:
+| Scenario | Today | With Verifyd |
+|---|---|---|
+| Bank denial letter, lawsuit 6 months later | "show us how" → chat log | sealed receipt |
+| Hospital AI triage, missed diagnosis | screenshot, maybe | hash-bound trail |
+| Regulator audit (EU AI Act) | scramble | already filed |
+
+**Conventional credential systems require trust in a vendor.**
+**Verifyd requires trust in math + CERN-grade infrastructure.**
+
+---
+
+## Real run
+
+22,886-word physics paper:
 
 | Field | Value |
 |---|---|
-| Trust score | **95 / 100** |
-| Lattice status | **RATIFIED** |
-| Chain valid | **yes** |
-| Standards cited | **14** (NIST, EU AI Act, ISO, RFC, FIPS, OECD, FAIR, OWASP, FTC, Reg.B) |
+| Word count | 22,886 |
+| Trust score | 95/100 |
+| Lattice status | RATIFIED |
+| Chain valid | yes |
+| Time | < 3 seconds |
 
-Receipt: `Quantum Information Holography and the Born Rule.verifyd-receipt.json`
-Certificate: `Quantum Information Holography and the Born Rule.verifyd-receipt.certificate.txt`
-
----
-
-## Standards grounded in citable authority
-
-Every policy check cites:
-
-- **NIST AI RMF 1.0** (DOI: 10.6028/NIST.AI.100-1)
-- **EU AI Act 2024/1689** (Articles 12, 13, 14, 15, 50)
-- **ISO/IEC 42001:2023** (AI management system)
-- **ISO/IEC 23894:2023** (AI risk management)
-- **ISO/IEC 27001:2022** (Info security)
-- **OECD AI Principles** (OECD/LEGAL/0449)
-- **FIPS 180-4** (SHA-256)
-- **RFC 8785** (Canonical JSON)
-- **RFC 6962** (Certificate Transparency)
-- **OWASP LLM Top 10 (2025)**
-- **FAIR Principles** (DOI: 10.1038/sdata.2016.18)
-- **FTC AI Guidance**
-- **Reg. B / ECOA** (12 CFR 1002.9)
+Full case study: [`RESULTS.md`](RESULTS.md).
+Build instructions: [`BUILD.md`](BUILD.md).
 
 ---
 
-## Quick start
+## Standards grounded
 
-```bash
-git clone https://github.com/komnsensei/verifyd
-cd verifyd
-node bin/verifyd.cjs demo
-```
+NIST AI RMF 1.0 · NIST AI 600-1 · EU AI Act 2024/1689 · ISO/IEC 42001:2023 · ISO/IEC 23894:2023 · ISO/IEC 27001:2022 · OECD AI Principles · FIPS PUB 180-4 · RFC 8785 · RFC 6962 · OWASP LLM Top 10 · FAIR Principles · FTC AI guidance · Reg. B / ECOA
 
-No `npm install` required. Pure Node.js built-ins.
-
----
-
-## CLI
-
-```bash
-verifyd audit <pdf>           # produce receipt + certificate
-verifyd verify <receipt.json> # re-validate hash chain (offline)
-verifyd lattice               # show lattice walk demo
-verifyd demo                  # full end-to-end demo
-verifyd-batch <folder>        # batch-audit a folder of PDFs
-```
-
----
-
-## Receipt format (VALF-1)
-
-```json
-{
-  "valf_version": "1.0",
-  "document": { "file": "...", "sha256": "...", "words": 22886 },
-  "audit": {
-    "session": { "session_hash": "..." },
-    "policy_checks": [ /* 4 checks, each with citations */ ],
-    "trust_score": { "value": 95, "components": { ... } },
-    "lattice_status": "RATIFIED",
-    "ratification": { "ratified_by_human": ..., "ratified_by_agent": ... }
-  },
-  "receipt": {
-    "receipt_id": "uuid",
-    "prev_hash": "GENESIS",
-    "this_hash": "sha256-of-canonical-json"
-  },
-  "chain_valid": true
-}
-```
-
-Cryptographic primitives:
-- **SHA-256** (FIPS 180-4)
-- **Canonical JSON** (RFC 8785) — deterministic field ordering
-- **Append-only chain** (RFC 6962) — Merkle-style discipline
-
----
-
-## Why this exists
-
-A bank uses an LLM to draft a loan denial. Six months later, the borrower sues. Show me how that decision was made.
-
-Today: chat log, maybe a screenshot, maybe nothing.
-With Verifyd: a portable JSON receipt with hashes of every input, source anchors, AI confidence with decay function, policy checks tied to NIST/EU/ISO authority, multi-party ratification, and a chain that proves nothing has been altered.
-
-You can store it in S3. Email it. Print it. Anyone with `verifyd verify` can re-prove it in milliseconds.
-
----
-
-## Roadmap
-
-- [x] v1.0: protocol engine, CLI, certificate generator, citations registry
-- [ ] v1.1: arXiv + Crossref live resolution
-- [ ] v1.2: IPFS + L2 anchor adapters
-- [ ] v2.0: web dashboard, hosted SaaS, multi-org chain federations
+Every policy check, trust component, and lattice gate cites its authority. See `engine/citations.json`.
 
 ---
 
 ## License
 
+MIT. Built April 2026 by Shawn (komnsensei). VALF-1 receipt format.
+ciples, FAIR Principles, OWASP LLM Top 10
+- FIPS 180-4 (SHA-256), RFC 8785 (JCS), RFC 6962 (Certificate Transparency)
+- FTC AI guidance, Reg. B / ECOA (12 CFR 1002.9)
+
+## License
+
 MIT
-
----
-
-**Built April 2026. VALF-1 receipt format. Zero dependencies. Open protocol.**

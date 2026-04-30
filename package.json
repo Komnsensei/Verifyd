@@ -1,0 +1,26 @@
+{
+  "name": "verifyd",
+  "version": "1.0.0",
+  "description": "Tamper-evident audit receipts for AI decisions. Zero deps. VALF-1 format. Cites NIST AI RMF, EU AI Act, ISO/IEC 42001, FIPS 180-4, RFC 8785, RFC 6962.",
+  "main": "engine/verifyd.cjs",
+  "bin": {
+    "verifyd": "bin/verifyd.cjs",
+    "verifyd-certify": "bin/certify.cjs",
+    "verifyd-batch": "bin/batch-audit.cjs"
+  },
+  "scripts": {
+    "demo": "node bin/verifyd.cjs demo",
+    "test": "node bin/verifyd.cjs demo && node examples/lattice-demo.cjs",
+    "batch": "node bin/batch-audit.cjs auditdeck"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["audit", "compliance", "ai", "provenance", "tamper-evident", "valf", "nist-ai-rmf", "eu-ai-act", "iso-42001"],
+  "author": "Shawn (komnsensei)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/komnsensei/verifyd"
+  }
+}
