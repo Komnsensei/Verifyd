@@ -1,0 +1,17 @@
+node_modules/
+*.log
+*.bak
+*.bak.*
+.DS_Store
+Thumbs.db
+*.tmp
+.env
+.env.local
+dist/
+build/
+coverage/
+.vscode/
+.idea/
+auditdeck/*.verifyd-receipt.json
+auditdeck/*.certificate.txt
+auditdeck/BATCH_SUMMARY.json
