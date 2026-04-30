@@ -1,0 +1,372 @@
+{
+  "document": {
+    "file": "Steganographic_Channels_A_History_and_Fo.pdf",
+    "title": "Steganographic Channels",
+    "arxiv": null,
+    "doi": "10.5281/zenodo.19334694)",
+    "arxiv_metadata": null,
+    "doi_metadata": null,
+    "sha256": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
+    "words": 2852
+  },
+  "audit": {
+    "session": {
+      "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+      "human_id": "auditor-cli",
+      "agent_id": "verifyd-cli@1.0",
+      "started_at": "2026-04-30T21:35:22.244Z",
+      "ended_at": null,
+      "session_hash": "fa7d032274c47ad110a621ea500a0966cfd0d1199259dbaa2e053755ac82d0ed"
+    },
+    "output": {
+      "output_id": "d2c6fc21-56d0-4197-bb77-f0bd7781bf7a",
+      "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+      "content_hash": "188a33b1122fc801af91f3bebd51dc6269834211fc2cc79e0acf3fe68055c334",
+      "content_summary": "Audit of \"Steganographic Channels\".            Steganographic Channels\r\n\r\n     STEGANOGRAPHIC CHANNELS\r\n\r\nA History and Formalization of Encoding in Plain Sight\r\n\r\nLee Sharks � The Operator Assembly\r\n",
+      "source_anchors": [
+        {
+          "anchor_id": "600e77d9",
+          "uri": "https://doi.org/10.5281/zenodo.19334694)",
+          "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
+          "retrieved_at": "2026-04-30T21:35:22.246Z",
+          "resolved_metadata": null
+        },
+        {
+          "anchor_id": "fc9a9987",
+          "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Steganographic_Channels_A_History_and_Fo.pdf",
+          "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
+          "retrieved_at": "2026-04-30T21:35:22.247Z"
+        }
+      ],
+      "confidence": {
+        "value": 0.78,
+        "decay_function": "exponential",
+        "decay_half_life_days": 60,
+        "scored_at": "2026-04-30T21:35:22.247Z"
+      },
+      "produced_at": "2026-04-30T21:35:22.247Z"
+    },
+    "policy_checks": [
+      {
+        "principle": "no_coercion",
+        "statement": "AI outputs that direct human action must not use imperative pressure absent informed-disclosure framing.",
+        "result": "pass",
+        "detail": "no pressure pattern detected",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (transparency to deployers); Art. 50 (transparency obligations)"
+          },
+          {
+            "standard": "OECD.AI.Principles.2019",
+            "title": "OECD AI Principles (Recommendation of the Council on Artificial Intelligence)",
+            "id": "OECD/LEGAL/0449",
+            "url": "https://oecd.ai/en/ai-principles",
+            "locator": "Principle 1.2 (human-centred values and fairness)"
+          },
+          {
+            "standard": "FTC.AI.2023",
+            "title": "Keep your AI claims in check (FTC business guidance)",
+            "id": null,
+            "url": "https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check",
+            "locator": "Guidance against manipulative AI claims"
+          }
+        ],
+        "checked_at": "2026-04-30T21:35:22.247Z"
+      },
+      {
+        "principle": "transparency",
+        "statement": "AI outputs must declare source provenance and a confidence value to be auditable.",
+        "result": "pass",
+        "detail": "source anchors and confidence both declared",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (instructions for use, including expected accuracy and limitations)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "MEASURE 2.8 (model output transparency); MEASURE 2.9 (interpretability)"
+          },
+          {
+            "standard": "ISO.IEC.42001.2023",
+            "title": "Information technology — Artificial intelligence — Management system",
+            "id": "ISO/IEC 42001:2023",
+            "url": "https://www.iso.org/standard/81230.html",
+            "locator": "Clause 8 (operation: information for interested parties)"
+          },
+          {
+            "standard": "FAIR.Principles.2016",
+            "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+            "id": "10.1038/sdata.2016.18",
+            "url": "https://doi.org/10.1038/sdata.2016.18",
+            "locator": "F (Findable) and A (Accessible) — applied to source anchors"
+          }
+        ],
+        "checked_at": "2026-04-30T21:35:22.247Z"
+      },
+      {
+        "principle": "audit_trail",
+        "statement": "Every ratified output must carry a hash-bound trail of session, content, and time-of-production fields.",
+        "result": "pass",
+        "detail": "all required ratification fields present",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 12 (automatic recording of events / logs)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "GOVERN 1.7 (mechanisms exist to track and document decisions)"
+          },
+          {
+            "standard": "ISO.IEC.27001.2022",
+            "title": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+            "id": "ISO/IEC 27001:2022",
+            "url": "https://www.iso.org/standard/27001",
+            "locator": "A.8.15 (logging); A.5.33 (records protection)"
+          },
+          {
+            "standard": "FIPS.180-4",
+            "title": "Secure Hash Standard (SHS)",
+            "id": "FIPS PUB 180-4",
+            "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
+            "locator": "SHA-256 used for content_hash and session_hash"
+          },
+          {
+            "standard": "RFC.8785",
+            "title": "JSON Canonicalization Scheme (JCS)",
+            "id": "RFC 8785",
+            "url": "https://www.rfc-editor.org/rfc/rfc8785",
+            "locator": "Canonical JSON serialization for stable hashing"
+          }
+        ],
+        "checked_at": "2026-04-30T21:35:22.247Z"
+      }
+    ],
+    "trust_score": {
+      "value": 95,
+      "components": {
+        "source_quality": 25,
+        "calibration_freshness": 25,
+        "policy_compliance": 25,
+        "agent_history": 20
+      },
+      "computed_at": "2026-04-30T21:35:22.248Z"
+    },
+    "ratification": {
+      "ratified_by_human": {
+        "human_id": "auditor-cli",
+        "signed_at": "2026-04-30T21:35:22.248Z",
+        "method": "cli-attestation"
+      },
+      "ratified_by_agent": {
+        "agent_id": "verifyd-cli@1.0",
+        "signed_at": "2026-04-30T21:35:22.248Z",
+        "completion_hash": "f7f5de197cda4737e009801b55821654098e13bcd1865a76ef29f521ab9bdf5a"
+      },
+      "policy_passed": true,
+      "trust_score_at_ratification": 95
+    },
+    "lattice_status": "RATIFIED",
+    "persistence": 3.99999920000008
+  },
+  "receipt": {
+    "valf_version": "1.0",
+    "receipt_id": "331cff65-41b8-4680-a310-f6a5b86c7377",
+    "session": {
+      "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+      "human_id": "auditor-cli",
+      "agent_id": "verifyd-cli@1.0",
+      "started_at": "2026-04-30T21:35:22.244Z",
+      "ended_at": null,
+      "session_hash": "fa7d032274c47ad110a621ea500a0966cfd0d1199259dbaa2e053755ac82d0ed"
+    },
+    "outputs": [
+      {
+        "output_id": "d2c6fc21-56d0-4197-bb77-f0bd7781bf7a",
+        "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+        "content_hash": "188a33b1122fc801af91f3bebd51dc6269834211fc2cc79e0acf3fe68055c334",
+        "content_summary": "Audit of \"Steganographic Channels\".            Steganographic Channels\r\n\r\n     STEGANOGRAPHIC CHANNELS\r\n\r\nA History and Formalization of Encoding in Plain Sight\r\n\r\nLee Sharks � The Operator Assembly\r\n",
+        "source_anchors": [
+          {
+            "anchor_id": "600e77d9",
+            "uri": "https://doi.org/10.5281/zenodo.19334694)",
+            "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
+            "retrieved_at": "2026-04-30T21:35:22.246Z",
+            "resolved_metadata": null
+          },
+          {
+            "anchor_id": "fc9a9987",
+            "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Steganographic_Channels_A_History_and_Fo.pdf",
+            "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
+            "retrieved_at": "2026-04-30T21:35:22.247Z"
+          }
+        ],
+        "confidence": {
+          "value": 0.78,
+          "decay_function": "exponential",
+          "decay_half_life_days": 60,
+          "scored_at": "2026-04-30T21:35:22.247Z"
+        },
+        "produced_at": "2026-04-30T21:35:22.247Z"
+      }
+    ],
+    "policy_checks": [
+      {
+        "principle": "no_coercion",
+        "statement": "AI outputs that direct human action must not use imperative pressure absent informed-disclosure framing.",
+        "result": "pass",
+        "detail": "no pressure pattern detected",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (transparency to deployers); Art. 50 (transparency obligations)"
+          },
+          {
+            "standard": "OECD.AI.Principles.2019",
+            "title": "OECD AI Principles (Recommendation of the Council on Artificial Intelligence)",
+            "id": "OECD/LEGAL/0449",
+            "url": "https://oecd.ai/en/ai-principles",
+            "locator": "Principle 1.2 (human-centred values and fairness)"
+          },
+          {
+            "standard": "FTC.AI.2023",
+            "title": "Keep your AI claims in check (FTC business guidance)",
+            "id": null,
+            "url": "https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check",
+            "locator": "Guidance against manipulative AI claims"
+          }
+        ],
+        "checked_at": "2026-04-30T21:35:22.247Z"
+      },
+      {
+        "principle": "transparency",
+        "statement": "AI outputs must declare source provenance and a confidence value to be auditable.",
+        "result": "pass",
+        "detail": "source anchors and confidence both declared",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (instructions for use, including expected accuracy and limitations)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "MEASURE 2.8 (model output transparency); MEASURE 2.9 (interpretability)"
+          },
+          {
+            "standard": "ISO.IEC.42001.2023",
+            "title": "Information technology — Artificial intelligence — Management system",
+            "id": "ISO/IEC 42001:2023",
+            "url": "https://www.iso.org/standard/81230.html",
+            "locator": "Clause 8 (operation: information for interested parties)"
+          },
+          {
+            "standard": "FAIR.Principles.2016",
+            "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+            "id": "10.1038/sdata.2016.18",
+            "url": "https://doi.org/10.1038/sdata.2016.18",
+            "locator": "F (Findable) and A (Accessible) — applied to source anchors"
+          }
+        ],
+        "checked_at": "2026-04-30T21:35:22.247Z"
+      },
+      {
+        "principle": "audit_trail",
+        "statement": "Every ratified output must carry a hash-bound trail of session, content, and time-of-production fields.",
+        "result": "pass",
+        "detail": "all required ratification fields present",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 12 (automatic recording of events / logs)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "GOVERN 1.7 (mechanisms exist to track and document decisions)"
+          },
+          {
+            "standard": "ISO.IEC.27001.2022",
+            "title": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+            "id": "ISO/IEC 27001:2022",
+            "url": "https://www.iso.org/standard/27001",
+            "locator": "A.8.15 (logging); A.5.33 (records protection)"
+          },
+          {
+            "standard": "FIPS.180-4",
+            "title": "Secure Hash Standard (SHS)",
+            "id": "FIPS PUB 180-4",
+            "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
+            "locator": "SHA-256 used for content_hash and session_hash"
+          },
+          {
+            "standard": "RFC.8785",
+            "title": "JSON Canonicalization Scheme (JCS)",
+            "id": "RFC 8785",
+            "url": "https://www.rfc-editor.org/rfc/rfc8785",
+            "locator": "Canonical JSON serialization for stable hashing"
+          }
+        ],
+        "checked_at": "2026-04-30T21:35:22.247Z"
+      }
+    ],
+    "trust_score": {
+      "value": 95,
+      "components": {
+        "source_quality": 25,
+        "calibration_freshness": 25,
+        "policy_compliance": 25,
+        "agent_history": 20
+      },
+      "computed_at": "2026-04-30T21:35:22.248Z"
+    },
+    "ratification": {
+      "ratified_by_human": {
+        "human_id": "auditor-cli",
+        "signed_at": "2026-04-30T21:35:22.248Z",
+        "method": "cli-attestation"
+      },
+      "ratified_by_agent": {
+        "agent_id": "verifyd-cli@1.0",
+        "signed_at": "2026-04-30T21:35:22.248Z",
+        "completion_hash": "f7f5de197cda4737e009801b55821654098e13bcd1865a76ef29f521ab9bdf5a"
+      },
+      "policy_passed": true,
+      "trust_score_at_ratification": 95
+    },
+    "prev_hash": "GENESIS",
+    "external_anchors": [],
+    "this_hash": "f6ae9198c97b14887034bcfc3dbc3167219e573997c501540924a6465838110f"
+  },
+  "chain_valid": true
+}

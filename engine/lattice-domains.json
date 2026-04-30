@@ -1,0 +1,92 @@
+{
+  "verifyd_lattice_version": "1.0",
+  "core_formula": "VL_core = ⟨A, D, R, S, O, F, W, P, L⟩",
+  "components": {
+    "A": "Authorities - 14 distributed authoring identities",
+    "D": "Domains - 37 compliance domains with operating rules",
+    "R": "Roles - 7 occupiable operating roles",
+    "S": "Sources - 12 source institutions + 6 publication channels",
+    "O": "Operators - 82 workflow operators across 9 stacks",
+    "F": "Fulfillment Map - source-to-instantiation traceability",
+    "W": "Witnesses - 7-seat Independent Oversight Board, quorum >=4/7",
+    "P": "Protocols - 6 governing rule-sets",
+    "L": "Ledger - witness expenditure chains (audit log)"
+  },
+  "promotion_ladder": [
+    { "id": "S.1.RATIFIED", "weight": 1.0, "description": "Oversight Board >=4/7 attestation. Element of canonical record." },
+    { "id": "S.2.DEPOSITED", "weight": 0.9, "description": "Externally anchored (DOI/IPFS/L2). Provenance-bearing." },
+    { "id": "S.3.DERIVED", "weight": 0.7, "description": "Logically follows from deposited elements." },
+    { "id": "S.4.PROVISIONAL", "weight": 0.5, "description": "Accepted pending review. May be promoted or demoted." },
+    { "id": "S.5.RESONANT", "weight": 0.3, "description": "Structural echo. Not yet deposited but operationally present." },
+    { "id": "S.6.QUEUED", "weight": 0.3, "description": "Awaiting execution. Parallel to RESONANT." },
+    { "id": "S.7.PATTERN", "weight": 0.1, "description": "Pattern found in external context. Never DEPOSITED or RATIFIED." },
+    { "id": "S.8.DRAFT", "weight": 0.0, "description": "Produced by runtime. The floor. DRAFT != RATIFIED." },
+    { "id": "S.9.AXIAL", "weight": "orthogonal", "description": "Orthogonal axis. Claims that organize a field without being licensed by it." },
+    { "id": "S.10.EXECUTED", "weight": "orthogonal", "description": "Runtime flag, not a status. Any element at any level can be EXECUTED." }
+  ],
+  "forbidden_transitions": [
+    { "from": "DRAFT", "to": "DEPOSITED", "reason": "Cannot skip PROVISIONAL" },
+    { "from": "PATTERN", "to": "RATIFIED", "reason": "Pattern is not ratification" },
+    { "from": "RESONANT", "to": "RATIFIED", "reason": "Must pass through DEPOSITED" }
+  ],
+  "allowed_transitions": [
+    { "from": "DRAFT", "to": "PROVISIONAL", "requires": "Sponsor endorsement" },
+    { "from": "PROVISIONAL", "to": "DEPOSITED", "requires": "External anchor + deposit" },
+    { "from": "DEPOSITED", "to": "RATIFIED", "requires": "Oversight Board >=4/7 attestation" },
+    { "from": "DEPOSITED", "to": "DERIVED", "requires": "Logical derivation chain" },
+    { "from": "RESONANT", "to": "PROVISIONAL", "requires": "Sponsor endorsement" },
+    { "from": "RESONANT", "to": "DEPOSITED", "requires": "External anchor" },
+    { "from": "QUEUED", "to": "PROVISIONAL", "requires": "Execution begins" },
+    { "from": "ANY", "to": "AXIAL", "requires": "Architectural force without derivational license" }
+  ],
+  "edge_types": [
+    { "id": "E.01", "name": "adjacent", "domain": "Domain x Domain", "description": "Domains share a boundary; traversal permitted" },
+    { "id": "E.02", "name": "portal", "domain": "Domain x Domain", "description": "Non-adjacent link" },
+    { "id": "E.03", "name": "suffuses", "domain": "Field x Domain", "description": "Field exerts influence on domain" },
+    { "id": "E.04", "name": "stewards", "domain": "Authority x Domain", "description": "Authority stewards domain" },
+    { "id": "E.05", "name": "houses", "domain": "Domain x Source", "description": "Domain houses source institution" },
+    { "id": "E.06", "name": "publishes", "domain": "Source x Channel", "description": "Source publishes through channel" },
+    { "id": "E.07", "name": "governs", "domain": "Source x Source", "description": "Institutional governance edge" },
+    { "id": "E.08", "name": "bears", "domain": "Authority x Role", "description": "Authority bears role" },
+    { "id": "E.09", "name": "attests", "domain": "Witness x Element", "description": "Witness attests to element" },
+    { "id": "E.10", "name": "counters", "domain": "Operator x Operator", "description": "Counter-operation pairing" },
+    { "id": "E.11", "name": "native_to", "domain": "Operator x Domain", "description": "Operator native to domain" },
+    { "id": "E.12", "name": "cites", "domain": "Document x Document", "description": "Citation edge" },
+    { "id": "E.13", "name": "fulfills", "domain": "Document x Document", "description": "Fulfillment edge sealed" },
+    { "id": "E.14", "name": "shadow_of", "domain": "Any x Any", "description": "Failure-mode pairing" },
+    { "id": "E.15", "name": "feeds_into", "domain": "Engine x Engine", "description": "Pipeline edge" },
+    { "id": "E.16", "name": "belongs_to", "domain": "Document x Domain", "description": "Document assigned to domain" },
+    { "id": "E.17", "name": "protocol_governs", "domain": "Protocol x Component", "description": "Protocol governs component behavior" }
+  ],
+  "transitions": [
+    { "id": "T.01", "name": "Deposit", "operator": "anchor", "requires": "External anchor URI" },
+    { "id": "T.02", "name": "Ratify", "operator": "attest", "requires": "Oversight Board >=4/7" },
+    { "id": "T.03", "name": "Claim Role", "operator": "claim", "requires": "submission_weight>0 + receipt + standing" },
+    { "id": "T.04", "name": "Enter Domain", "operator": "go", "requires": "Adjacency or portal" },
+    { "id": "T.05", "name": "Apply Operator", "operator": "apply", "requires": "Type match (else routes to Error Domain)" },
+    { "id": "T.06", "name": "Witness Attestation", "operator": "attest", "requires": "Witness in W" },
+    { "id": "T.07", "name": "Seal Fulfillment", "operator": "fulfill+seal", "requires": "Fulfillment test + cryptographic seal" },
+    { "id": "T.08", "name": "Mint Term", "operator": "mint", "requires": "Collision audit" },
+    { "id": "T.09", "name": "Generate Domain", "operator": "extend", "requires": "Domain creation rules satisfied" },
+    { "id": "T.10", "name": "Activate Field", "operator": "activate", "requires": "Source domain deposited" },
+    { "id": "T.11", "name": "Capture Event", "operator": "capture", "requires": "API key + chain" },
+    { "id": "T.12", "name": "Persist Capture", "operator": "persist", "requires": ">=1 staged capture" }
+  ],
+  "oversight_board": {
+    "seats": 7,
+    "quorum_required": 4,
+    "self_ratification_forbidden": true,
+    "tier_0_sovereign_forbidden": true,
+    "note": "No single party may unilaterally ratify. Independent Oversight is enforced at the protocol layer."
+  },
+  "operator_laws": {
+    "fixpoint_idempotence": "Theta o Theta = Theta",
+    "shadow_involution": "S o S = id",
+    "irreversibility_idempotence": "tau_K o tau_K = tau_K",
+    "terminal_fixpoint": "Omega = Theta(Omega)",
+    "fulfillment_seal": "seal o fulfill(A,B) = sealed",
+    "ratified_attestation": "attest o seal = permanent_record"
+  },
+  "persistence_rule": "An element persists iff sum of attestations and citations, exponentially decayed over time, remains positive.",
+  "invariant": "Lattice cannot be modified by runtime execution. Runtime executes the Lattice; it does not rewrite it."
+}

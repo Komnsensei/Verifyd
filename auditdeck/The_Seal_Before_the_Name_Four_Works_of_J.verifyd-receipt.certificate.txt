@@ -1,0 +1,234 @@
+========================================================================
+                    VERIFYD AUDIT CERTIFICATE
+                       VALF-1 / v1.0
+========================================================================
+
+CERTIFICATE OF AUDIT
+
+This certifies that the document below was processed through the
+Verifyd compliance audit engine, walked the full lattice promotion
+ladder, and produced a tamper-evident receipt sealed into an
+append-only audit chain. Every policy check below cites the
+international standard or regulation it satisfies.
+
+------------------------------------------------------------------------
+DOCUMENT
+------------------------------------------------------------------------
+  File:           The_Seal_Before_the_Name_Four_Works_of_J.pdf
+  Title:          Grammata: Journal of Operative Philology
+  DOI:            10.5281/zenodo.19238021
+  Word count:     3,466
+  Content SHA256: 14c4feca3d65e3d52124de844649b598f0bcefd5d488695bbd15c4f878803da5
+
+------------------------------------------------------------------------
+AUDIT SESSION
+------------------------------------------------------------------------
+  Session ID:     fab64846-7a2b-4bc8-a6db-9f0d098bb45b
+  Auditor:        auditor-cli
+  Agent:          verifyd-cli@1.0
+  Started:        2026-04-30T21:35:24.006Z
+  Session hash:   5959a172cd68950b8dfc78f2a2b162792764b0b2caf42c4a973f9ab095afc40f
+
+------------------------------------------------------------------------
+SOURCE ANCHORS
+------------------------------------------------------------------------
+  [1] https://doi.org/10.5281/zenodo.19238021
+      anchor_id: 231e0af7
+      retrieved: 2026-04-30T21:35:24.008Z
+  [2] file://C:/Users/lynnh/verifyd-ship/auditdeck/The_Seal_Before_the_Name_Four_Works_of_J.pdf
+      anchor_id: 5117bd06
+      retrieved: 2026-04-30T21:35:24.008Z
+
+------------------------------------------------------------------------
+CONFIDENCE
+------------------------------------------------------------------------
+  Value:          0.78
+  Decay:          exponential, half-life 60 days
+  Scored at:      2026-04-30T21:35:24.008Z
+
+------------------------------------------------------------------------
+POLICY CHECKS  (each with citation grounds)
+------------------------------------------------------------------------
+
+  [PASS]  no_coercion
+         principle: AI outputs that direct human action must not use imperative pressure absent informed-disclosure framing.
+         finding:   no pressure pattern detected
+         grounded in:
+           - EU.AI.Act.2024.1689
+             Regulation (EU) 2024/1689 (Artificial Intelligence Act)
+             Art. 13 (transparency to deployers); Art. 50 (transparency obligations)
+             https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+           - OECD.AI.Principles.2019  [OECD/LEGAL/0449]
+             OECD AI Principles (Recommendation of the Council on Artificial Intelligence)
+             Principle 1.2 (human-centred values and fairness)
+             https://oecd.ai/en/ai-principles
+           - FTC.AI.2023
+             Keep your AI claims in check (FTC business guidance)
+             Guidance against manipulative AI claims
+             https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check
+
+  [PASS]  transparency
+         principle: AI outputs must declare source provenance and a confidence value to be auditable.
+         finding:   source anchors and confidence both declared
+         grounded in:
+           - EU.AI.Act.2024.1689
+             Regulation (EU) 2024/1689 (Artificial Intelligence Act)
+             Art. 13 (instructions for use, including expected accuracy and limitations)
+             https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+           - NIST.AI.RMF.1.0  [NIST AI 100-1]
+             Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+             MEASURE 2.8 (model output transparency); MEASURE 2.9 (interpretability)
+             https://doi.org/10.6028/NIST.AI.100-1
+           - ISO.IEC.42001.2023  [ISO/IEC 42001:2023]
+             Information technology — Artificial intelligence — Management system
+             Clause 8 (operation: information for interested parties)
+             https://www.iso.org/standard/81230.html
+           - FAIR.Principles.2016  [10.1038/sdata.2016.18]
+             The FAIR Guiding Principles for scientific data management and stewardship
+             F (Findable) and A (Accessible) — applied to source anchors
+             https://doi.org/10.1038/sdata.2016.18
+
+  [PASS]  audit_trail
+         principle: Every ratified output must carry a hash-bound trail of session, content, and time-of-production fields.
+         finding:   all required ratification fields present
+         grounded in:
+           - EU.AI.Act.2024.1689
+             Regulation (EU) 2024/1689 (Artificial Intelligence Act)
+             Art. 12 (automatic recording of events / logs)
+             https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+           - NIST.AI.RMF.1.0  [NIST AI 100-1]
+             Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+             GOVERN 1.7 (mechanisms exist to track and document decisions)
+             https://doi.org/10.6028/NIST.AI.100-1
+           - ISO.IEC.27001.2022  [ISO/IEC 27001:2022]
+             Information security, cybersecurity and privacy protection — Information security management systems — Requirements
+             A.8.15 (logging); A.5.33 (records protection)
+             https://www.iso.org/standard/27001
+           - FIPS.180-4  [FIPS PUB 180-4]
+             Secure Hash Standard (SHS)
+             SHA-256 used for content_hash and session_hash
+             https://doi.org/10.6028/NIST.FIPS.180-4
+           - RFC.8785  [RFC 8785]
+             JSON Canonicalization Scheme (JCS)
+             Canonical JSON serialization for stable hashing
+             https://www.rfc-editor.org/rfc/rfc8785
+
+------------------------------------------------------------------------
+TRUST SCORE
+------------------------------------------------------------------------
+  Overall:                    95 / 100
+  --
+  Source quality:             25 / 25
+  Calibration freshness:      25 / 25
+  Policy compliance:          25 / 25
+  Agent history:              20 / 25
+
+------------------------------------------------------------------------
+LATTICE PROMOTION
+------------------------------------------------------------------------
+  Final status:   RATIFIED
+  Path walked:    DRAFT -> PROVISIONAL -> DEPOSITED -> RATIFIED
+  Quorum:         >=4 of 7 distinct Oversight Board witnesses
+  Persistence:    4.0000
+
+  Forbidden transitions enforced and rejected during walk:
+    - DRAFT  -> DEPOSITED  (must pass PROVISIONAL gate)
+    - PATTERN -> RATIFIED  (pattern is not ratification)
+    - sole_sovereign ratification (Independent Oversight required)
+
+------------------------------------------------------------------------
+RATIFICATION
+------------------------------------------------------------------------
+  Method:         cli-attestation
+  Human party:    auditor-cli
+  Agent party:    verifyd-cli@1.0
+  Signed at:      2026-04-30T21:35:24.010Z
+  Policy passed:  true
+  Trust at seal:  95 / 100
+
+------------------------------------------------------------------------
+AUDIT RECEIPT (VALF-1)
+------------------------------------------------------------------------
+  Receipt ID:     feac1f79-b4a5-47f1-a7d9-ce6843bf312a
+  VALF version:   1.0
+  prev_hash:      GENESIS
+  this_hash:      dfe5384fa0d7ad51107e010b297f81c7e322df5b553634bc007cc2a1eef07e35
+  Chain valid:    true
+
+  Receipt format grounded in:
+    - FIPS 180-4   (SHA-256 hashing)
+    - RFC 8785     (JSON Canonicalization Scheme)
+    - RFC 6962     (Append-only log discipline)
+
+------------------------------------------------------------------------
+STANDARDS REFERENCED IN THIS CERTIFICATE
+------------------------------------------------------------------------
+  EU.AI.Act.2024.1689
+    Regulation (EU) 2024/1689 (Artificial Intelligence Act)
+    Publisher: European Parliament and Council  (2024)
+    URL: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+  FAIR.Principles.2016
+    The FAIR Guiding Principles for scientific data management and stewardship
+    Publisher: undefined  (2016)
+    DOI: 10.1038/sdata.2016.18
+    URL: https://doi.org/10.1038/sdata.2016.18
+
+  FIPS.180-4
+    Secure Hash Standard (SHS)
+    Publisher: U.S. National Institute of Standards and Technology  (2015)
+    ID:  FIPS PUB 180-4
+    DOI: 10.6028/NIST.FIPS.180-4
+    URL: https://doi.org/10.6028/NIST.FIPS.180-4
+
+  FTC.AI.2023
+    Keep your AI claims in check (FTC business guidance)
+    Publisher: U.S. Federal Trade Commission  (2023)
+    URL: https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check
+
+  ISO.IEC.27001.2022
+    Information security, cybersecurity and privacy protection — Information security management systems — Requirements
+    Publisher: ISO/IEC  (2022)
+    ID:  ISO/IEC 27001:2022
+    URL: https://www.iso.org/standard/27001
+
+  ISO.IEC.42001.2023
+    Information technology — Artificial intelligence — Management system
+    Publisher: ISO/IEC  (2023)
+    ID:  ISO/IEC 42001:2023
+    URL: https://www.iso.org/standard/81230.html
+
+  NIST.AI.RMF.1.0
+    Artificial Intelligence Risk Management Framework (AI RMF 1.0)
+    Publisher: U.S. National Institute of Standards and Technology  (2023)
+    ID:  NIST AI 100-1
+    DOI: 10.6028/NIST.AI.100-1
+    URL: https://doi.org/10.6028/NIST.AI.100-1
+
+  OECD.AI.Principles.2019
+    OECD AI Principles (Recommendation of the Council on Artificial Intelligence)
+    Publisher: OECD  (2019)
+    ID:  OECD/LEGAL/0449
+    URL: https://oecd.ai/en/ai-principles
+
+  RFC.8785
+    JSON Canonicalization Scheme (JCS)
+    Publisher: IETF  (2020)
+    ID:  RFC 8785
+    DOI: 10.17487/RFC8785
+    URL: https://www.rfc-editor.org/rfc/rfc8785
+
+------------------------------------------------------------------------
+VERIFICATION
+------------------------------------------------------------------------
+  To independently verify this audit, run:
+
+    verifyd verify "The_Seal_Before_the_Name_Four_Works_of_J.verifyd-receipt.json"
+
+  Result will be VALID (all hashes recompute) or TAMPERED.
+  No network required. No central server. Pure protocol.
+
+========================================================================
+  Generated: 2026-04-30T21:35:24.168Z
+  Engine:    Verifyd v1.0  (VALF-1) with citations registry v1.0
+========================================================================

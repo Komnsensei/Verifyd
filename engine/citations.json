@@ -1,0 +1,227 @@
+{
+  "version": "1.0",
+  "generated": "2026-04-30",
+  "note": "Authoritative references that ground every Verifyd policy check, trust-score component, and lattice gate. Citations are stable identifiers (DOI, ISO number, regulation article, RFC, NIST publication ID) so receipts remain verifiable independent of any vendor.",
+  "standards": {
+    "NIST.AI.RMF.1.0": {
+      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+      "publisher": "U.S. National Institute of Standards and Technology",
+      "id": "NIST AI 100-1",
+      "doi": "10.6028/NIST.AI.100-1",
+      "url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "year": 2023,
+      "applies_to": ["MAP", "MEASURE", "MANAGE", "GOVERN"]
+    },
+    "NIST.AI.600-1": {
+      "title": "AI Risk Management Framework: Generative AI Profile",
+      "publisher": "U.S. National Institute of Standards and Technology",
+      "id": "NIST AI 600-1",
+      "doi": "10.6028/NIST.AI.600-1",
+      "url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "year": 2024
+    },
+    "EU.AI.Act.2024.1689": {
+      "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+      "publisher": "European Parliament and Council",
+      "celex": "32024R1689",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "year": 2024,
+      "key_articles": {
+        "Art.12": "Record-keeping (automatic logs for traceability)",
+        "Art.13": "Transparency and provision of information to deployers",
+        "Art.14": "Human oversight",
+        "Art.15": "Accuracy, robustness and cybersecurity",
+        "Art.50": "Transparency obligations for certain AI systems"
+      }
+    },
+    "ISO.IEC.42001.2023": {
+      "title": "Information technology — Artificial intelligence — Management system",
+      "publisher": "ISO/IEC",
+      "id": "ISO/IEC 42001:2023",
+      "url": "https://www.iso.org/standard/81230.html",
+      "year": 2023
+    },
+    "ISO.IEC.23894.2023": {
+      "title": "Information technology — Artificial intelligence — Guidance on risk management",
+      "publisher": "ISO/IEC",
+      "id": "ISO/IEC 23894:2023",
+      "url": "https://www.iso.org/standard/77304.html",
+      "year": 2023
+    },
+    "ISO.IEC.27001.2022": {
+      "title": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+      "publisher": "ISO/IEC",
+      "id": "ISO/IEC 27001:2022",
+      "url": "https://www.iso.org/standard/27001",
+      "year": 2022
+    },
+    "OECD.AI.Principles.2019": {
+      "title": "OECD AI Principles (Recommendation of the Council on Artificial Intelligence)",
+      "publisher": "OECD",
+      "id": "OECD/LEGAL/0449",
+      "url": "https://oecd.ai/en/ai-principles",
+      "year": 2019,
+      "revised": 2024
+    },
+    "FIPS.180-4": {
+      "title": "Secure Hash Standard (SHS)",
+      "publisher": "U.S. National Institute of Standards and Technology",
+      "id": "FIPS PUB 180-4",
+      "doi": "10.6028/NIST.FIPS.180-4",
+      "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
+      "year": 2015
+    },
+    "RFC.8785": {
+      "title": "JSON Canonicalization Scheme (JCS)",
+      "publisher": "IETF",
+      "id": "RFC 8785",
+      "doi": "10.17487/RFC8785",
+      "url": "https://www.rfc-editor.org/rfc/rfc8785",
+      "year": 2020
+    },
+    "RFC.6962": {
+      "title": "Certificate Transparency",
+      "publisher": "IETF",
+      "id": "RFC 6962",
+      "doi": "10.17487/RFC6962",
+      "url": "https://www.rfc-editor.org/rfc/rfc6962",
+      "year": 2013,
+      "note": "Append-only Merkle log model that informs Verifyd's audit chain."
+    },
+    "OWASP.LLM.2025": {
+      "title": "OWASP Top 10 for Large Language Model Applications (2025)",
+      "publisher": "OWASP Foundation",
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "year": 2025
+    },
+    "FAIR.Principles.2016": {
+      "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+      "authors": ["Wilkinson, M.D.", "et al."],
+      "journal": "Scientific Data",
+      "doi": "10.1038/sdata.2016.18",
+      "url": "https://doi.org/10.1038/sdata.2016.18",
+      "year": 2016
+    },
+    "FTC.AI.2023": {
+      "title": "Keep your AI claims in check (FTC business guidance)",
+      "publisher": "U.S. Federal Trade Commission",
+      "url": "https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check",
+      "year": 2023
+    },
+    "Reg.B.ECOA.1003": {
+      "title": "Regulation B (Equal Credit Opportunity Act), adverse-action notice and reasons",
+      "publisher": "U.S. Consumer Financial Protection Bureau",
+      "id": "12 CFR 1002.9",
+      "url": "https://www.consumerfinance.gov/rules-policy/regulations/1002/9/",
+      "year": 2024
+    }
+  },
+  "policy_check_citations": {
+    "no_coercion": {
+      "principle": "AI outputs that direct human action must not use imperative pressure absent informed-disclosure framing.",
+      "grounds": [
+        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 13 (transparency to deployers); Art. 50 (transparency obligations)" },
+        { "ref": "OECD.AI.Principles.2019", "locator": "Principle 1.2 (human-centred values and fairness)" },
+        { "ref": "FTC.AI.2023", "locator": "Guidance against manipulative AI claims" }
+      ]
+    },
+    "transparency": {
+      "principle": "AI outputs must declare source provenance and a confidence value to be auditable.",
+      "grounds": [
+        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 13 (instructions for use, including expected accuracy and limitations)" },
+        { "ref": "NIST.AI.RMF.1.0", "locator": "MEASURE 2.8 (model output transparency); MEASURE 2.9 (interpretability)" },
+        { "ref": "ISO.IEC.42001.2023", "locator": "Clause 8 (operation: information for interested parties)" },
+        { "ref": "FAIR.Principles.2016", "locator": "F (Findable) and A (Accessible) — applied to source anchors" }
+      ]
+    },
+    "audit_trail": {
+      "principle": "Every ratified output must carry a hash-bound trail of session, content, and time-of-production fields.",
+      "grounds": [
+        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 12 (automatic recording of events / logs)" },
+        { "ref": "NIST.AI.RMF.1.0", "locator": "GOVERN 1.7 (mechanisms exist to track and document decisions)" },
+        { "ref": "ISO.IEC.27001.2022", "locator": "A.8.15 (logging); A.5.33 (records protection)" },
+        { "ref": "FIPS.180-4", "locator": "SHA-256 used for content_hash and session_hash" },
+        { "ref": "RFC.8785", "locator": "Canonical JSON serialization for stable hashing" }
+      ]
+    },
+    "independent_oversight": {
+      "principle": "Ratification of any record requires two distinct parties; no single sovereign may unilaterally seal.",
+      "grounds": [
+        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 14 (human oversight, including separation of duties)" },
+        { "ref": "NIST.AI.RMF.1.0", "locator": "GOVERN 2.1 (roles and responsibilities clearly defined)" },
+        { "ref": "ISO.IEC.42001.2023", "locator": "Clause 5.3 (roles, responsibilities and authorities)" },
+        { "ref": "Reg.B.ECOA.1003", "locator": "Adverse-action review independence" }
+      ]
+    }
+  },
+  "trust_score_citations": {
+    "source_quality": {
+      "measures": "Resolvability of declared source anchors.",
+      "grounds": [
+        { "ref": "FAIR.Principles.2016", "locator": "Findable + Accessible" },
+        { "ref": "NIST.AI.RMF.1.0", "locator": "MAP 4.1 (data lineage)" }
+      ]
+    },
+    "calibration_freshness": {
+      "measures": "Time-decayed validity of declared confidence.",
+      "grounds": [
+        { "ref": "NIST.AI.RMF.1.0", "locator": "MEASURE 2.6 (model robustness over time)" },
+        { "ref": "ISO.IEC.23894.2023", "locator": "Continuous risk monitoring" }
+      ]
+    },
+    "policy_compliance": {
+      "measures": "Aggregate of policy check outcomes.",
+      "grounds": [
+        { "ref": "ISO.IEC.42001.2023", "locator": "Clause 9 (performance evaluation)" },
+        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 15 (accuracy, robustness)" }
+      ]
+    },
+    "agent_history": {
+      "measures": "Reputation signal for the AI agent identity.",
+      "grounds": [
+        { "ref": "NIST.AI.RMF.1.0", "locator": "GOVERN 4 (third-party risks and accountability)" },
+        { "ref": "OWASP.LLM.2025", "locator": "LLM07 (Insecure Plugin Design) — agent provenance" }
+      ]
+    }
+  },
+  "lattice_citations": {
+    "promotion_ladder": {
+      "principle": "Status promotions follow gated transitions; forbidden shortcuts are protocol-rejected.",
+      "grounds": [
+        { "ref": "ISO.IEC.42001.2023", "locator": "Clause 8.1 (operational planning and control)" },
+        { "ref": "RFC.6962", "locator": "Append-only Merkle-style record discipline" }
+      ]
+    },
+    "deposited_requires_external_anchor": {
+      "principle": "DEPOSITED status requires an external resolvable anchor (DOI, IPFS, or URL with span hash).",
+      "grounds": [
+        { "ref": "FAIR.Principles.2016", "locator": "F1 (globally unique persistent identifier)" },
+        { "ref": "NIST.AI.RMF.1.0", "locator": "MAP 4.1 (data lineage and provenance)" }
+      ]
+    },
+    "ratified_requires_quorum": {
+      "principle": "RATIFIED requires >=4/7 distinct Oversight Board attestations.",
+      "grounds": [
+        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 14 (human oversight by multiple parties for high-risk systems)" },
+        { "ref": "ISO.IEC.42001.2023", "locator": "Clause 5.3 (roles and authorities)" }
+      ]
+    },
+    "no_sole_sovereign": {
+      "principle": "Single-party ratification is a hard protocol failure (tier_0_sovereign_forbidden).",
+      "grounds": [
+        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 14(2) (oversight measures shall enable a natural person to override)" },
+        { "ref": "NIST.AI.RMF.1.0", "locator": "GOVERN 2.1 (separation of duties)" }
+      ]
+    }
+  },
+  "receipt_format_citations": {
+    "valf_1": {
+      "principle": "VALF-1 receipts are SHA-256 over canonical JSON with append-only chaining.",
+      "grounds": [
+        { "ref": "FIPS.180-4", "locator": "SHA-256" },
+        { "ref": "RFC.8785", "locator": "Canonical JSON (deterministic field ordering)" },
+        { "ref": "RFC.6962", "locator": "Append-only log discipline (prev_hash linkage)" }
+      ]
+    }
+  }
+}
