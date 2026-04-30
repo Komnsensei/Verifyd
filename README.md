@@ -1,79 +1,106 @@
 # Verifyd
 
-**Tamper-evident audit receipts for AI decisions.**
+**Tamper-evident audit receipts for AI decisions. Zero dependencies. 13KB of Node.js.**
 
-13KB of Node.js. Zero dependencies. Every claim grounded in NIST, EU, ISO, IETF, FIPS authority.
-
-```bash
-verifyd audit your-document.pdf
-verifyd verify your-document.verifyd-receipt.json
-```
-
-Two commands. One artifact. A regulator's first question, already answered.
+Every policy check grounded in real regulation: NIST AI RMF, EU AI Act, ISO/IEC 42001, FIPS 180-4, RFC 8785, RFC 6962.
 
 ---
 
 ## What it does
 
-Takes any document or AI output. Produces a forensic-grade receipt:
+```
+verifyd audit your-document.pdf
+```
 
-- **SHA-256 content hash** (FIPS 180-4)
-- **Canonical JSON serialization** (RFC 8785)
-- **Append-only audit chain** (RFC 6962-style)
-- **4 policy checks** each citing the standard it satisfies
-- **Trust score** 0-100 with 4 grounded components
-- **Lattice walk** through 10 status levels with quorum gating
-- **Independent oversight** — no single party can ratify alone
+Produces a forensic-grade JSON receipt + human-readable certificate. SHA-256 hashed, append-only chain, citation-grounded. Survives offline. No vendor. No API. No login.
 
-Receipt is portable JSON. Anyone can re-verify offline. No vendor. No central server. No network.
+```
+verifyd verify your-document.verifyd-receipt.json
+```
 
----
-
-## Why it exists
-
-| Scenario | Today | With Verifyd |
-|---|---|---|
-| Bank denial letter, lawsuit 6 months later | "show us how" → chat log | sealed receipt |
-| Hospital AI triage, missed diagnosis | screenshot, maybe | hash-bound trail |
-| Regulator audit (EU AI Act) | scramble | already filed |
-
-**Conventional credential systems require trust in a vendor.**
-**Verifyd requires trust in math + CERN-grade infrastructure.**
+Returns `VALID` (all hashes recompute) or `TAMPERED`.
 
 ---
 
-## Real run
+## Why it matters
 
-22,886-word physics paper:
+Today when someone asks how an AI decision was made, the answer is a chat log. Maybe a screenshot. Maybe nothing.
+
+Verifyd answers with a receipt. Hashes of every input. Anchors to every source. Confidence with decay. Policy checks with regulatory citations. Trust score across four components. Lattice promotion path with required quorum. Append-only chain.
+
+Email it. Print it. Re-validate it in milliseconds, anywhere, no network.
+
+---
+
+## Quick demo
+
+```
+node bin/verifyd.cjs demo
+```
+
+---
+
+## Real audit run (in this repo)
+
+A 22,886-word physics paper, audited in <3 seconds:
 
 | Field | Value |
 |---|---|
-| Word count | 22,886 |
 | Trust score | 95/100 |
 | Lattice status | RATIFIED |
+| Standards cited | 9 (EU AI Act, NIST AI RMF, ISO/IEC 42001, FIPS 180-4, RFC 8785, RFC 6962, FAIR, OECD, FTC) |
 | Chain valid | yes |
-| Time | < 3 seconds |
 
-Full case study: [`RESULTS.md`](RESULTS.md).
-Build instructions: [`BUILD.md`](BUILD.md).
+Full case study: [`RESULTS.md`](./RESULTS.md)
 
 ---
 
-## Standards grounded
+## Architecture
 
-NIST AI RMF 1.0 · NIST AI 600-1 · EU AI Act 2024/1689 · ISO/IEC 42001:2023 · ISO/IEC 23894:2023 · ISO/IEC 27001:2022 · OECD AI Principles · FIPS PUB 180-4 · RFC 8785 · RFC 6962 · OWASP LLM Top 10 · FAIR Principles · FTC AI guidance · Reg. B / ECOA
-
-Every policy check, trust component, and lattice gate cites its authority. See `engine/citations.json`.
+```
+engine/
+  citations.json       14 standards (full bibliographic)
+  policy.cjs           4 compliance checks, each cited
+  trust-score.cjs      0-100 across 4 components
+  audit-chain.cjs      SHA-256 + canonical JSON + append-only
+  lattice.cjs          10-status lattice with quorum gates
+  verifyd.cjs          orchestrator
+bin/
+  verifyd.cjs          CLI
+  certify.cjs          JSON -> human-readable .txt
+  batch-audit.cjs      folder batch processor
+```
 
 ---
 
-## License
+## Forbidden by protocol
 
-MIT. Built April 2026 by Shawn (komnsensei). VALF-1 receipt format.
-ciples, FAIR Principles, OWASP LLM Top 10
-- FIPS 180-4 (SHA-256), RFC 8785 (JCS), RFC 6962 (Certificate Transparency)
-- FTC AI guidance, Reg. B / ECOA (12 CFR 1002.9)
+The engine actively rejects:
+- Sole-sovereign ratification (single party tries to seal)
+- Three-witness quorum (requires four of seven Oversight Board)
+- DRAFT -> DEPOSITED (must pass PROVISIONAL gate)
+- PATTERN -> RATIFIED (pattern-matching is not ratification)
 
-## License
+Each rejection cites the standard it enforces.
 
-MIT
+---
+
+## Pricing
+
+- **Free** — open-source MIT, this repo
+- **$49** — VALF-1 spec PDF + integration guide
+- **$499** — Verifyd Lattice (full governance framework, 7-seat oversight model, multi-org chain merging)
+
+---
+
+## Status
+
+v1.0. Production-ready engine. Pure Node.js >= 18. No dependencies.
+
+See [`BUILD.md`](./BUILD.md) for build/deploy. See [`AGENTS.md`](./AGENTS.md) for AI-agent collaboration instructions.
+
+---
+
+Built April 2026 by Shawn ([@komnsensei](https://github.com/komnsensei)).
+
+Receipt format: VALF-1 (Verifyd Audit Log Format v1).
