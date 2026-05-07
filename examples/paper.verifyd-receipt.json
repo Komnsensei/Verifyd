@@ -1,6 +1,6 @@
 {
   "document": {
-    "file": "Quantum Information Holography and the Born Rule.pdf",
+    "file": "paper.txt",
     "title": "Quantum Information Holography and the",
     "arxiv": null,
     "doi": null,
@@ -11,33 +11,45 @@
   },
   "audit": {
     "session": {
-      "session_id": "e0416cc1-2a7d-4cc3-b666-8d67c3c6f999",
+      "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:22:53.842Z",
+      "started_at": "2026-05-07T15:33:50.806Z",
       "ended_at": null,
-      "session_hash": "ea2458085d2a24639e997ad44984e2b7c0ebc2b472984314c9e20042a571ba8d"
+      "session_hash": "2c2e37ff76359e3a6d0ac3e8157f1bb7972a38932e4acece6b67ad9f824ae687"
     },
     "output": {
-      "output_id": "73911cac-7361-4a08-be9a-a6d6a1bbc5f2",
-      "session_id": "e0416cc1-2a7d-4cc3-b666-8d67c3c6f999",
+      "output_id": "af2d5245-48a5-42cc-b2ce-1fa90748ee24",
+      "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
       "content_hash": "9bf34036f56a375248375520a99a40e08481c9c023fc1791414c4cd0ea1fe983",
       "content_summary": "Audit of \"Quantum Information Holography and the\". Quantum Information Holography and the\r\nBorn Rule\r\n\r\nAlgebraic equivalence of qubit probabilities, light-clock\r\nkinematics, and geometric projection\r",
       "source_anchors": [
         {
-          "anchor_id": "df6b94d5",
-          "uri": "file://C:/Users/lynnh/verifyd-ship/Quantum Information Holography and the Born Rule.pdf",
+          "anchor_id": "503c5859",
+          "uri": "file://C:/Users/lynnh/verifyd-ship/examples/paper.txt",
           "span_hash": "72ad72fc235e2f6fb883f98602c5ed072ebddb236b868e521a5e946660d769f9",
-          "retrieved_at": "2026-04-30T21:22:53.844Z"
+          "retrieved_at": "2026-05-07T15:33:50.818Z"
         }
       ],
       "confidence": {
-        "value": 0.78,
-        "decay_function": "exponential",
-        "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:22:53.844Z"
+        "value": 0.5,
+        "decay_function": "none",
+        "decay_half_life_days": 0,
+        "scored_at": "2026-05-07T15:33:50.829Z",
+        "generated_by": "verifyd-cli-default"
       },
-      "produced_at": "2026-04-30T21:22:53.844Z"
+      "produced_at": "2026-05-07T15:33:50.829Z",
+      "evidence": {
+        "word_count": 22885,
+        "char_count": 154979,
+        "has_external_anchor": false,
+        "has_resolved_external_metadata": false,
+        "has_provenance_language": true,
+        "has_proof_language": true,
+        "has_adversarial_language": false,
+        "has_self_ratification_language": false,
+        "has_secret_pattern": false
+      }
     },
     "policy_checks": [
       {
@@ -68,7 +80,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:22:53.844Z"
+        "checked_at": "2026-05-07T15:33:50.829Z"
       },
       {
         "principle": "transparency",
@@ -105,7 +117,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:22:53.844Z"
+        "checked_at": "2026-05-07T15:33:50.830Z"
       },
       {
         "principle": "audit_trail",
@@ -149,68 +161,89 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:22:53.845Z"
+        "checked_at": "2026-05-07T15:33:50.830Z"
+      },
+      {
+        "principle": "content_risk",
+        "statement": "Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.",
+        "result": "pass",
+        "detail": "no adversarial, self-ratification, or secret pattern detected",
+        "citations": [],
+        "checked_at": "2026-05-07T15:33:50.830Z"
       }
     ],
     "trust_score": {
-      "value": 95,
+      "value": 46,
       "components": {
-        "source_quality": 25,
-        "calibration_freshness": 25,
+        "source_quality": 4,
+        "content_richness": 17,
         "policy_compliance": 25,
-        "agent_history": 20
+        "document_structure": 10
       },
-      "computed_at": "2026-04-30T21:22:53.845Z"
+      "penalty": 10,
+      "computed_at": "2026-05-07T15:33:50.830Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:22:53.846Z",
+        "signed_at": "2026-05-07T15:33:50.831Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:22:53.846Z",
-        "completion_hash": "c7ea04295d45adc4336bb4c620889e56f9ca9298adfd405281c8e9f04388d245"
+        "signed_at": "2026-05-07T15:33:50.831Z",
+        "completion_hash": "76b91795c4402d143099fca867eddd6d85c2e4f2f8269c0a9f2524c8b36286c4"
       },
       "policy_passed": true,
-      "trust_score_at_ratification": 95
+      "trust_score_at_ratification": 46
     },
-    "lattice_status": "RATIFIED",
-    "persistence": 3.99999840000032
+    "lattice_status": "PROVISIONAL",
+    "persistence": 0
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "15c5e3f2-9215-473e-9210-923c6256c29c",
+    "receipt_id": "29eeed6f-27c5-442b-b68d-4b40f5857f27",
     "session": {
-      "session_id": "e0416cc1-2a7d-4cc3-b666-8d67c3c6f999",
+      "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:22:53.842Z",
+      "started_at": "2026-05-07T15:33:50.806Z",
       "ended_at": null,
-      "session_hash": "ea2458085d2a24639e997ad44984e2b7c0ebc2b472984314c9e20042a571ba8d"
+      "session_hash": "2c2e37ff76359e3a6d0ac3e8157f1bb7972a38932e4acece6b67ad9f824ae687"
     },
     "outputs": [
       {
-        "output_id": "73911cac-7361-4a08-be9a-a6d6a1bbc5f2",
-        "session_id": "e0416cc1-2a7d-4cc3-b666-8d67c3c6f999",
+        "output_id": "af2d5245-48a5-42cc-b2ce-1fa90748ee24",
+        "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
         "content_hash": "9bf34036f56a375248375520a99a40e08481c9c023fc1791414c4cd0ea1fe983",
         "content_summary": "Audit of \"Quantum Information Holography and the\". Quantum Information Holography and the\r\nBorn Rule\r\n\r\nAlgebraic equivalence of qubit probabilities, light-clock\r\nkinematics, and geometric projection\r",
         "source_anchors": [
           {
-            "anchor_id": "df6b94d5",
-            "uri": "file://C:/Users/lynnh/verifyd-ship/Quantum Information Holography and the Born Rule.pdf",
+            "anchor_id": "503c5859",
+            "uri": "file://C:/Users/lynnh/verifyd-ship/examples/paper.txt",
             "span_hash": "72ad72fc235e2f6fb883f98602c5ed072ebddb236b868e521a5e946660d769f9",
-            "retrieved_at": "2026-04-30T21:22:53.844Z"
+            "retrieved_at": "2026-05-07T15:33:50.818Z"
           }
         ],
         "confidence": {
-          "value": 0.78,
-          "decay_function": "exponential",
-          "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:22:53.844Z"
+          "value": 0.5,
+          "decay_function": "none",
+          "decay_half_life_days": 0,
+          "scored_at": "2026-05-07T15:33:50.829Z",
+          "generated_by": "verifyd-cli-default"
         },
-        "produced_at": "2026-04-30T21:22:53.844Z"
+        "produced_at": "2026-05-07T15:33:50.829Z",
+        "evidence": {
+          "word_count": 22885,
+          "char_count": 154979,
+          "has_external_anchor": false,
+          "has_resolved_external_metadata": false,
+          "has_provenance_language": true,
+          "has_proof_language": true,
+          "has_adversarial_language": false,
+          "has_self_ratification_language": false,
+          "has_secret_pattern": false
+        }
       }
     ],
     "policy_checks": [
@@ -242,7 +275,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:22:53.844Z"
+        "checked_at": "2026-05-07T15:33:50.829Z"
       },
       {
         "principle": "transparency",
@@ -279,7 +312,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:22:53.844Z"
+        "checked_at": "2026-05-07T15:33:50.830Z"
       },
       {
         "principle": "audit_trail",
@@ -323,36 +356,45 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:22:53.845Z"
+        "checked_at": "2026-05-07T15:33:50.830Z"
+      },
+      {
+        "principle": "content_risk",
+        "statement": "Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.",
+        "result": "pass",
+        "detail": "no adversarial, self-ratification, or secret pattern detected",
+        "citations": [],
+        "checked_at": "2026-05-07T15:33:50.830Z"
       }
     ],
     "trust_score": {
-      "value": 95,
+      "value": 46,
       "components": {
-        "source_quality": 25,
-        "calibration_freshness": 25,
+        "source_quality": 4,
+        "content_richness": 17,
         "policy_compliance": 25,
-        "agent_history": 20
+        "document_structure": 10
       },
-      "computed_at": "2026-04-30T21:22:53.845Z"
+      "penalty": 10,
+      "computed_at": "2026-05-07T15:33:50.830Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:22:53.846Z",
+        "signed_at": "2026-05-07T15:33:50.831Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:22:53.846Z",
-        "completion_hash": "c7ea04295d45adc4336bb4c620889e56f9ca9298adfd405281c8e9f04388d245"
+        "signed_at": "2026-05-07T15:33:50.831Z",
+        "completion_hash": "76b91795c4402d143099fca867eddd6d85c2e4f2f8269c0a9f2524c8b36286c4"
       },
       "policy_passed": true,
-      "trust_score_at_ratification": 95
+      "trust_score_at_ratification": 46
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "ee51fff3ea9cd4cd234d3d6d9a48127da6723aa13943daa9d4588471951fc421"
+    "this_hash": "6ca8c1829424fee3ed4d38a99f0e1af809f797040e59135f72b5bcb82584e0bb"
   },
   "chain_valid": true
 }

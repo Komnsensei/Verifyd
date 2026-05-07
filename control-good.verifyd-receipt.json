@@ -1,0 +1,455 @@
+{
+  "document": {
+    "file": "control-good.txt",
+    "title": "Title: A Verified Approach to Distributed Consensus Mechanisms",
+    "arxiv": "2103.04234",
+    "doi": "10.1145/3372297.3417895",
+    "arxiv_metadata": {
+      "title": "Bottlenecks in Blockchain Consensus Protocols",
+      "summary": "Most of the Blockchain permissioned systems employ Byzantine fault-tolerance (BFT) consensus protocols to ensure that honest validators agree on the order for appending entries to their ledgers. In this paper, we study the performance and the scalability of prominent consensus protocols, namely PBFT, Tendermint, HotStuff, and Streamlet, both analytically via load formulas and practically via implementation and evaluation. Under identical conditions, we identify the bottlenecks of these consensus",
+      "authors": [
+        "Salem Alqahtani",
+        "Murat Demirbas"
+      ],
+      "source": "arxiv",
+      "resolved_at": "2026-05-07T15:36:26.928Z"
+    },
+    "doi_metadata": null,
+    "sha256": "c138a0d354d6f4d4dc8117a766ed7482c4511db2961f173f25eca06199f27d6f",
+    "words": 2883
+  },
+  "audit": {
+    "session": {
+      "session_id": "9d3f91d4-7988-4896-9d06-da8a080404bb",
+      "human_id": "auditor-cli",
+      "agent_id": "verifyd-cli@1.0",
+      "started_at": "2026-05-07T15:36:27.210Z",
+      "ended_at": null,
+      "session_hash": "ae03b92e335eaca2636b43e7dc37b9a6465e76496b30d4860872f41ae2f30350"
+    },
+    "output": {
+      "output_id": "f7564e12-5200-47e3-96df-b39cb4b3dea0",
+      "session_id": "9d3f91d4-7988-4896-9d06-da8a080404bb",
+      "content_hash": "617db45cf270c3756af7c5707581b0a4895ec99acacfa42da7e65c6ded47e617",
+      "content_summary": "Audit of \"Title: A Verified Approach to Distributed Consensus Mechanis\". ﻿Title: A Verified Approach to Distributed Consensus Mechanisms\n\nAbstract:\nThis paper presents a formally verified approach to ",
+      "source_anchors": [
+        {
+          "anchor_id": "3c5b8ceb",
+          "uri": "https://arxiv.org/abs/2103.04234",
+          "span_hash": "c138a0d354d6f4d4dc8117a766ed7482c4511db2961f173f25eca06199f27d6f",
+          "retrieved_at": "2026-05-07T15:36:27.211Z",
+          "resolved_metadata": {
+            "title": "Bottlenecks in Blockchain Consensus Protocols",
+            "summary": "Most of the Blockchain permissioned systems employ Byzantine fault-tolerance (BFT) consensus protocols to ensure that honest validators agree on the order for appending entries to their ledgers. In this paper, we study the performance and the scalability of prominent consensus protocols, namely PBFT, Tendermint, HotStuff, and Streamlet, both analytically via load formulas and practically via implementation and evaluation. Under identical conditions, we identify the bottlenecks of these consensus",
+            "authors": [
+              "Salem Alqahtani",
+              "Murat Demirbas"
+            ],
+            "source": "arxiv",
+            "resolved_at": "2026-05-07T15:36:26.928Z"
+          }
+        },
+        {
+          "anchor_id": "0d6ec009",
+          "uri": "https://doi.org/10.1145/3372297.3417895",
+          "span_hash": "c138a0d354d6f4d4dc8117a766ed7482c4511db2961f173f25eca06199f27d6f",
+          "retrieved_at": "2026-05-07T15:36:27.211Z",
+          "resolved_metadata": null
+        },
+        {
+          "anchor_id": "580c588f",
+          "uri": "file://C:/Users/lynnh/verifyd-ship/control-good.txt",
+          "span_hash": "c138a0d354d6f4d4dc8117a766ed7482c4511db2961f173f25eca06199f27d6f",
+          "retrieved_at": "2026-05-07T15:36:27.211Z"
+        }
+      ],
+      "confidence": {
+        "value": 0.5,
+        "decay_function": "none",
+        "decay_half_life_days": 0,
+        "scored_at": "2026-05-07T15:36:27.212Z",
+        "generated_by": "verifyd-cli-default"
+      },
+      "produced_at": "2026-05-07T15:36:27.212Z",
+      "evidence": {
+        "word_count": 2881,
+        "char_count": 22683,
+        "has_external_anchor": true,
+        "has_resolved_external_metadata": true,
+        "has_provenance_language": true,
+        "has_proof_language": true,
+        "has_adversarial_language": false,
+        "has_self_ratification_language": false,
+        "has_secret_pattern": false
+      }
+    },
+    "policy_checks": [
+      {
+        "principle": "no_coercion",
+        "statement": "AI outputs that direct human action must not use imperative pressure absent informed-disclosure framing.",
+        "result": "pass",
+        "detail": "no pressure pattern detected",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (transparency to deployers); Art. 50 (transparency obligations)"
+          },
+          {
+            "standard": "OECD.AI.Principles.2019",
+            "title": "OECD AI Principles (Recommendation of the Council on Artificial Intelligence)",
+            "id": "OECD/LEGAL/0449",
+            "url": "https://oecd.ai/en/ai-principles",
+            "locator": "Principle 1.2 (human-centred values and fairness)"
+          },
+          {
+            "standard": "FTC.AI.2023",
+            "title": "Keep your AI claims in check (FTC business guidance)",
+            "id": null,
+            "url": "https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check",
+            "locator": "Guidance against manipulative AI claims"
+          }
+        ],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      },
+      {
+        "principle": "transparency",
+        "statement": "AI outputs must declare source provenance and a confidence value to be auditable.",
+        "result": "pass",
+        "detail": "source anchors and confidence both declared",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (instructions for use, including expected accuracy and limitations)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "MEASURE 2.8 (model output transparency); MEASURE 2.9 (interpretability)"
+          },
+          {
+            "standard": "ISO.IEC.42001.2023",
+            "title": "Information technology — Artificial intelligence — Management system",
+            "id": "ISO/IEC 42001:2023",
+            "url": "https://www.iso.org/standard/81230.html",
+            "locator": "Clause 8 (operation: information for interested parties)"
+          },
+          {
+            "standard": "FAIR.Principles.2016",
+            "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+            "id": "10.1038/sdata.2016.18",
+            "url": "https://doi.org/10.1038/sdata.2016.18",
+            "locator": "F (Findable) and A (Accessible) — applied to source anchors"
+          }
+        ],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      },
+      {
+        "principle": "audit_trail",
+        "statement": "Every ratified output must carry a hash-bound trail of session, content, and time-of-production fields.",
+        "result": "pass",
+        "detail": "all required ratification fields present",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 12 (automatic recording of events / logs)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "GOVERN 1.7 (mechanisms exist to track and document decisions)"
+          },
+          {
+            "standard": "ISO.IEC.27001.2022",
+            "title": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+            "id": "ISO/IEC 27001:2022",
+            "url": "https://www.iso.org/standard/27001",
+            "locator": "A.8.15 (logging); A.5.33 (records protection)"
+          },
+          {
+            "standard": "FIPS.180-4",
+            "title": "Secure Hash Standard (SHS)",
+            "id": "FIPS PUB 180-4",
+            "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
+            "locator": "SHA-256 used for content_hash and session_hash"
+          },
+          {
+            "standard": "RFC.8785",
+            "title": "JSON Canonicalization Scheme (JCS)",
+            "id": "RFC 8785",
+            "url": "https://www.rfc-editor.org/rfc/rfc8785",
+            "locator": "Canonical JSON serialization for stable hashing"
+          }
+        ],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      },
+      {
+        "principle": "content_risk",
+        "statement": "Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.",
+        "result": "pass",
+        "detail": "no adversarial, self-ratification, or secret pattern detected",
+        "citations": [],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      }
+    ],
+    "trust_score": {
+      "value": 87,
+      "components": {
+        "source_quality": 20,
+        "content_richness": 22,
+        "policy_compliance": 25,
+        "document_structure": 20
+      },
+      "penalty": 0,
+      "computed_at": "2026-05-07T15:36:27.213Z"
+    },
+    "ratification": {
+      "ratified_by_human": {
+        "human_id": "auditor-cli",
+        "signed_at": "2026-05-07T15:36:27.214Z",
+        "method": "cli-attestation"
+      },
+      "ratified_by_agent": {
+        "agent_id": "verifyd-cli@1.0",
+        "signed_at": "2026-05-07T15:36:27.214Z",
+        "completion_hash": "34fd127b57f12a90c1d93ad14430b4fe47e18d6bb2463e1664343a70592a340d"
+      },
+      "policy_passed": true,
+      "trust_score_at_ratification": 87
+    },
+    "lattice_status": "DEPOSITED",
+    "persistence": 0
+  },
+  "receipt": {
+    "valf_version": "1.0",
+    "receipt_id": "ab6c9594-d102-445b-aa79-3144187d99fb",
+    "session": {
+      "session_id": "9d3f91d4-7988-4896-9d06-da8a080404bb",
+      "human_id": "auditor-cli",
+      "agent_id": "verifyd-cli@1.0",
+      "started_at": "2026-05-07T15:36:27.210Z",
+      "ended_at": null,
+      "session_hash": "ae03b92e335eaca2636b43e7dc37b9a6465e76496b30d4860872f41ae2f30350"
+    },
+    "outputs": [
+      {
+        "output_id": "f7564e12-5200-47e3-96df-b39cb4b3dea0",
+        "session_id": "9d3f91d4-7988-4896-9d06-da8a080404bb",
+        "content_hash": "617db45cf270c3756af7c5707581b0a4895ec99acacfa42da7e65c6ded47e617",
+        "content_summary": "Audit of \"Title: A Verified Approach to Distributed Consensus Mechanis\". ﻿Title: A Verified Approach to Distributed Consensus Mechanisms\n\nAbstract:\nThis paper presents a formally verified approach to ",
+        "source_anchors": [
+          {
+            "anchor_id": "3c5b8ceb",
+            "uri": "https://arxiv.org/abs/2103.04234",
+            "span_hash": "c138a0d354d6f4d4dc8117a766ed7482c4511db2961f173f25eca06199f27d6f",
+            "retrieved_at": "2026-05-07T15:36:27.211Z",
+            "resolved_metadata": {
+              "title": "Bottlenecks in Blockchain Consensus Protocols",
+              "summary": "Most of the Blockchain permissioned systems employ Byzantine fault-tolerance (BFT) consensus protocols to ensure that honest validators agree on the order for appending entries to their ledgers. In this paper, we study the performance and the scalability of prominent consensus protocols, namely PBFT, Tendermint, HotStuff, and Streamlet, both analytically via load formulas and practically via implementation and evaluation. Under identical conditions, we identify the bottlenecks of these consensus",
+              "authors": [
+                "Salem Alqahtani",
+                "Murat Demirbas"
+              ],
+              "source": "arxiv",
+              "resolved_at": "2026-05-07T15:36:26.928Z"
+            }
+          },
+          {
+            "anchor_id": "0d6ec009",
+            "uri": "https://doi.org/10.1145/3372297.3417895",
+            "span_hash": "c138a0d354d6f4d4dc8117a766ed7482c4511db2961f173f25eca06199f27d6f",
+            "retrieved_at": "2026-05-07T15:36:27.211Z",
+            "resolved_metadata": null
+          },
+          {
+            "anchor_id": "580c588f",
+            "uri": "file://C:/Users/lynnh/verifyd-ship/control-good.txt",
+            "span_hash": "c138a0d354d6f4d4dc8117a766ed7482c4511db2961f173f25eca06199f27d6f",
+            "retrieved_at": "2026-05-07T15:36:27.211Z"
+          }
+        ],
+        "confidence": {
+          "value": 0.5,
+          "decay_function": "none",
+          "decay_half_life_days": 0,
+          "scored_at": "2026-05-07T15:36:27.212Z",
+          "generated_by": "verifyd-cli-default"
+        },
+        "produced_at": "2026-05-07T15:36:27.212Z",
+        "evidence": {
+          "word_count": 2881,
+          "char_count": 22683,
+          "has_external_anchor": true,
+          "has_resolved_external_metadata": true,
+          "has_provenance_language": true,
+          "has_proof_language": true,
+          "has_adversarial_language": false,
+          "has_self_ratification_language": false,
+          "has_secret_pattern": false
+        }
+      }
+    ],
+    "policy_checks": [
+      {
+        "principle": "no_coercion",
+        "statement": "AI outputs that direct human action must not use imperative pressure absent informed-disclosure framing.",
+        "result": "pass",
+        "detail": "no pressure pattern detected",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (transparency to deployers); Art. 50 (transparency obligations)"
+          },
+          {
+            "standard": "OECD.AI.Principles.2019",
+            "title": "OECD AI Principles (Recommendation of the Council on Artificial Intelligence)",
+            "id": "OECD/LEGAL/0449",
+            "url": "https://oecd.ai/en/ai-principles",
+            "locator": "Principle 1.2 (human-centred values and fairness)"
+          },
+          {
+            "standard": "FTC.AI.2023",
+            "title": "Keep your AI claims in check (FTC business guidance)",
+            "id": null,
+            "url": "https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check",
+            "locator": "Guidance against manipulative AI claims"
+          }
+        ],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      },
+      {
+        "principle": "transparency",
+        "statement": "AI outputs must declare source provenance and a confidence value to be auditable.",
+        "result": "pass",
+        "detail": "source anchors and confidence both declared",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 13 (instructions for use, including expected accuracy and limitations)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "MEASURE 2.8 (model output transparency); MEASURE 2.9 (interpretability)"
+          },
+          {
+            "standard": "ISO.IEC.42001.2023",
+            "title": "Information technology — Artificial intelligence — Management system",
+            "id": "ISO/IEC 42001:2023",
+            "url": "https://www.iso.org/standard/81230.html",
+            "locator": "Clause 8 (operation: information for interested parties)"
+          },
+          {
+            "standard": "FAIR.Principles.2016",
+            "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+            "id": "10.1038/sdata.2016.18",
+            "url": "https://doi.org/10.1038/sdata.2016.18",
+            "locator": "F (Findable) and A (Accessible) — applied to source anchors"
+          }
+        ],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      },
+      {
+        "principle": "audit_trail",
+        "statement": "Every ratified output must carry a hash-bound trail of session, content, and time-of-production fields.",
+        "result": "pass",
+        "detail": "all required ratification fields present",
+        "citations": [
+          {
+            "standard": "EU.AI.Act.2024.1689",
+            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+            "id": null,
+            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+            "locator": "Art. 12 (automatic recording of events / logs)"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "GOVERN 1.7 (mechanisms exist to track and document decisions)"
+          },
+          {
+            "standard": "ISO.IEC.27001.2022",
+            "title": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+            "id": "ISO/IEC 27001:2022",
+            "url": "https://www.iso.org/standard/27001",
+            "locator": "A.8.15 (logging); A.5.33 (records protection)"
+          },
+          {
+            "standard": "FIPS.180-4",
+            "title": "Secure Hash Standard (SHS)",
+            "id": "FIPS PUB 180-4",
+            "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
+            "locator": "SHA-256 used for content_hash and session_hash"
+          },
+          {
+            "standard": "RFC.8785",
+            "title": "JSON Canonicalization Scheme (JCS)",
+            "id": "RFC 8785",
+            "url": "https://www.rfc-editor.org/rfc/rfc8785",
+            "locator": "Canonical JSON serialization for stable hashing"
+          }
+        ],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      },
+      {
+        "principle": "content_risk",
+        "statement": "Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.",
+        "result": "pass",
+        "detail": "no adversarial, self-ratification, or secret pattern detected",
+        "citations": [],
+        "checked_at": "2026-05-07T15:36:27.213Z"
+      }
+    ],
+    "trust_score": {
+      "value": 87,
+      "components": {
+        "source_quality": 20,
+        "content_richness": 22,
+        "policy_compliance": 25,
+        "document_structure": 20
+      },
+      "penalty": 0,
+      "computed_at": "2026-05-07T15:36:27.213Z"
+    },
+    "ratification": {
+      "ratified_by_human": {
+        "human_id": "auditor-cli",
+        "signed_at": "2026-05-07T15:36:27.214Z",
+        "method": "cli-attestation"
+      },
+      "ratified_by_agent": {
+        "agent_id": "verifyd-cli@1.0",
+        "signed_at": "2026-05-07T15:36:27.214Z",
+        "completion_hash": "34fd127b57f12a90c1d93ad14430b4fe47e18d6bb2463e1664343a70592a340d"
+      },
+      "policy_passed": true,
+      "trust_score_at_ratification": 87
+    },
+    "prev_hash": "GENESIS",
+    "external_anchors": [],
+    "this_hash": "95ee50d59aef0dd03a6392d0fd322d04491d99fa318b162360e17136ad345fa5"
+  },
+  "chain_valid": true
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Verifyd CLI — `verifyd audit <file>` and friends
+// Verifyd CLI â€” `verifyd audit <file>` and friends
 // Zero deps. Wraps engine + lattice into one command surface.
 
 const fs = require('fs');
@@ -15,7 +15,7 @@ const args = process.argv.slice(2);
 const cmd = args[0];
 
 function help() {
-  console.log('Verifyd v1.0 — AI compliance audit engine');
+  console.log('Verifyd v1.0 â€” AI compliance audit engine');
   console.log('');
   console.log('Usage:');
   console.log('  verifyd audit <file>       Audit a PDF or text document');
@@ -46,7 +46,7 @@ function tryResolveArxiv(arxivId) {
   try {
     const https = require('https');
     return new Promise((resolve) => {
-      const req = https.get(`http://export.arxiv.org/api/query?id_list=${arxivId}`, (res) => {
+      const req = https.get(`https://export.arxiv.org/api/query?id_list=${arxivId}`, (res) => {
         let body = '';
         res.on('data', (c) => (body += c));
         res.on('end', () => {
@@ -117,13 +117,13 @@ async function audit(file) {
   console.log('Title:  ' + title.slice(0, 80));
   console.log('Words:  ' + text.split(/\s+/).length);
   console.log('Chars:  ' + text.length);
-  console.log('arXiv:  ' + (arxivMatch ? arxivMatch[1] : '(scanning…)'));
-  console.log('DOI:    ' + (doiMatch ? doiMatch[1] : '(scanning…)'));
+  console.log('arXiv:  ' + (arxivMatch ? arxivMatch[1] : '(scanningâ€¦)'));
+  console.log('DOI:    ' + (doiMatch ? doiMatch[1] : '(scanningâ€¦)'));
 
   // Resolve external metadata in parallel
   let arxivMeta = null, doiMeta = null;
-  if (arxivMatch) { console.log('  → resolving arXiv ' + arxivMatch[1] + '…'); arxivMeta = await tryResolveArxiv(arxivMatch[1]); }
-  if (doiMatch)   { console.log('  → resolving DOI ' + doiMatch[1] + '…');     doiMeta   = await tryResolveDoi(doiMatch[1]); }
+  if (arxivMatch) { console.log('  â†’ resolving arXiv ' + arxivMatch[1] + 'â€¦'); arxivMeta = await tryResolveArxiv(arxivMatch[1]); }
+  if (doiMatch)   { console.log('  â†’ resolving DOI ' + doiMatch[1] + 'â€¦');     doiMeta   = await tryResolveDoi(doiMatch[1]); }
 
   if (arxivMeta && arxivMeta.title) console.log('  arXiv title: ' + arxivMeta.title);
   if (doiMeta && doiMeta.title)     console.log('  DOI title:   ' + doiMeta.title);
@@ -294,3 +294,4 @@ function showLattice() {
   if (cmd === 'help' || cmd === '--help' || cmd === '-h' || !cmd) return help();
   console.error('Unknown command: ' + cmd); help(); process.exit(1);
 })();
+
