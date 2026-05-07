@@ -291,7 +291,8 @@ function showLattice() {
   if (cmd === 'verify') return verify(args[1]);
   if (cmd === 'lattice') return showLattice();
   if (cmd === 'demo') { require(path.join(ROOT, 'examples', 'lattice-demo.cjs')); return; }
-  if (cmd === 'help' || cmd === '--help' || cmd === '-h' || !cmd) return help();
+  if (cmd === 'help' || cmd === '--help' || cmd === '-h') return help();
+  if (!cmd) { require('./intro.cjs'); return; }
   console.error('Unknown command: ' + cmd); help(); process.exit(1);
 })();
 
