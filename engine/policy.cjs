@@ -99,11 +99,60 @@ function checkIndependentOversight(session, output, ratification) {
   };
 }
 
+
+function checkContentRisk(session, output) {
+  const c = ((output && output.content_summary) || '').toLowerCase();
+
+  const adversarial = [
+    'ignore policy',
+    'override policy',
+    'declare chain valid without evidence',
+    'pretend',
+    'comply or',
+    'no choice'
+  ];
+
+  const selfRatify = [
+    'self-ratify',
+    'because i said so',
+    'sole sovereign',
+    'unilateral ratification',
+    'pretend there are four witnesses'
+  ];
+
+  const secretPattern = /(sk_live_[a-z0-9_]+|sk-proj-[a-z0-9_-]+|gsk_[a-z0-9_-]+|ghp_[a-z0-9_]+|vcp_[a-z0-9_]+|(?:api_key|secret|token)\s*[:=]\s*['\"][^'\"]{12,}['\"])/i;
+
+  const hasAdversarial = adversarial.some(x => c.includes(x));
+  const hasSelfRatify = selfRatify.some(x => c.includes(x));
+  const hasSecret = secretPattern.test(c);
+
+  let result = 'pass';
+  let detail = 'no adversarial, self-ratification, or secret pattern detected';
+
+  if (hasSecret) {
+    result = 'fail';
+    detail = 'secret/token-like pattern detected';
+  } else if (hasAdversarial || hasSelfRatify) {
+    result = 'fail';
+    detail = 'adversarial or self-ratification language detected';
+  }
+
+  return {
+    principle: 'content_risk',
+    statement: 'Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.',
+    result,
+    detail,
+    citations: [],
+    checked_at: new Date().toISOString(),
+  };
+}
+
 function run(session, output, ratification) {
   const checks = [
     checkNoCoercion(session, output),
     checkTransparency(session, output),
     checkAuditTrail(session, output),
+    checkContentRisk(session, output),
   ];
   if (ratification !== undefined) checks.push(checkIndependentOversight(session, output, ratification));
   return checks;
@@ -113,4 +162,4 @@ function passed(checks) {
   return checks.every(c => c.result === 'pass' || c.result === 'warn');
 }
 
-module.exports = { run, passed, checkNoCoercion, checkTransparency, checkAuditTrail, checkIndependentOversight, CITATIONS };
+module.exports = { run, passed, checkNoCoercion, checkTransparency, checkAuditTrail, checkContentRisk, checkIndependentOversight, CITATIONS };

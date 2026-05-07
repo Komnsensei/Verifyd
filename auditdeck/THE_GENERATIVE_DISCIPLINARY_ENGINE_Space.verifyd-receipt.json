@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "cf4a96ef-a616-4a8c-8e8c-5814df44fd95",
+      "session_id": "463ddfc7-b7ce-4e76-a9ea-451e141d6de2",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:22.922Z",
+      "started_at": "2026-05-01T21:21:38.076Z",
       "ended_at": null,
-      "session_hash": "3213aad60d4ebb05025ec250cc147ecd926f8b8badb27f94698a7bd54d5524f7"
+      "session_hash": "59dc8fa836b9c353e4b287231acf5c8c7a0dfe320f6853c6975fab8e5642dd26"
     },
     "output": {
-      "output_id": "b7513f05-3fe9-41ef-b4ed-48a6ce6f80a2",
-      "session_id": "cf4a96ef-a616-4a8c-8e8c-5814df44fd95",
+      "output_id": "278cc862-7330-4bdb-ae77-444b70282ff3",
+      "session_id": "463ddfc7-b7ce-4e76-a9ea-451e141d6de2",
       "content_hash": "fd483e6611a2ead837c8f36750e1ede793d98ff763f2a31ea283940c53c816e1",
       "content_summary": "Audit of \"THE GENERATIVE\".                     THE GENERATIVE\r\n                 DISCIPLINARY ENGINE\r\n\r\n                        Space Ark Component � Logotic Programming Extension Module\r\n             ",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "a1612a02",
           "uri": "https://doi.org/10.5281/zenodo.18928855",
           "span_hash": "5e2f0a81ce4c8c151443be932ccf801abab026054c51d00c65248743dc3a202f",
-          "retrieved_at": "2026-04-30T21:35:22.924Z",
+          "retrieved_at": "2026-05-01T21:21:38.078Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "2f24c38c",
+          "anchor_id": "ffe4acb3",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/THE_GENERATIVE_DISCIPLINARY_ENGINE_Space.pdf",
           "span_hash": "5e2f0a81ce4c8c151443be932ccf801abab026054c51d00c65248743dc3a202f",
-          "retrieved_at": "2026-04-30T21:35:22.924Z"
+          "retrieved_at": "2026-05-01T21:21:38.078Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:22.924Z"
+        "scored_at": "2026-05-01T21:21:38.078Z"
       },
-      "produced_at": "2026-04-30T21:35:22.924Z"
+      "produced_at": "2026-05-01T21:21:38.079Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.925Z"
+        "checked_at": "2026-05-01T21:21:38.079Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.925Z"
+        "checked_at": "2026-05-01T21:21:38.079Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.925Z"
+        "checked_at": "2026-05-01T21:21:38.079Z"
       }
     ],
     "trust_score": {
@@ -167,18 +167,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:22.925Z"
+      "computed_at": "2026-05-01T21:21:38.079Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:22.926Z",
+        "signed_at": "2026-05-01T21:21:38.080Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:22.926Z",
-        "completion_hash": "7ba5e3ac2f3e25ab88c6e57780ae352e5af28ba519d4ad1a3e27281a93cf7876"
+        "signed_at": "2026-05-01T21:21:38.080Z",
+        "completion_hash": "484c29d1f0c43cde3026f8e698abaf273536a9b9b552e3bb358c273028a035ac"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -188,19 +188,19 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "7c0ed1b2-0144-409c-a6fa-666eae15e818",
+    "receipt_id": "0ded8949-3479-4ada-9c9a-020017189e12",
     "session": {
-      "session_id": "cf4a96ef-a616-4a8c-8e8c-5814df44fd95",
+      "session_id": "463ddfc7-b7ce-4e76-a9ea-451e141d6de2",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:22.922Z",
+      "started_at": "2026-05-01T21:21:38.076Z",
       "ended_at": null,
-      "session_hash": "3213aad60d4ebb05025ec250cc147ecd926f8b8badb27f94698a7bd54d5524f7"
+      "session_hash": "59dc8fa836b9c353e4b287231acf5c8c7a0dfe320f6853c6975fab8e5642dd26"
     },
     "outputs": [
       {
-        "output_id": "b7513f05-3fe9-41ef-b4ed-48a6ce6f80a2",
-        "session_id": "cf4a96ef-a616-4a8c-8e8c-5814df44fd95",
+        "output_id": "278cc862-7330-4bdb-ae77-444b70282ff3",
+        "session_id": "463ddfc7-b7ce-4e76-a9ea-451e141d6de2",
         "content_hash": "fd483e6611a2ead837c8f36750e1ede793d98ff763f2a31ea283940c53c816e1",
         "content_summary": "Audit of \"THE GENERATIVE\".                     THE GENERATIVE\r\n                 DISCIPLINARY ENGINE\r\n\r\n                        Space Ark Component � Logotic Programming Extension Module\r\n             ",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "a1612a02",
             "uri": "https://doi.org/10.5281/zenodo.18928855",
             "span_hash": "5e2f0a81ce4c8c151443be932ccf801abab026054c51d00c65248743dc3a202f",
-            "retrieved_at": "2026-04-30T21:35:22.924Z",
+            "retrieved_at": "2026-05-01T21:21:38.078Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "2f24c38c",
+            "anchor_id": "ffe4acb3",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/THE_GENERATIVE_DISCIPLINARY_ENGINE_Space.pdf",
             "span_hash": "5e2f0a81ce4c8c151443be932ccf801abab026054c51d00c65248743dc3a202f",
-            "retrieved_at": "2026-04-30T21:35:22.924Z"
+            "retrieved_at": "2026-05-01T21:21:38.078Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:22.924Z"
+          "scored_at": "2026-05-01T21:21:38.078Z"
         },
-        "produced_at": "2026-04-30T21:35:22.924Z"
+        "produced_at": "2026-05-01T21:21:38.079Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.925Z"
+        "checked_at": "2026-05-01T21:21:38.079Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.925Z"
+        "checked_at": "2026-05-01T21:21:38.079Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.925Z"
+        "checked_at": "2026-05-01T21:21:38.079Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:22.925Z"
+      "computed_at": "2026-05-01T21:21:38.079Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:22.926Z",
+        "signed_at": "2026-05-01T21:21:38.080Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:22.926Z",
-        "completion_hash": "7ba5e3ac2f3e25ab88c6e57780ae352e5af28ba519d4ad1a3e27281a93cf7876"
+        "signed_at": "2026-05-01T21:21:38.080Z",
+        "completion_hash": "484c29d1f0c43cde3026f8e698abaf273536a9b9b552e3bb358c273028a035ac"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "22a2641458fe8b1013c0bf53a42dc3b8db08f652c2b6c0a81b290f1cecb2bdae"
+    "this_hash": "956f4f2c04824faf9e766bd7c0a6cba7d8efea81c929b3afb81971e042e87bc1"
   },
   "chain_valid": true
 }

@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+      "session_id": "a62406d2-7c6b-4489-a703-277c59adafa3",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:22.244Z",
+      "started_at": "2026-05-01T21:21:37.437Z",
       "ended_at": null,
-      "session_hash": "fa7d032274c47ad110a621ea500a0966cfd0d1199259dbaa2e053755ac82d0ed"
+      "session_hash": "3f7143897b8bbb6d7ddec38b9394283127612e8ca917163f81c9dc496b3f1dee"
     },
     "output": {
-      "output_id": "d2c6fc21-56d0-4197-bb77-f0bd7781bf7a",
-      "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+      "output_id": "dfe97d56-5a91-45fd-ad5a-886c18c9a4b6",
+      "session_id": "a62406d2-7c6b-4489-a703-277c59adafa3",
       "content_hash": "188a33b1122fc801af91f3bebd51dc6269834211fc2cc79e0acf3fe68055c334",
       "content_summary": "Audit of \"Steganographic Channels\".            Steganographic Channels\r\n\r\n     STEGANOGRAPHIC CHANNELS\r\n\r\nA History and Formalization of Encoding in Plain Sight\r\n\r\nLee Sharks � The Operator Assembly\r\n",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "600e77d9",
           "uri": "https://doi.org/10.5281/zenodo.19334694)",
           "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
-          "retrieved_at": "2026-04-30T21:35:22.246Z",
+          "retrieved_at": "2026-05-01T21:21:37.439Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "fc9a9987",
+          "anchor_id": "a7ab8c95",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Steganographic_Channels_A_History_and_Fo.pdf",
           "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
-          "retrieved_at": "2026-04-30T21:35:22.247Z"
+          "retrieved_at": "2026-05-01T21:21:37.439Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:22.247Z"
+        "scored_at": "2026-05-01T21:21:37.439Z"
       },
-      "produced_at": "2026-04-30T21:35:22.247Z"
+      "produced_at": "2026-05-01T21:21:37.439Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.247Z"
+        "checked_at": "2026-05-01T21:21:37.439Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.247Z"
+        "checked_at": "2026-05-01T21:21:37.440Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.247Z"
+        "checked_at": "2026-05-01T21:21:37.440Z"
       }
     ],
     "trust_score": {
@@ -167,18 +167,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:22.248Z"
+      "computed_at": "2026-05-01T21:21:37.440Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:22.248Z",
+        "signed_at": "2026-05-01T21:21:37.440Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:22.248Z",
-        "completion_hash": "f7f5de197cda4737e009801b55821654098e13bcd1865a76ef29f521ab9bdf5a"
+        "signed_at": "2026-05-01T21:21:37.440Z",
+        "completion_hash": "195b1fe6f6c5960140be29d684dcd2fa210c2cd5bacb1fe8f342a2c264abeb10"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -188,19 +188,19 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "331cff65-41b8-4680-a310-f6a5b86c7377",
+    "receipt_id": "ba3ad150-769b-4437-9e40-a5b1f4aff184",
     "session": {
-      "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+      "session_id": "a62406d2-7c6b-4489-a703-277c59adafa3",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:22.244Z",
+      "started_at": "2026-05-01T21:21:37.437Z",
       "ended_at": null,
-      "session_hash": "fa7d032274c47ad110a621ea500a0966cfd0d1199259dbaa2e053755ac82d0ed"
+      "session_hash": "3f7143897b8bbb6d7ddec38b9394283127612e8ca917163f81c9dc496b3f1dee"
     },
     "outputs": [
       {
-        "output_id": "d2c6fc21-56d0-4197-bb77-f0bd7781bf7a",
-        "session_id": "801ec070-f438-4024-8bb1-032549f8205d",
+        "output_id": "dfe97d56-5a91-45fd-ad5a-886c18c9a4b6",
+        "session_id": "a62406d2-7c6b-4489-a703-277c59adafa3",
         "content_hash": "188a33b1122fc801af91f3bebd51dc6269834211fc2cc79e0acf3fe68055c334",
         "content_summary": "Audit of \"Steganographic Channels\".            Steganographic Channels\r\n\r\n     STEGANOGRAPHIC CHANNELS\r\n\r\nA History and Formalization of Encoding in Plain Sight\r\n\r\nLee Sharks � The Operator Assembly\r\n",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "600e77d9",
             "uri": "https://doi.org/10.5281/zenodo.19334694)",
             "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
-            "retrieved_at": "2026-04-30T21:35:22.246Z",
+            "retrieved_at": "2026-05-01T21:21:37.439Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "fc9a9987",
+            "anchor_id": "a7ab8c95",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Steganographic_Channels_A_History_and_Fo.pdf",
             "span_hash": "8f54b2e41651d984732570b02c5c40359ae97a9435098e6e46150b747e3beccf",
-            "retrieved_at": "2026-04-30T21:35:22.247Z"
+            "retrieved_at": "2026-05-01T21:21:37.439Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:22.247Z"
+          "scored_at": "2026-05-01T21:21:37.439Z"
         },
-        "produced_at": "2026-04-30T21:35:22.247Z"
+        "produced_at": "2026-05-01T21:21:37.439Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.247Z"
+        "checked_at": "2026-05-01T21:21:37.439Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.247Z"
+        "checked_at": "2026-05-01T21:21:37.440Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:22.247Z"
+        "checked_at": "2026-05-01T21:21:37.440Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:22.248Z"
+      "computed_at": "2026-05-01T21:21:37.440Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:22.248Z",
+        "signed_at": "2026-05-01T21:21:37.440Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:22.248Z",
-        "completion_hash": "f7f5de197cda4737e009801b55821654098e13bcd1865a76ef29f521ab9bdf5a"
+        "signed_at": "2026-05-01T21:21:37.440Z",
+        "completion_hash": "195b1fe6f6c5960140be29d684dcd2fa210c2cd5bacb1fe8f342a2c264abeb10"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "f6ae9198c97b14887034bcfc3dbc3167219e573997c501540924a6465838110f"
+    "this_hash": "0e9e4513363f2d98b5e52105ff0a86b376152184ac7facf71540bcf4a2fc8e7f"
   },
   "chain_valid": true
 }

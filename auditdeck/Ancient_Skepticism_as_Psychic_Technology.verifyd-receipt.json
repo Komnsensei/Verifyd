@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "6a9f3b52-4d24-4fa3-88af-0240a573ff6b",
+      "session_id": "a3d5f9d0-570c-4d3e-b168-eaf649c667d5",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:16.488Z",
+      "started_at": "2026-05-01T21:21:31.952Z",
       "ended_at": null,
-      "session_hash": "04104f0d3f80838cb439ba0b5324adb087fd1837464506c46f73b1070e52481d"
+      "session_hash": "9c759b30c0809d02b36665e067645af54d6d980e62bd4875da2f32c36918d10c"
     },
     "output": {
-      "output_id": "09d14715-446a-4ba8-9f49-6343ef635e67",
-      "session_id": "6a9f3b52-4d24-4fa3-88af-0240a573ff6b",
+      "output_id": "006e1bd3-3d63-455c-a2a6-cb7e4ef003e0",
+      "session_id": "a3d5f9d0-570c-4d3e-b168-eaf649c667d5",
       "content_hash": "845f220fbdab2d8a11e48e04674586c55e7c1472cabe8d197417dbd2e8cdabdd",
       "content_summary": "Audit of \"Ancient Skepticism as Psychic\". Ancient Skepticism as Psychic\r\nTe c h n o l o g y\r\n\r\nANCIENT SKEPTICISM AS PSYCHIC\r\nTECHNOLOGY\r\n\r\nEpoch�, Ataraxia, and the Practice of Non-Identity\r\n\r\nEA-NH-",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "4d8ba276",
           "uri": "https://doi.org/10.5281/zenodo.18320411;",
           "span_hash": "839dd759ec07c535365d7664a3a65e16ec3126fd119f79c6ce74f421f3f5cdd1",
-          "retrieved_at": "2026-04-30T21:35:16.490Z",
+          "retrieved_at": "2026-05-01T21:21:31.954Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "9187d897",
+          "anchor_id": "9163f347",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Ancient_Skepticism_as_Psychic_Technology.pdf",
           "span_hash": "839dd759ec07c535365d7664a3a65e16ec3126fd119f79c6ce74f421f3f5cdd1",
-          "retrieved_at": "2026-04-30T21:35:16.490Z"
+          "retrieved_at": "2026-05-01T21:21:31.954Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:16.490Z"
+        "scored_at": "2026-05-01T21:21:31.954Z"
       },
-      "produced_at": "2026-04-30T21:35:16.490Z"
+      "produced_at": "2026-05-01T21:21:31.954Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:16.491Z"
+        "checked_at": "2026-05-01T21:21:31.955Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:16.491Z"
+        "checked_at": "2026-05-01T21:21:31.955Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:16.491Z"
+        "checked_at": "2026-05-01T21:21:31.955Z"
       }
     ],
     "trust_score": {
@@ -167,18 +167,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:16.491Z"
+      "computed_at": "2026-05-01T21:21:31.956Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:16.492Z",
+        "signed_at": "2026-05-01T21:21:31.956Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:16.492Z",
-        "completion_hash": "ab05ffcc5ef5f120a6ca94bf833227a098064db8dc0ebdfe0b25bf1ea8546066"
+        "signed_at": "2026-05-01T21:21:31.956Z",
+        "completion_hash": "94b13a7f08b5164c1633993e775fb3a8e4f1606b6d82f3637d4eca5565feffe6"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -188,19 +188,19 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "9c4bf56f-602f-46f0-bdf9-f21136b7152b",
+    "receipt_id": "3876eb83-0829-453b-96bc-2afa9291023a",
     "session": {
-      "session_id": "6a9f3b52-4d24-4fa3-88af-0240a573ff6b",
+      "session_id": "a3d5f9d0-570c-4d3e-b168-eaf649c667d5",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:16.488Z",
+      "started_at": "2026-05-01T21:21:31.952Z",
       "ended_at": null,
-      "session_hash": "04104f0d3f80838cb439ba0b5324adb087fd1837464506c46f73b1070e52481d"
+      "session_hash": "9c759b30c0809d02b36665e067645af54d6d980e62bd4875da2f32c36918d10c"
     },
     "outputs": [
       {
-        "output_id": "09d14715-446a-4ba8-9f49-6343ef635e67",
-        "session_id": "6a9f3b52-4d24-4fa3-88af-0240a573ff6b",
+        "output_id": "006e1bd3-3d63-455c-a2a6-cb7e4ef003e0",
+        "session_id": "a3d5f9d0-570c-4d3e-b168-eaf649c667d5",
         "content_hash": "845f220fbdab2d8a11e48e04674586c55e7c1472cabe8d197417dbd2e8cdabdd",
         "content_summary": "Audit of \"Ancient Skepticism as Psychic\". Ancient Skepticism as Psychic\r\nTe c h n o l o g y\r\n\r\nANCIENT SKEPTICISM AS PSYCHIC\r\nTECHNOLOGY\r\n\r\nEpoch�, Ataraxia, and the Practice of Non-Identity\r\n\r\nEA-NH-",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "4d8ba276",
             "uri": "https://doi.org/10.5281/zenodo.18320411;",
             "span_hash": "839dd759ec07c535365d7664a3a65e16ec3126fd119f79c6ce74f421f3f5cdd1",
-            "retrieved_at": "2026-04-30T21:35:16.490Z",
+            "retrieved_at": "2026-05-01T21:21:31.954Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "9187d897",
+            "anchor_id": "9163f347",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Ancient_Skepticism_as_Psychic_Technology.pdf",
             "span_hash": "839dd759ec07c535365d7664a3a65e16ec3126fd119f79c6ce74f421f3f5cdd1",
-            "retrieved_at": "2026-04-30T21:35:16.490Z"
+            "retrieved_at": "2026-05-01T21:21:31.954Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:16.490Z"
+          "scored_at": "2026-05-01T21:21:31.954Z"
         },
-        "produced_at": "2026-04-30T21:35:16.490Z"
+        "produced_at": "2026-05-01T21:21:31.954Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:16.491Z"
+        "checked_at": "2026-05-01T21:21:31.955Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:16.491Z"
+        "checked_at": "2026-05-01T21:21:31.955Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:16.491Z"
+        "checked_at": "2026-05-01T21:21:31.955Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:16.491Z"
+      "computed_at": "2026-05-01T21:21:31.956Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:16.492Z",
+        "signed_at": "2026-05-01T21:21:31.956Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:16.492Z",
-        "completion_hash": "ab05ffcc5ef5f120a6ca94bf833227a098064db8dc0ebdfe0b25bf1ea8546066"
+        "signed_at": "2026-05-01T21:21:31.956Z",
+        "completion_hash": "94b13a7f08b5164c1633993e775fb3a8e4f1606b6d82f3637d4eca5565feffe6"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "12f38d80181b502c36a987ceeaa18dfe0439c341fca8e3e2149df56947240cd2"
+    "this_hash": "cd1b751e601e806ad7f6610bdc1bd6c5a887b7e93a54da1bd7dc50cacafa1373"
   },
   "chain_valid": true
 }

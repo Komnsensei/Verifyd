@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "f12aba28-ea52-49c7-975f-0a0bf36fddb1",
+      "session_id": "cb1fddc1-66c2-48ac-a5dc-3dc357f7a91b",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:21.427Z",
+      "started_at": "2026-05-01T21:21:36.694Z",
       "ended_at": null,
-      "session_hash": "2adf9f72c267e7e013edf211633743cf95997f200cbb2e165aa0a57ba19d2792"
+      "session_hash": "a6d9b27a2abf3d3f6a01dcba44f0a7a1074c637edd7b976a7b27c14ac93bbdc0"
     },
     "output": {
-      "output_id": "0d2422fe-2a0b-4864-995d-bb1e48394237",
-      "session_id": "f12aba28-ea52-49c7-975f-0a0bf36fddb1",
+      "output_id": "9cb2b23e-4a96-4f5c-8d9f-19ae8e272513",
+      "session_id": "cb1fddc1-66c2-48ac-a5dc-3dc357f7a91b",
       "content_hash": "dbc1f516907398b0b355037ca45db3a1ac2912fa5e16b80d45710088ea7e0a81",
       "content_summary": "Audit of \"Semantic Alienation and the\".                  Semantic Alienation and the\r\n             Formation of Class Consciousness\r\n\r\n                               SPE-014 � Semantic Economy Working",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "777d40b8",
           "uri": "https://doi.org/10.5281/zenodo.19200688",
           "span_hash": "1e8c89cf01bd3bf70bf714c467ad8a0fdd33d746d768b327115effe2406c4e13",
-          "retrieved_at": "2026-04-30T21:35:21.428Z",
+          "retrieved_at": "2026-05-01T21:21:36.696Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "494fb467",
+          "anchor_id": "f5efe532",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Semantic_Alienation_and_the_Formation_of.pdf",
           "span_hash": "1e8c89cf01bd3bf70bf714c467ad8a0fdd33d746d768b327115effe2406c4e13",
-          "retrieved_at": "2026-04-30T21:35:21.428Z"
+          "retrieved_at": "2026-05-01T21:21:36.696Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:21.428Z"
+        "scored_at": "2026-05-01T21:21:36.696Z"
       },
-      "produced_at": "2026-04-30T21:35:21.428Z"
+      "produced_at": "2026-05-01T21:21:36.696Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:21.429Z"
+        "checked_at": "2026-05-01T21:21:36.697Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:21.429Z"
+        "checked_at": "2026-05-01T21:21:36.697Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:21.429Z"
+        "checked_at": "2026-05-01T21:21:36.697Z"
       }
     ],
     "trust_score": {
@@ -167,18 +167,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:21.429Z"
+      "computed_at": "2026-05-01T21:21:36.698Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:21.430Z",
+        "signed_at": "2026-05-01T21:21:36.698Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:21.430Z",
-        "completion_hash": "8e628bdfc41a5d99ba38ce7f5226e05bf118a44005a1293baefb4d5095f79e93"
+        "signed_at": "2026-05-01T21:21:36.698Z",
+        "completion_hash": "0db392f5d496c4e9db030df7258a9238940fe8bda354b10c12308df0701d77ee"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -188,19 +188,19 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "74f7b34b-55a5-473a-868a-42cd4357be51",
+    "receipt_id": "369a4832-504c-4223-8fcf-904aa3feb1ad",
     "session": {
-      "session_id": "f12aba28-ea52-49c7-975f-0a0bf36fddb1",
+      "session_id": "cb1fddc1-66c2-48ac-a5dc-3dc357f7a91b",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:21.427Z",
+      "started_at": "2026-05-01T21:21:36.694Z",
       "ended_at": null,
-      "session_hash": "2adf9f72c267e7e013edf211633743cf95997f200cbb2e165aa0a57ba19d2792"
+      "session_hash": "a6d9b27a2abf3d3f6a01dcba44f0a7a1074c637edd7b976a7b27c14ac93bbdc0"
     },
     "outputs": [
       {
-        "output_id": "0d2422fe-2a0b-4864-995d-bb1e48394237",
-        "session_id": "f12aba28-ea52-49c7-975f-0a0bf36fddb1",
+        "output_id": "9cb2b23e-4a96-4f5c-8d9f-19ae8e272513",
+        "session_id": "cb1fddc1-66c2-48ac-a5dc-3dc357f7a91b",
         "content_hash": "dbc1f516907398b0b355037ca45db3a1ac2912fa5e16b80d45710088ea7e0a81",
         "content_summary": "Audit of \"Semantic Alienation and the\".                  Semantic Alienation and the\r\n             Formation of Class Consciousness\r\n\r\n                               SPE-014 � Semantic Economy Working",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "777d40b8",
             "uri": "https://doi.org/10.5281/zenodo.19200688",
             "span_hash": "1e8c89cf01bd3bf70bf714c467ad8a0fdd33d746d768b327115effe2406c4e13",
-            "retrieved_at": "2026-04-30T21:35:21.428Z",
+            "retrieved_at": "2026-05-01T21:21:36.696Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "494fb467",
+            "anchor_id": "f5efe532",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Semantic_Alienation_and_the_Formation_of.pdf",
             "span_hash": "1e8c89cf01bd3bf70bf714c467ad8a0fdd33d746d768b327115effe2406c4e13",
-            "retrieved_at": "2026-04-30T21:35:21.428Z"
+            "retrieved_at": "2026-05-01T21:21:36.696Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:21.428Z"
+          "scored_at": "2026-05-01T21:21:36.696Z"
         },
-        "produced_at": "2026-04-30T21:35:21.428Z"
+        "produced_at": "2026-05-01T21:21:36.696Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:21.429Z"
+        "checked_at": "2026-05-01T21:21:36.697Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:21.429Z"
+        "checked_at": "2026-05-01T21:21:36.697Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:21.429Z"
+        "checked_at": "2026-05-01T21:21:36.697Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:21.429Z"
+      "computed_at": "2026-05-01T21:21:36.698Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:21.430Z",
+        "signed_at": "2026-05-01T21:21:36.698Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:21.430Z",
-        "completion_hash": "8e628bdfc41a5d99ba38ce7f5226e05bf118a44005a1293baefb4d5095f79e93"
+        "signed_at": "2026-05-01T21:21:36.698Z",
+        "completion_hash": "0db392f5d496c4e9db030df7258a9238940fe8bda354b10c12308df0701d77ee"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "e57a4de03199b07ee7340bcc294e8ec94d23a36e8d6e7d41f0037dd16d2c5b54"
+    "this_hash": "01354b32e14fa133876ced21da2ed6e278fbad5496d2523fc49891409fdb7b32"
   },
   "chain_valid": true
 }

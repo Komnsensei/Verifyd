@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "3dbc5720-8752-4734-9974-06be323af750",
+      "session_id": "caf718b4-2ea0-44d6-9811-8e861514087e",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:24.784Z",
+      "started_at": "2026-05-01T21:21:39.987Z",
       "ended_at": null,
-      "session_hash": "2225c334efd4ef5e14d4d3cf389cdeeb84aff584b160e12dd5aa7e9d05652aa1"
+      "session_hash": "0ed257f7e341fc074f52b56fd48ce70e3f37b088357cc57567058e8e53347dce"
     },
     "output": {
-      "output_id": "f14f4c22-4c80-48c0-a7c4-b694cb46f72f",
-      "session_id": "3dbc5720-8752-4734-9974-06be323af750",
+      "output_id": "242c20c5-8815-4223-93d9-fcccbea44760",
+      "session_id": "caf718b4-2ea0-44d6-9811-8e861514087e",
       "content_hash": "4fdcd45ee557199ca0b6ec688253c2479b5b07ddf5bfe41f7aed3730aeff3921",
       "content_summary": "Audit of \"The Seed That Remembers the Tree: Retrocausal\".  The Seed That Remembers the Tree: Retrocausal\r\nCanon Formation -- Theory, Toolkit, and Archive of\r\n\r\n                              Techniques",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "f0be452f",
           "uri": "https://doi.org/10.5281/zenodo.19323274",
           "span_hash": "7044455653c2b03a1d76ce52a9b3fe292561cffb6a0cdf1dd60b1857c4b64542",
-          "retrieved_at": "2026-04-30T21:35:24.786Z",
+          "retrieved_at": "2026-05-01T21:21:39.989Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "6a135384",
+          "anchor_id": "bb825239",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/The_Seed_That_Remembers_the_Tree_Retroca.pdf",
           "span_hash": "7044455653c2b03a1d76ce52a9b3fe292561cffb6a0cdf1dd60b1857c4b64542",
-          "retrieved_at": "2026-04-30T21:35:24.786Z"
+          "retrieved_at": "2026-05-01T21:21:39.989Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:24.786Z"
+        "scored_at": "2026-05-01T21:21:39.989Z"
       },
-      "produced_at": "2026-04-30T21:35:24.786Z"
+      "produced_at": "2026-05-01T21:21:39.989Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.787Z"
+        "checked_at": "2026-05-01T21:21:39.990Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.787Z"
+        "checked_at": "2026-05-01T21:21:39.990Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.787Z"
+        "checked_at": "2026-05-01T21:21:39.990Z"
       }
     ],
     "trust_score": {
@@ -167,18 +167,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:24.787Z"
+      "computed_at": "2026-05-01T21:21:39.990Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:24.788Z",
+        "signed_at": "2026-05-01T21:21:39.991Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:24.788Z",
-        "completion_hash": "77bbaf8f7e071e1fa0563fd755dbaf9a2934ccbc7fbbda4e5afd5024724a1861"
+        "signed_at": "2026-05-01T21:21:39.991Z",
+        "completion_hash": "e727bc2468448fd1fc0cbbfcf147b07bbea8934e5389ddd575cc662dd1759ba8"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -188,19 +188,19 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "28cf1454-728e-454a-82a9-9adb5a4e3144",
+    "receipt_id": "60437128-41e0-47b9-80d1-443ab9422dbf",
     "session": {
-      "session_id": "3dbc5720-8752-4734-9974-06be323af750",
+      "session_id": "caf718b4-2ea0-44d6-9811-8e861514087e",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:24.784Z",
+      "started_at": "2026-05-01T21:21:39.987Z",
       "ended_at": null,
-      "session_hash": "2225c334efd4ef5e14d4d3cf389cdeeb84aff584b160e12dd5aa7e9d05652aa1"
+      "session_hash": "0ed257f7e341fc074f52b56fd48ce70e3f37b088357cc57567058e8e53347dce"
     },
     "outputs": [
       {
-        "output_id": "f14f4c22-4c80-48c0-a7c4-b694cb46f72f",
-        "session_id": "3dbc5720-8752-4734-9974-06be323af750",
+        "output_id": "242c20c5-8815-4223-93d9-fcccbea44760",
+        "session_id": "caf718b4-2ea0-44d6-9811-8e861514087e",
         "content_hash": "4fdcd45ee557199ca0b6ec688253c2479b5b07ddf5bfe41f7aed3730aeff3921",
         "content_summary": "Audit of \"The Seed That Remembers the Tree: Retrocausal\".  The Seed That Remembers the Tree: Retrocausal\r\nCanon Formation -- Theory, Toolkit, and Archive of\r\n\r\n                              Techniques",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "f0be452f",
             "uri": "https://doi.org/10.5281/zenodo.19323274",
             "span_hash": "7044455653c2b03a1d76ce52a9b3fe292561cffb6a0cdf1dd60b1857c4b64542",
-            "retrieved_at": "2026-04-30T21:35:24.786Z",
+            "retrieved_at": "2026-05-01T21:21:39.989Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "6a135384",
+            "anchor_id": "bb825239",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/The_Seed_That_Remembers_the_Tree_Retroca.pdf",
             "span_hash": "7044455653c2b03a1d76ce52a9b3fe292561cffb6a0cdf1dd60b1857c4b64542",
-            "retrieved_at": "2026-04-30T21:35:24.786Z"
+            "retrieved_at": "2026-05-01T21:21:39.989Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:24.786Z"
+          "scored_at": "2026-05-01T21:21:39.989Z"
         },
-        "produced_at": "2026-04-30T21:35:24.786Z"
+        "produced_at": "2026-05-01T21:21:39.989Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.787Z"
+        "checked_at": "2026-05-01T21:21:39.990Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.787Z"
+        "checked_at": "2026-05-01T21:21:39.990Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.787Z"
+        "checked_at": "2026-05-01T21:21:39.990Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:24.787Z"
+      "computed_at": "2026-05-01T21:21:39.990Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:24.788Z",
+        "signed_at": "2026-05-01T21:21:39.991Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:24.788Z",
-        "completion_hash": "77bbaf8f7e071e1fa0563fd755dbaf9a2934ccbc7fbbda4e5afd5024724a1861"
+        "signed_at": "2026-05-01T21:21:39.991Z",
+        "completion_hash": "e727bc2468448fd1fc0cbbfcf147b07bbea8934e5389ddd575cc662dd1759ba8"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "674799468c21626653a6ea2c37f41bc006774dba72f48f45a4be87b7362ef7ee"
+    "this_hash": "96e8c42e6b2f968ebba86c369482a17da3c3edbc67e5fc5ba825b9e751070b7e"
   },
   "chain_valid": true
 }

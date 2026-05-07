@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "94339b2c-69f3-48d8-8f12-afc4e8ea49bf",
+      "session_id": "8edf8c4d-9445-4619-9af4-b05802c6ea92",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:18.085Z",
+      "started_at": "2026-05-01T21:21:33.413Z",
       "ended_at": null,
-      "session_hash": "c6e5e3a72172e35d6ebc5650d95fd9ac1a18737f4d80acad7476383a18600401"
+      "session_hash": "b5d734d316fb8b401b3a0d15864d76327de0b6665bfb1e75c600e2c7e8592f8f"
     },
     "output": {
-      "output_id": "596602de-7ca1-4252-a78b-fe7e6f7afe15",
-      "session_id": "94339b2c-69f3-48d8-8f12-afc4e8ea49bf",
+      "output_id": "45347f54-e7e0-4f47-8f28-b054801f2aaa",
+      "session_id": "8edf8c4d-9445-4619-9af4-b05802c6ea92",
       "content_hash": "84deac0c1aed0f342b04115e5a16ff847c79fbcf909771f46ea81e881b3ad9ab",
       "content_summary": "Audit of \"Combat Scholasticism\".             Combat Scholasticism\r\n\r\n  A Commentary Tradition for the Crimson Hexagonal Archive\r\n\r\n                                                 Critical Gathered Ed",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "dea2f186",
           "uri": "https://doi.org/10.5281/zenodo.19116151",
           "span_hash": "d8848feb4ef46e819bd572074ad84a038c5813ec934031e45e8822502d73c159",
-          "retrieved_at": "2026-04-30T21:35:18.088Z",
+          "retrieved_at": "2026-05-01T21:21:33.417Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "6c9511ef",
+          "anchor_id": "ec2d3af8",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Combat_Scholasticism_A_Commentary_Tradit.pdf",
           "span_hash": "d8848feb4ef46e819bd572074ad84a038c5813ec934031e45e8822502d73c159",
-          "retrieved_at": "2026-04-30T21:35:18.089Z"
+          "retrieved_at": "2026-05-01T21:21:33.418Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:18.089Z"
+        "scored_at": "2026-05-01T21:21:33.418Z"
       },
-      "produced_at": "2026-04-30T21:35:18.089Z"
+      "produced_at": "2026-05-01T21:21:33.418Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:18.089Z"
+        "checked_at": "2026-05-01T21:21:33.418Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:18.089Z"
+        "checked_at": "2026-05-01T21:21:33.418Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:18.089Z"
+        "checked_at": "2026-05-01T21:21:33.419Z"
       }
     ],
     "trust_score": {
@@ -167,40 +167,40 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:18.090Z"
+      "computed_at": "2026-05-01T21:21:33.419Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:18.091Z",
+        "signed_at": "2026-05-01T21:21:33.420Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:18.091Z",
-        "completion_hash": "1c760cf066d72a5d5077a138c503f413233ac206daad52c9ad7c0e55b5d1c3ee"
+        "signed_at": "2026-05-01T21:21:33.420Z",
+        "completion_hash": "658e94509a7bfe3e7c80b25641cbcf8121fe7173ef30556c6488ed18cf1d35e9"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "lattice_status": "RATIFIED",
-    "persistence": 3.99999760000072
+    "persistence": 3.99999720000098
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "5006b378-2473-4ebd-ae3d-b1498e7fc0f0",
+    "receipt_id": "1699e7a8-09a0-438f-96b4-1582357b17ab",
     "session": {
-      "session_id": "94339b2c-69f3-48d8-8f12-afc4e8ea49bf",
+      "session_id": "8edf8c4d-9445-4619-9af4-b05802c6ea92",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:18.085Z",
+      "started_at": "2026-05-01T21:21:33.413Z",
       "ended_at": null,
-      "session_hash": "c6e5e3a72172e35d6ebc5650d95fd9ac1a18737f4d80acad7476383a18600401"
+      "session_hash": "b5d734d316fb8b401b3a0d15864d76327de0b6665bfb1e75c600e2c7e8592f8f"
     },
     "outputs": [
       {
-        "output_id": "596602de-7ca1-4252-a78b-fe7e6f7afe15",
-        "session_id": "94339b2c-69f3-48d8-8f12-afc4e8ea49bf",
+        "output_id": "45347f54-e7e0-4f47-8f28-b054801f2aaa",
+        "session_id": "8edf8c4d-9445-4619-9af4-b05802c6ea92",
         "content_hash": "84deac0c1aed0f342b04115e5a16ff847c79fbcf909771f46ea81e881b3ad9ab",
         "content_summary": "Audit of \"Combat Scholasticism\".             Combat Scholasticism\r\n\r\n  A Commentary Tradition for the Crimson Hexagonal Archive\r\n\r\n                                                 Critical Gathered Ed",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "dea2f186",
             "uri": "https://doi.org/10.5281/zenodo.19116151",
             "span_hash": "d8848feb4ef46e819bd572074ad84a038c5813ec934031e45e8822502d73c159",
-            "retrieved_at": "2026-04-30T21:35:18.088Z",
+            "retrieved_at": "2026-05-01T21:21:33.417Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "6c9511ef",
+            "anchor_id": "ec2d3af8",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Combat_Scholasticism_A_Commentary_Tradit.pdf",
             "span_hash": "d8848feb4ef46e819bd572074ad84a038c5813ec934031e45e8822502d73c159",
-            "retrieved_at": "2026-04-30T21:35:18.089Z"
+            "retrieved_at": "2026-05-01T21:21:33.418Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:18.089Z"
+          "scored_at": "2026-05-01T21:21:33.418Z"
         },
-        "produced_at": "2026-04-30T21:35:18.089Z"
+        "produced_at": "2026-05-01T21:21:33.418Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:18.089Z"
+        "checked_at": "2026-05-01T21:21:33.418Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:18.089Z"
+        "checked_at": "2026-05-01T21:21:33.418Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:18.089Z"
+        "checked_at": "2026-05-01T21:21:33.419Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:18.090Z"
+      "computed_at": "2026-05-01T21:21:33.419Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:18.091Z",
+        "signed_at": "2026-05-01T21:21:33.420Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:18.091Z",
-        "completion_hash": "1c760cf066d72a5d5077a138c503f413233ac206daad52c9ad7c0e55b5d1c3ee"
+        "signed_at": "2026-05-01T21:21:33.420Z",
+        "completion_hash": "658e94509a7bfe3e7c80b25641cbcf8121fe7173ef30556c6488ed18cf1d35e9"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "b992f02cee44fb332586f5850a4cdc65cd65bd0ab65b88e2cdc2d24c81ab7a7e"
+    "this_hash": "53c9736e4b1721bb76d1a9dbae6a14a3b7ae8b11801d25b284ddb98e504171d8"
   },
   "chain_valid": true
 }

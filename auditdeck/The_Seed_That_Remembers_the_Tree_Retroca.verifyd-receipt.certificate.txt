@@ -23,28 +23,28 @@ DOCUMENT
 ------------------------------------------------------------------------
 AUDIT SESSION
 ------------------------------------------------------------------------
-  Session ID:     3dbc5720-8752-4734-9974-06be323af750
+  Session ID:     caf718b4-2ea0-44d6-9811-8e861514087e
   Auditor:        auditor-cli
   Agent:          verifyd-cli@1.0
-  Started:        2026-04-30T21:35:24.784Z
-  Session hash:   2225c334efd4ef5e14d4d3cf389cdeeb84aff584b160e12dd5aa7e9d05652aa1
+  Started:        2026-05-01T21:21:39.987Z
+  Session hash:   0ed257f7e341fc074f52b56fd48ce70e3f37b088357cc57567058e8e53347dce
 
 ------------------------------------------------------------------------
 SOURCE ANCHORS
 ------------------------------------------------------------------------
   [1] https://doi.org/10.5281/zenodo.19323274
       anchor_id: f0be452f
-      retrieved: 2026-04-30T21:35:24.786Z
+      retrieved: 2026-05-01T21:21:39.989Z
   [2] file://C:/Users/lynnh/verifyd-ship/auditdeck/The_Seed_That_Remembers_the_Tree_Retroca.pdf
-      anchor_id: 6a135384
-      retrieved: 2026-04-30T21:35:24.786Z
+      anchor_id: bb825239
+      retrieved: 2026-05-01T21:21:39.989Z
 
 ------------------------------------------------------------------------
 CONFIDENCE
 ------------------------------------------------------------------------
   Value:          0.78
   Decay:          exponential, half-life 60 days
-  Scored at:      2026-04-30T21:35:24.786Z
+  Scored at:      2026-05-01T21:21:39.989Z
 
 ------------------------------------------------------------------------
 POLICY CHECKS  (each with citation grounds)
@@ -142,17 +142,17 @@ RATIFICATION
   Method:         cli-attestation
   Human party:    auditor-cli
   Agent party:    verifyd-cli@1.0
-  Signed at:      2026-04-30T21:35:24.788Z
+  Signed at:      2026-05-01T21:21:39.991Z
   Policy passed:  true
   Trust at seal:  95 / 100
 
 ------------------------------------------------------------------------
 AUDIT RECEIPT (VALF-1)
 ------------------------------------------------------------------------
-  Receipt ID:     28cf1454-728e-454a-82a9-9adb5a4e3144
+  Receipt ID:     60437128-41e0-47b9-80d1-443ab9422dbf
   VALF version:   1.0
   prev_hash:      GENESIS
-  this_hash:      674799468c21626653a6ea2c37f41bc006774dba72f48f45a4be87b7362ef7ee
+  this_hash:      96e8c42e6b2f968ebba86c369482a17da3c3edbc67e5fc5ba825b9e751070b7e
   Chain valid:    true
 
   Receipt format grounded in:
@@ -229,6 +229,6 @@ VERIFICATION
   No network required. No central server. Pure protocol.
 
 ========================================================================
-  Generated: 2026-04-30T21:35:24.925Z
+  Generated: 2026-05-01T21:21:40.135Z
   Engine:    Verifyd v1.0  (VALF-1) with citations registry v1.0
 ========================================================================

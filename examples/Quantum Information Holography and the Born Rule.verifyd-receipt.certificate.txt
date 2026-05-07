@@ -14,33 +14,33 @@ international standard or regulation it satisfies.
 ------------------------------------------------------------------------
 DOCUMENT
 ------------------------------------------------------------------------
-  File:           THE_RECURSIVE_HARMONIC_CODEX_A_Unified_F.pdf
-  Title:          The Recursive Harmonic Codex: A
-  Word count:     3,093
-  Content SHA256: c6447e56de75f54670432e3572e775e0f39dbfd7e12615fa2111203fdcff8ba7
+  File:           Quantum Information Holography and the Born Rule.pdf
+  Title:          Quantum Information Holography and the
+  Word count:     22,886
+  Content SHA256: 72ad72fc235e2f6fb883f98602c5ed072ebddb236b868e521a5e946660d769f9
 
 ------------------------------------------------------------------------
 AUDIT SESSION
 ------------------------------------------------------------------------
-  Session ID:     a2c52089-a598-4219-987a-668c2eb2d554
+  Session ID:     e0416cc1-2a7d-4cc3-b666-8d67c3c6f999
   Auditor:        auditor-cli
   Agent:          verifyd-cli@1.0
-  Started:        2026-05-01T21:21:38.483Z
-  Session hash:   4170d3b7519d9fc646ae88f8cd220eda51cb726a716ff3538de3e4155c298f93
+  Started:        2026-04-30T21:22:53.842Z
+  Session hash:   ea2458085d2a24639e997ad44984e2b7c0ebc2b472984314c9e20042a571ba8d
 
 ------------------------------------------------------------------------
 SOURCE ANCHORS
 ------------------------------------------------------------------------
-  [1] file://C:/Users/lynnh/verifyd-ship/auditdeck/THE_RECURSIVE_HARMONIC_CODEX_A_Unified_F.pdf
-      anchor_id: 5dd5e1db
-      retrieved: 2026-05-01T21:21:38.485Z
+  [1] file://C:/Users/lynnh/verifyd-ship/Quantum Information Holography and the Born Rule.pdf
+      anchor_id: df6b94d5
+      retrieved: 2026-04-30T21:22:53.844Z
 
 ------------------------------------------------------------------------
 CONFIDENCE
 ------------------------------------------------------------------------
   Value:          0.78
   Decay:          exponential, half-life 60 days
-  Scored at:      2026-05-01T21:21:38.485Z
+  Scored at:      2026-04-30T21:22:53.844Z
 
 ------------------------------------------------------------------------
 POLICY CHECKS  (each with citation grounds)
@@ -138,17 +138,17 @@ RATIFICATION
   Method:         cli-attestation
   Human party:    auditor-cli
   Agent party:    verifyd-cli@1.0
-  Signed at:      2026-05-01T21:21:38.487Z
+  Signed at:      2026-04-30T21:22:53.846Z
   Policy passed:  true
   Trust at seal:  95 / 100
 
 ------------------------------------------------------------------------
 AUDIT RECEIPT (VALF-1)
 ------------------------------------------------------------------------
-  Receipt ID:     7f2730fa-5986-4dcd-89fa-72458c17bd67
+  Receipt ID:     15c5e3f2-9215-473e-9210-923c6256c29c
   VALF version:   1.0
   prev_hash:      GENESIS
-  this_hash:      7b494afb404bbca7eecce54d42e091efac6d013561f6a3ea4306dcf4c7dbf5e6
+  this_hash:      ee51fff3ea9cd4cd234d3d6d9a48127da6723aa13943daa9d4588471951fc421
   Chain valid:    true
 
   Receipt format grounded in:
@@ -219,12 +219,12 @@ VERIFICATION
 ------------------------------------------------------------------------
   To independently verify this audit, run:
 
-    verifyd verify "THE_RECURSIVE_HARMONIC_CODEX_A_Unified_F.verifyd-receipt.json"
+    verifyd verify "Quantum Information Holography and the Born Rule.verifyd-receipt.json"
 
   Result will be VALID (all hashes recompute) or TAMPERED.
   No network required. No central server. Pure protocol.
 
 ========================================================================
-  Generated: 2026-05-01T21:21:38.626Z
+  Generated: 2026-04-30T21:23:38.805Z
   Engine:    Verifyd v1.0  (VALF-1) with citations registry v1.0
 ========================================================================

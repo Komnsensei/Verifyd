@@ -11,33 +11,33 @@
   },
   "audit": {
     "session": {
-      "session_id": "26370d14-1120-4d93-9897-a34438c2822e",
+      "session_id": "96498ab4-6ee7-4ae0-87b6-e190c0468f52",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:19.859Z",
+      "started_at": "2026-05-01T21:21:35.255Z",
       "ended_at": null,
-      "session_hash": "04a85909b34167760193812f71129a453afe4829b174f9e1e697838253fa7838"
+      "session_hash": "64248b559c5a19e6582c79716a37b9a97cbf4dde86c6d27aa20d360a40b4715e"
     },
     "output": {
-      "output_id": "d41c14b6-d9e0-4b95-8492-689373eb5d05",
-      "session_id": "26370d14-1120-4d93-9897-a34438c2822e",
+      "output_id": "bd203a34-c212-4c41-bd0f-81e9772111c0",
+      "session_id": "96498ab4-6ee7-4ae0-87b6-e190c0468f52",
       "content_hash": "e4eb72d9f237b95bb91635e49b8dafae521f7ad48af0b69ed764ce33fa3cdba3",
       "content_summary": "Audit of \"MAGIC AS SYMBOLIC ENGINEERING\". MAGIC AS SYMBOLIC ENGINEERING\r\n\r\nFormal Definition and Operative Grammar for a New Dis-\r\ncipline\r\n\r\nJohannes Sigil1\r\nInstitute for Comparative Poetics, Crimso",
       "source_anchors": [
         {
-          "anchor_id": "4d2bb32a",
+          "anchor_id": "686fb6ae",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/MAGIC_AS_SYMBOLIC_ENGINEERING_Formal_Def.pdf",
           "span_hash": "6e8bc755d281dcde17c61e261d9979c5506b1200acab7aaedfc5222a4aedbeec",
-          "retrieved_at": "2026-04-30T21:35:19.861Z"
+          "retrieved_at": "2026-05-01T21:21:35.257Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:19.861Z"
+        "scored_at": "2026-05-01T21:21:35.257Z"
       },
-      "produced_at": "2026-04-30T21:35:19.861Z"
+      "produced_at": "2026-05-01T21:21:35.257Z"
     },
     "policy_checks": [
       {
@@ -68,7 +68,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.861Z"
+        "checked_at": "2026-05-01T21:21:35.258Z"
       },
       {
         "principle": "transparency",
@@ -105,7 +105,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.861Z"
+        "checked_at": "2026-05-01T21:21:35.258Z"
       },
       {
         "principle": "audit_trail",
@@ -149,7 +149,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.861Z"
+        "checked_at": "2026-05-01T21:21:35.258Z"
       }
     ],
     "trust_score": {
@@ -160,57 +160,57 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:19.862Z"
+      "computed_at": "2026-05-01T21:21:35.258Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:19.863Z",
+        "signed_at": "2026-05-01T21:21:35.259Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:19.863Z",
-        "completion_hash": "3539f4db6e34230b5c391766c47fc477d8a10e8417c392549cf7c17095904f80"
+        "signed_at": "2026-05-01T21:21:35.259Z",
+        "completion_hash": "ff81fc68d5f1cf858315017bae4fb1ee7a73f5713bef76e98dc27bd88921d23f"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "lattice_status": "RATIFIED",
-    "persistence": 3.99999880000018
+    "persistence": 3.99999960000002
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "723ae350-1604-46e6-885c-441fa41e9be5",
+    "receipt_id": "5d2c2977-a46e-4422-83a1-ffd2618efaaf",
     "session": {
-      "session_id": "26370d14-1120-4d93-9897-a34438c2822e",
+      "session_id": "96498ab4-6ee7-4ae0-87b6-e190c0468f52",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:19.859Z",
+      "started_at": "2026-05-01T21:21:35.255Z",
       "ended_at": null,
-      "session_hash": "04a85909b34167760193812f71129a453afe4829b174f9e1e697838253fa7838"
+      "session_hash": "64248b559c5a19e6582c79716a37b9a97cbf4dde86c6d27aa20d360a40b4715e"
     },
     "outputs": [
       {
-        "output_id": "d41c14b6-d9e0-4b95-8492-689373eb5d05",
-        "session_id": "26370d14-1120-4d93-9897-a34438c2822e",
+        "output_id": "bd203a34-c212-4c41-bd0f-81e9772111c0",
+        "session_id": "96498ab4-6ee7-4ae0-87b6-e190c0468f52",
         "content_hash": "e4eb72d9f237b95bb91635e49b8dafae521f7ad48af0b69ed764ce33fa3cdba3",
         "content_summary": "Audit of \"MAGIC AS SYMBOLIC ENGINEERING\". MAGIC AS SYMBOLIC ENGINEERING\r\n\r\nFormal Definition and Operative Grammar for a New Dis-\r\ncipline\r\n\r\nJohannes Sigil1\r\nInstitute for Comparative Poetics, Crimso",
         "source_anchors": [
           {
-            "anchor_id": "4d2bb32a",
+            "anchor_id": "686fb6ae",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/MAGIC_AS_SYMBOLIC_ENGINEERING_Formal_Def.pdf",
             "span_hash": "6e8bc755d281dcde17c61e261d9979c5506b1200acab7aaedfc5222a4aedbeec",
-            "retrieved_at": "2026-04-30T21:35:19.861Z"
+            "retrieved_at": "2026-05-01T21:21:35.257Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:19.861Z"
+          "scored_at": "2026-05-01T21:21:35.257Z"
         },
-        "produced_at": "2026-04-30T21:35:19.861Z"
+        "produced_at": "2026-05-01T21:21:35.257Z"
       }
     ],
     "policy_checks": [
@@ -242,7 +242,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.861Z"
+        "checked_at": "2026-05-01T21:21:35.258Z"
       },
       {
         "principle": "transparency",
@@ -279,7 +279,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.861Z"
+        "checked_at": "2026-05-01T21:21:35.258Z"
       },
       {
         "principle": "audit_trail",
@@ -323,7 +323,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.861Z"
+        "checked_at": "2026-05-01T21:21:35.258Z"
       }
     ],
     "trust_score": {
@@ -334,25 +334,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:19.862Z"
+      "computed_at": "2026-05-01T21:21:35.258Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:19.863Z",
+        "signed_at": "2026-05-01T21:21:35.259Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:19.863Z",
-        "completion_hash": "3539f4db6e34230b5c391766c47fc477d8a10e8417c392549cf7c17095904f80"
+        "signed_at": "2026-05-01T21:21:35.259Z",
+        "completion_hash": "ff81fc68d5f1cf858315017bae4fb1ee7a73f5713bef76e98dc27bd88921d23f"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "48a3d5ed498cc4a2e564fe561831a0656d0bcba6e4aafe765b4b48c28f5be660"
+    "this_hash": "0a1edc04f4c6a4d600d794237f9b0c034ab51537572ea8acff1ffd56aab23c83"
   },
   "chain_valid": true
 }

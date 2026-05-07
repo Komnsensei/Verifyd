@@ -23,28 +23,28 @@ DOCUMENT
 ------------------------------------------------------------------------
 AUDIT SESSION
 ------------------------------------------------------------------------
-  Session ID:     6a9f3b52-4d24-4fa3-88af-0240a573ff6b
+  Session ID:     a3d5f9d0-570c-4d3e-b168-eaf649c667d5
   Auditor:        auditor-cli
   Agent:          verifyd-cli@1.0
-  Started:        2026-04-30T21:35:16.488Z
-  Session hash:   04104f0d3f80838cb439ba0b5324adb087fd1837464506c46f73b1070e52481d
+  Started:        2026-05-01T21:21:31.952Z
+  Session hash:   9c759b30c0809d02b36665e067645af54d6d980e62bd4875da2f32c36918d10c
 
 ------------------------------------------------------------------------
 SOURCE ANCHORS
 ------------------------------------------------------------------------
   [1] https://doi.org/10.5281/zenodo.18320411;
       anchor_id: 4d8ba276
-      retrieved: 2026-04-30T21:35:16.490Z
+      retrieved: 2026-05-01T21:21:31.954Z
   [2] file://C:/Users/lynnh/verifyd-ship/auditdeck/Ancient_Skepticism_as_Psychic_Technology.pdf
-      anchor_id: 9187d897
-      retrieved: 2026-04-30T21:35:16.490Z
+      anchor_id: 9163f347
+      retrieved: 2026-05-01T21:21:31.954Z
 
 ------------------------------------------------------------------------
 CONFIDENCE
 ------------------------------------------------------------------------
   Value:          0.78
   Decay:          exponential, half-life 60 days
-  Scored at:      2026-04-30T21:35:16.490Z
+  Scored at:      2026-05-01T21:21:31.954Z
 
 ------------------------------------------------------------------------
 POLICY CHECKS  (each with citation grounds)
@@ -142,17 +142,17 @@ RATIFICATION
   Method:         cli-attestation
   Human party:    auditor-cli
   Agent party:    verifyd-cli@1.0
-  Signed at:      2026-04-30T21:35:16.492Z
+  Signed at:      2026-05-01T21:21:31.956Z
   Policy passed:  true
   Trust at seal:  95 / 100
 
 ------------------------------------------------------------------------
 AUDIT RECEIPT (VALF-1)
 ------------------------------------------------------------------------
-  Receipt ID:     9c4bf56f-602f-46f0-bdf9-f21136b7152b
+  Receipt ID:     3876eb83-0829-453b-96bc-2afa9291023a
   VALF version:   1.0
   prev_hash:      GENESIS
-  this_hash:      12f38d80181b502c36a987ceeaa18dfe0439c341fca8e3e2149df56947240cd2
+  this_hash:      cd1b751e601e806ad7f6610bdc1bd6c5a887b7e93a54da1bd7dc50cacafa1373
   Chain valid:    true
 
   Receipt format grounded in:
@@ -229,6 +229,6 @@ VERIFICATION
   No network required. No central server. Pure protocol.
 
 ========================================================================
-  Generated: 2026-04-30T21:35:16.628Z
+  Generated: 2026-05-01T21:21:32.150Z
   Engine:    Verifyd v1.0  (VALF-1) with citations registry v1.0
 ========================================================================

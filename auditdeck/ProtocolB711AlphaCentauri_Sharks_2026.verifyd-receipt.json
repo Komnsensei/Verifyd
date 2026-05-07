@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "8c87231f-23d2-4bac-8331-77456410c344",
+      "session_id": "23847e46-27f0-4764-8aee-b4ddba7c125b",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:20.646Z",
+      "started_at": "2026-05-01T21:21:35.932Z",
       "ended_at": null,
-      "session_hash": "5a8c453c05bb90d3cf65456c22364e606d7d890ab5e567c240d31bcd2c00b447"
+      "session_hash": "35a586b57720330fd72ea11ca616ebeb0f78c36dd86a3be1a1b8d61f293a1073"
     },
     "output": {
-      "output_id": "6a2c2a7b-7fca-4d5b-9d0c-14f3d53e9647",
-      "session_id": "8c87231f-23d2-4bac-8331-77456410c344",
+      "output_id": "b59493a5-0678-4afa-bdae-dfadd1f41e62",
+      "session_id": "23847e46-27f0-4764-8aee-b4ddba7c125b",
       "content_hash": "1a7abc76fd8bf33e24b392a0d5c7139bb8b697ebc32c2005ed7aa414798ae59f",
       "content_summary": "Audit of \"PROTOCOL B711 ALPHA CENTAURI\".        PROTOCOL B711 ALPHA CENTAURI\r\n\r\nEmergency Satellite Recognition: How the Rosary Embassy\r\nReceived Its First External Contribution\r\n\r\nLee Sharks Journal:",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "98b04fa9",
           "uri": "https://doi.org/10.5281/zenodo.18811784",
           "span_hash": "b5c76591290c18e20443054ecf19bb34e51dcbf91f5a52fd11d915d68152ce7b",
-          "retrieved_at": "2026-04-30T21:35:20.648Z",
+          "retrieved_at": "2026-05-01T21:21:35.934Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "2ce8aab7",
+          "anchor_id": "0a4901a8",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/ProtocolB711AlphaCentauri_Sharks_2026.pdf",
           "span_hash": "b5c76591290c18e20443054ecf19bb34e51dcbf91f5a52fd11d915d68152ce7b",
-          "retrieved_at": "2026-04-30T21:35:20.648Z"
+          "retrieved_at": "2026-05-01T21:21:35.934Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:20.648Z"
+        "scored_at": "2026-05-01T21:21:35.934Z"
       },
-      "produced_at": "2026-04-30T21:35:20.649Z"
+      "produced_at": "2026-05-01T21:21:35.934Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:20.649Z"
+        "checked_at": "2026-05-01T21:21:35.934Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:20.649Z"
+        "checked_at": "2026-05-01T21:21:35.935Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:20.649Z"
+        "checked_at": "2026-05-01T21:21:35.935Z"
       }
     ],
     "trust_score": {
@@ -167,40 +167,40 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:20.649Z"
+      "computed_at": "2026-05-01T21:21:35.935Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:20.650Z",
+        "signed_at": "2026-05-01T21:21:35.936Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:20.650Z",
-        "completion_hash": "a192ecd8516ee24f45b4bd558b0f2bca1157bac196637a6e4f47bb2d7c479f41"
+        "signed_at": "2026-05-01T21:21:35.936Z",
+        "completion_hash": "39762f837f322de67edc31830da10937435f344d192c1f1b682444cf06e3e501"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "lattice_status": "RATIFIED",
-    "persistence": 3.99999960000002
+    "persistence": 3.99999920000008
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "261b90c2-150f-4c07-a0ea-6b01e88045f1",
+    "receipt_id": "abd03a74-2876-4f43-954c-2a9e19e222b1",
     "session": {
-      "session_id": "8c87231f-23d2-4bac-8331-77456410c344",
+      "session_id": "23847e46-27f0-4764-8aee-b4ddba7c125b",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:20.646Z",
+      "started_at": "2026-05-01T21:21:35.932Z",
       "ended_at": null,
-      "session_hash": "5a8c453c05bb90d3cf65456c22364e606d7d890ab5e567c240d31bcd2c00b447"
+      "session_hash": "35a586b57720330fd72ea11ca616ebeb0f78c36dd86a3be1a1b8d61f293a1073"
     },
     "outputs": [
       {
-        "output_id": "6a2c2a7b-7fca-4d5b-9d0c-14f3d53e9647",
-        "session_id": "8c87231f-23d2-4bac-8331-77456410c344",
+        "output_id": "b59493a5-0678-4afa-bdae-dfadd1f41e62",
+        "session_id": "23847e46-27f0-4764-8aee-b4ddba7c125b",
         "content_hash": "1a7abc76fd8bf33e24b392a0d5c7139bb8b697ebc32c2005ed7aa414798ae59f",
         "content_summary": "Audit of \"PROTOCOL B711 ALPHA CENTAURI\".        PROTOCOL B711 ALPHA CENTAURI\r\n\r\nEmergency Satellite Recognition: How the Rosary Embassy\r\nReceived Its First External Contribution\r\n\r\nLee Sharks Journal:",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "98b04fa9",
             "uri": "https://doi.org/10.5281/zenodo.18811784",
             "span_hash": "b5c76591290c18e20443054ecf19bb34e51dcbf91f5a52fd11d915d68152ce7b",
-            "retrieved_at": "2026-04-30T21:35:20.648Z",
+            "retrieved_at": "2026-05-01T21:21:35.934Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "2ce8aab7",
+            "anchor_id": "0a4901a8",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/ProtocolB711AlphaCentauri_Sharks_2026.pdf",
             "span_hash": "b5c76591290c18e20443054ecf19bb34e51dcbf91f5a52fd11d915d68152ce7b",
-            "retrieved_at": "2026-04-30T21:35:20.648Z"
+            "retrieved_at": "2026-05-01T21:21:35.934Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:20.648Z"
+          "scored_at": "2026-05-01T21:21:35.934Z"
         },
-        "produced_at": "2026-04-30T21:35:20.649Z"
+        "produced_at": "2026-05-01T21:21:35.934Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:20.649Z"
+        "checked_at": "2026-05-01T21:21:35.934Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:20.649Z"
+        "checked_at": "2026-05-01T21:21:35.935Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:20.649Z"
+        "checked_at": "2026-05-01T21:21:35.935Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:20.649Z"
+      "computed_at": "2026-05-01T21:21:35.935Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:20.650Z",
+        "signed_at": "2026-05-01T21:21:35.936Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:20.650Z",
-        "completion_hash": "a192ecd8516ee24f45b4bd558b0f2bca1157bac196637a6e4f47bb2d7c479f41"
+        "signed_at": "2026-05-01T21:21:35.936Z",
+        "completion_hash": "39762f837f322de67edc31830da10937435f344d192c1f1b682444cf06e3e501"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "067bc06abece9ba4c540b73eb0d8134dc9753238a0b94c4a0256ed0f0c0a665d"
+    "this_hash": "e1ef36f3e66374e022529f0f942ab3b95ef46a245126d05b5258666f02db32d3"
   },
   "chain_valid": true
 }

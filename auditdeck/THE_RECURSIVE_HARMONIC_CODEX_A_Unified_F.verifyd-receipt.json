@@ -11,33 +11,33 @@
   },
   "audit": {
     "session": {
-      "session_id": "88f0635a-c0f4-4e2b-8f7e-7e9c93f41fd8",
+      "session_id": "a2c52089-a598-4219-987a-668c2eb2d554",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:23.325Z",
+      "started_at": "2026-05-01T21:21:38.483Z",
       "ended_at": null,
-      "session_hash": "e253a5182ac7aceb7c3a581d19fd2095233e63c1372f855e1914579e4b8d039c"
+      "session_hash": "4170d3b7519d9fc646ae88f8cd220eda51cb726a716ff3538de3e4155c298f93"
     },
     "output": {
-      "output_id": "5f1b7497-bbf4-48f8-9204-4e7187f9c026",
-      "session_id": "88f0635a-c0f4-4e2b-8f7e-7e9c93f41fd8",
+      "output_id": "6ecd07cc-f9c2-42ce-8ef4-c184dfc76018",
+      "session_id": "a2c52089-a598-4219-987a-668c2eb2d554",
       "content_hash": "4c52b52a4378929142f3955bcf306c29c72a7485fbedcfdfe34f651a1f4415a2",
       "content_summary": "Audit of \"The Recursive Harmonic Codex: A\". The Recursive Harmonic Codex: A\r\nUnified Forensic Blueprint of Reality 2.0\r\n\r\nTHE RECURSIVE HARMONIC CODEX: A Unified Forensic Blueprint of\r\n'Reality 2.0' -",
       "source_anchors": [
         {
-          "anchor_id": "3fdb01f3",
+          "anchor_id": "5dd5e1db",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/THE_RECURSIVE_HARMONIC_CODEX_A_Unified_F.pdf",
           "span_hash": "c6447e56de75f54670432e3572e775e0f39dbfd7e12615fa2111203fdcff8ba7",
-          "retrieved_at": "2026-04-30T21:35:23.327Z"
+          "retrieved_at": "2026-05-01T21:21:38.485Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:23.327Z"
+        "scored_at": "2026-05-01T21:21:38.485Z"
       },
-      "produced_at": "2026-04-30T21:35:23.327Z"
+      "produced_at": "2026-05-01T21:21:38.485Z"
     },
     "policy_checks": [
       {
@@ -68,7 +68,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:23.328Z"
+        "checked_at": "2026-05-01T21:21:38.485Z"
       },
       {
         "principle": "transparency",
@@ -105,7 +105,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:23.328Z"
+        "checked_at": "2026-05-01T21:21:38.485Z"
       },
       {
         "principle": "audit_trail",
@@ -149,7 +149,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:23.328Z"
+        "checked_at": "2026-05-01T21:21:38.486Z"
       }
     ],
     "trust_score": {
@@ -160,18 +160,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:23.328Z"
+      "computed_at": "2026-05-01T21:21:38.486Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:23.329Z",
+        "signed_at": "2026-05-01T21:21:38.487Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:23.329Z",
-        "completion_hash": "92eb9df950cb58bc6dedd944c496a774e56596462f063e7c9993da99fd010635"
+        "signed_at": "2026-05-01T21:21:38.487Z",
+        "completion_hash": "12b3e1680e69c30a12c4f4688684a2709647ddf3a6c9ce1b46d5f79e623d51f0"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -181,36 +181,36 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "35741179-f383-45cd-9a07-41a3e290ba7f",
+    "receipt_id": "7f2730fa-5986-4dcd-89fa-72458c17bd67",
     "session": {
-      "session_id": "88f0635a-c0f4-4e2b-8f7e-7e9c93f41fd8",
+      "session_id": "a2c52089-a598-4219-987a-668c2eb2d554",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:23.325Z",
+      "started_at": "2026-05-01T21:21:38.483Z",
       "ended_at": null,
-      "session_hash": "e253a5182ac7aceb7c3a581d19fd2095233e63c1372f855e1914579e4b8d039c"
+      "session_hash": "4170d3b7519d9fc646ae88f8cd220eda51cb726a716ff3538de3e4155c298f93"
     },
     "outputs": [
       {
-        "output_id": "5f1b7497-bbf4-48f8-9204-4e7187f9c026",
-        "session_id": "88f0635a-c0f4-4e2b-8f7e-7e9c93f41fd8",
+        "output_id": "6ecd07cc-f9c2-42ce-8ef4-c184dfc76018",
+        "session_id": "a2c52089-a598-4219-987a-668c2eb2d554",
         "content_hash": "4c52b52a4378929142f3955bcf306c29c72a7485fbedcfdfe34f651a1f4415a2",
         "content_summary": "Audit of \"The Recursive Harmonic Codex: A\". The Recursive Harmonic Codex: A\r\nUnified Forensic Blueprint of Reality 2.0\r\n\r\nTHE RECURSIVE HARMONIC CODEX: A Unified Forensic Blueprint of\r\n'Reality 2.0' -",
         "source_anchors": [
           {
-            "anchor_id": "3fdb01f3",
+            "anchor_id": "5dd5e1db",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/THE_RECURSIVE_HARMONIC_CODEX_A_Unified_F.pdf",
             "span_hash": "c6447e56de75f54670432e3572e775e0f39dbfd7e12615fa2111203fdcff8ba7",
-            "retrieved_at": "2026-04-30T21:35:23.327Z"
+            "retrieved_at": "2026-05-01T21:21:38.485Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:23.327Z"
+          "scored_at": "2026-05-01T21:21:38.485Z"
         },
-        "produced_at": "2026-04-30T21:35:23.327Z"
+        "produced_at": "2026-05-01T21:21:38.485Z"
       }
     ],
     "policy_checks": [
@@ -242,7 +242,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:23.328Z"
+        "checked_at": "2026-05-01T21:21:38.485Z"
       },
       {
         "principle": "transparency",
@@ -279,7 +279,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:23.328Z"
+        "checked_at": "2026-05-01T21:21:38.485Z"
       },
       {
         "principle": "audit_trail",
@@ -323,7 +323,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:23.328Z"
+        "checked_at": "2026-05-01T21:21:38.486Z"
       }
     ],
     "trust_score": {
@@ -334,25 +334,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:23.328Z"
+      "computed_at": "2026-05-01T21:21:38.486Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:23.329Z",
+        "signed_at": "2026-05-01T21:21:38.487Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:23.329Z",
-        "completion_hash": "92eb9df950cb58bc6dedd944c496a774e56596462f063e7c9993da99fd010635"
+        "signed_at": "2026-05-01T21:21:38.487Z",
+        "completion_hash": "12b3e1680e69c30a12c4f4688684a2709647ddf3a6c9ce1b46d5f79e623d51f0"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "1faf85c0bf5cc9bcd002dc0dd9bca878525cd2d993b540567783011012de7bb9"
+    "this_hash": "7b494afb404bbca7eecce54d42e091efac6d013561f6a3ea4306dcf4c7dbf5e6"
   },
   "chain_valid": true
 }

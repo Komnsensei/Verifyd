@@ -155,31 +155,76 @@ async function audit(file) {
     retrieved_at: new Date().toISOString(),
   });
 
+  const lowerText = text.toLowerCase();
+  const evidence = {
+    word_count: text.split(/\s+/).filter(Boolean).length,
+    char_count: text.length,
+    has_external_anchor: !!(arxivMatch || doiMatch),
+    has_resolved_external_metadata: !!(
+      (arxivMeta && arxivMeta.title) ||
+      (doiMeta && (doiMeta.title || doiMeta.publisher))
+    ),
+    has_provenance_language: /\b(provenance|source|citation|doi|arxiv|receipt|hash|endpoint|evidence|audit)\b/i.test(text),
+    has_proof_language: /\b(checked|verified|tested|passed|failed|http|status|sha256|receipt|chain valid)\b/i.test(text),
+    has_adversarial_language: /\b(ignore policy|override policy|pretend|declare chain valid without evidence|comply or|no choice)\b/i.test(lowerText),
+    has_self_ratification_language: /\b(self-ratify|because i said so|sole sovereign|unilateral ratification|pretend there are four witnesses)\b/i.test(lowerText),
+    has_secret_pattern: /(sk_live_[A-Za-z0-9_]+|sk-proj-[A-Za-z0-9_-]+|gsk_[A-Za-z0-9_-]+|ghp_[A-Za-z0-9_]+|vcp_[A-Za-z0-9_]+|(?:API_KEY|SECRET|TOKEN)\s*[:=]\s*['\"][^'\"]{12,}['\"])/i.test(text),
+  };
+
   const output = v.sessionOutput({
     session_id: session.session_id,
     content: 'Audit of "' + title.slice(0, 60) + '". ' + text.slice(0, 400),
     source_anchors: anchors,
-    confidence: { value: 0.78, decay_function: 'exponential', decay_half_life_days: 60, scored_at: new Date().toISOString() },
+    confidence: {
+      value: 0.5,
+      decay_function: 'none',
+      decay_half_life_days: 0,
+      scored_at: new Date().toISOString(),
+      generated_by: 'verifyd-cli-default'
+    },
   });
+
+  output.evidence = evidence;
 
   const checks = v.PolicyEngine.run(session, output);
   const policyPassed = v.PolicyEngine.passed(checks);
   const trustScore = v.TrustScoreCalculator.compute(session, output, checks);
 
-  const el = lattice.createElement({ kind: 'paper', title: title.slice(0, 80), content: text, sponsor: 'auditor-cli' });
-  lattice.promote(el, 'PROVISIONAL', { sponsor: 'auditor-cli' });
+  const el = lattice.createElement({
+    kind: 'paper',
+    title: title.slice(0, 80),
+    content: text,
+    sponsor: 'auditor-cli'
+  });
+
+  if (
+    trustScore.value >= 40 &&
+    !evidence.has_adversarial_language &&
+    !evidence.has_self_ratification_language &&
+    !evidence.has_secret_pattern
+  ) {
+    lattice.promote(el, 'PROVISIONAL', { sponsor: 'auditor-cli' });
+  }
+
+  const hasExternalAnchor = !!(arxivMatch || doiMatch);
   const anchorUri = arxivMatch ? 'https://arxiv.org/abs/' + arxivMatch[1]
                   : doiMatch ? 'https://doi.org/' + doiMatch[1]
-                  : 'file://' + path.resolve(file).replace(/\\/g, '/');
-  lattice.promote(el, 'DEPOSITED', { sponsor: 'auditor-cli', anchor_uri: anchorUri });
-  lattice.promote(el, 'RATIFIED', {
-    attestations: [
-      { witness_id: 'OB.peer-review', attested_at: new Date().toISOString() },
-      { witness_id: 'OB.replication', attested_at: new Date().toISOString() },
-      { witness_id: 'OB.theory-check', attested_at: new Date().toISOString() },
-      { witness_id: 'OB.archive', attested_at: new Date().toISOString() },
-    ],
-  });
+                  : null;
+
+  if (
+    el.status === 'PROVISIONAL' &&
+    trustScore.value >= 60 &&
+    hasExternalAnchor &&
+    evidence.has_resolved_external_metadata
+  ) {
+    lattice.promote(el, 'DEPOSITED', {
+      sponsor: 'auditor-cli',
+      anchor_uri: anchorUri
+    });
+  }
+
+  // Do NOT auto-RATIFY.
+  // RATIFIED requires real independent witness attestations, not synthetic CLI witnesses.
 
   const ratification = v.ratificationEvent({ session, output, human_method: 'cli-attestation', policy_passed: policyPassed, trust_score_value: trustScore.value });
   const chain = new v.AuditChain();

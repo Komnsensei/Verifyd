@@ -23,28 +23,28 @@ DOCUMENT
 ------------------------------------------------------------------------
 AUDIT SESSION
 ------------------------------------------------------------------------
-  Session ID:     f12aba28-ea52-49c7-975f-0a0bf36fddb1
+  Session ID:     cb1fddc1-66c2-48ac-a5dc-3dc357f7a91b
   Auditor:        auditor-cli
   Agent:          verifyd-cli@1.0
-  Started:        2026-04-30T21:35:21.427Z
-  Session hash:   2adf9f72c267e7e013edf211633743cf95997f200cbb2e165aa0a57ba19d2792
+  Started:        2026-05-01T21:21:36.694Z
+  Session hash:   a6d9b27a2abf3d3f6a01dcba44f0a7a1074c637edd7b976a7b27c14ac93bbdc0
 
 ------------------------------------------------------------------------
 SOURCE ANCHORS
 ------------------------------------------------------------------------
   [1] https://doi.org/10.5281/zenodo.19200688
       anchor_id: 777d40b8
-      retrieved: 2026-04-30T21:35:21.428Z
+      retrieved: 2026-05-01T21:21:36.696Z
   [2] file://C:/Users/lynnh/verifyd-ship/auditdeck/Semantic_Alienation_and_the_Formation_of.pdf
-      anchor_id: 494fb467
-      retrieved: 2026-04-30T21:35:21.428Z
+      anchor_id: f5efe532
+      retrieved: 2026-05-01T21:21:36.696Z
 
 ------------------------------------------------------------------------
 CONFIDENCE
 ------------------------------------------------------------------------
   Value:          0.78
   Decay:          exponential, half-life 60 days
-  Scored at:      2026-04-30T21:35:21.428Z
+  Scored at:      2026-05-01T21:21:36.696Z
 
 ------------------------------------------------------------------------
 POLICY CHECKS  (each with citation grounds)
@@ -142,17 +142,17 @@ RATIFICATION
   Method:         cli-attestation
   Human party:    auditor-cli
   Agent party:    verifyd-cli@1.0
-  Signed at:      2026-04-30T21:35:21.430Z
+  Signed at:      2026-05-01T21:21:36.698Z
   Policy passed:  true
   Trust at seal:  95 / 100
 
 ------------------------------------------------------------------------
 AUDIT RECEIPT (VALF-1)
 ------------------------------------------------------------------------
-  Receipt ID:     74f7b34b-55a5-473a-868a-42cd4357be51
+  Receipt ID:     369a4832-504c-4223-8fcf-904aa3feb1ad
   VALF version:   1.0
   prev_hash:      GENESIS
-  this_hash:      e57a4de03199b07ee7340bcc294e8ec94d23a36e8d6e7d41f0037dd16d2c5b54
+  this_hash:      01354b32e14fa133876ced21da2ed6e278fbad5496d2523fc49891409fdb7b32
   Chain valid:    true
 
   Receipt format grounded in:
@@ -229,6 +229,6 @@ VERIFICATION
   No network required. No central server. Pure protocol.
 
 ========================================================================
-  Generated: 2026-04-30T21:35:21.568Z
+  Generated: 2026-05-01T21:21:36.914Z
   Engine:    Verifyd v1.0  (VALF-1) with citations registry v1.0
 ========================================================================

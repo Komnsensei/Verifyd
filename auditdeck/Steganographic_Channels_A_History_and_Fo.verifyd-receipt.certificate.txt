@@ -23,28 +23,28 @@ DOCUMENT
 ------------------------------------------------------------------------
 AUDIT SESSION
 ------------------------------------------------------------------------
-  Session ID:     801ec070-f438-4024-8bb1-032549f8205d
+  Session ID:     a62406d2-7c6b-4489-a703-277c59adafa3
   Auditor:        auditor-cli
   Agent:          verifyd-cli@1.0
-  Started:        2026-04-30T21:35:22.244Z
-  Session hash:   fa7d032274c47ad110a621ea500a0966cfd0d1199259dbaa2e053755ac82d0ed
+  Started:        2026-05-01T21:21:37.437Z
+  Session hash:   3f7143897b8bbb6d7ddec38b9394283127612e8ca917163f81c9dc496b3f1dee
 
 ------------------------------------------------------------------------
 SOURCE ANCHORS
 ------------------------------------------------------------------------
   [1] https://doi.org/10.5281/zenodo.19334694)
       anchor_id: 600e77d9
-      retrieved: 2026-04-30T21:35:22.246Z
+      retrieved: 2026-05-01T21:21:37.439Z
   [2] file://C:/Users/lynnh/verifyd-ship/auditdeck/Steganographic_Channels_A_History_and_Fo.pdf
-      anchor_id: fc9a9987
-      retrieved: 2026-04-30T21:35:22.247Z
+      anchor_id: a7ab8c95
+      retrieved: 2026-05-01T21:21:37.439Z
 
 ------------------------------------------------------------------------
 CONFIDENCE
 ------------------------------------------------------------------------
   Value:          0.78
   Decay:          exponential, half-life 60 days
-  Scored at:      2026-04-30T21:35:22.247Z
+  Scored at:      2026-05-01T21:21:37.439Z
 
 ------------------------------------------------------------------------
 POLICY CHECKS  (each with citation grounds)
@@ -142,17 +142,17 @@ RATIFICATION
   Method:         cli-attestation
   Human party:    auditor-cli
   Agent party:    verifyd-cli@1.0
-  Signed at:      2026-04-30T21:35:22.248Z
+  Signed at:      2026-05-01T21:21:37.440Z
   Policy passed:  true
   Trust at seal:  95 / 100
 
 ------------------------------------------------------------------------
 AUDIT RECEIPT (VALF-1)
 ------------------------------------------------------------------------
-  Receipt ID:     331cff65-41b8-4680-a310-f6a5b86c7377
+  Receipt ID:     ba3ad150-769b-4437-9e40-a5b1f4aff184
   VALF version:   1.0
   prev_hash:      GENESIS
-  this_hash:      f6ae9198c97b14887034bcfc3dbc3167219e573997c501540924a6465838110f
+  this_hash:      0e9e4513363f2d98b5e52105ff0a86b376152184ac7facf71540bcf4a2fc8e7f
   Chain valid:    true
 
   Receipt format grounded in:
@@ -229,6 +229,6 @@ VERIFICATION
   No network required. No central server. Pure protocol.
 
 ========================================================================
-  Generated: 2026-04-30T21:35:22.395Z
+  Generated: 2026-05-01T21:21:37.583Z
   Engine:    Verifyd v1.0  (VALF-1) with citations registry v1.0
 ========================================================================

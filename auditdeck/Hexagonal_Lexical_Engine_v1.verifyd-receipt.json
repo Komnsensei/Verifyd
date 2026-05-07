@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "84df5340-675b-4423-814f-0eed0c7655be",
+      "session_id": "35875f49-b6e2-4476-a0f1-5a04d3dc0009",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:19.423Z",
+      "started_at": "2026-05-01T21:21:34.811Z",
       "ended_at": null,
-      "session_hash": "c23fccdf041327bc8daa1f95b2db107855e3f9af34d8b8396ff47455626c8f3e"
+      "session_hash": "07d8eb5b9584ca5180b2572503ceaa10740081d173d227715e22c2d79550d9fe"
     },
     "output": {
-      "output_id": "c1328508-1d05-4e20-b8e7-31af16bb6d80",
-      "session_id": "84df5340-675b-4423-814f-0eed0c7655be",
+      "output_id": "f7fbec5e-e262-4355-a485-aa131aa5d559",
+      "session_id": "35875f49-b6e2-4476-a0f1-5a04d3dc0009",
       "content_hash": "01aa57c3deeba6aa9bf540d61251d8b67e94bab949c1d8016dd46eabca688abf",
       "content_summary": "Audit of \"HEXAGONAL LEXICAL ENGINE v1.1\".      HEXAGONAL LEXICAL ENGINE v1.1\r\n\r\n                       Core 50 Discovery Lattice Deployment Map Governing Laws\r\n\r\nHX Parent DOI: 10.5281/zenodo.18928855",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "a1612a02",
           "uri": "https://doi.org/10.5281/zenodo.18928855",
           "span_hash": "6a311bc67c5e62ccc8792a52506c252a356f2f95e030939e61f6cd72ea85721a",
-          "retrieved_at": "2026-04-30T21:35:19.425Z",
+          "retrieved_at": "2026-05-01T21:21:34.813Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "d61e305c",
+          "anchor_id": "55873fc9",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Hexagonal_Lexical_Engine_v1.pdf",
           "span_hash": "6a311bc67c5e62ccc8792a52506c252a356f2f95e030939e61f6cd72ea85721a",
-          "retrieved_at": "2026-04-30T21:35:19.425Z"
+          "retrieved_at": "2026-05-01T21:21:34.813Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:19.425Z"
+        "scored_at": "2026-05-01T21:21:34.813Z"
       },
-      "produced_at": "2026-04-30T21:35:19.425Z"
+      "produced_at": "2026-05-01T21:21:34.813Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.425Z"
+        "checked_at": "2026-05-01T21:21:34.814Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.425Z"
+        "checked_at": "2026-05-01T21:21:34.814Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.426Z"
+        "checked_at": "2026-05-01T21:21:34.814Z"
       }
     ],
     "trust_score": {
@@ -167,18 +167,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:19.426Z"
+      "computed_at": "2026-05-01T21:21:34.814Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:19.426Z",
+        "signed_at": "2026-05-01T21:21:34.815Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:19.426Z",
-        "completion_hash": "8cdacb9a304eefd58592ecfd7fa31a37e4999d771186e814e2b3c10ba3f7ce13"
+        "signed_at": "2026-05-01T21:21:34.815Z",
+        "completion_hash": "dfcc72042272b3d18c6545c97a1f8fd57be7dec2c103a2a10022579fae9b8e57"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -188,19 +188,19 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "23ce7cd7-f573-4bb0-ac34-7b6cfbc744aa",
+    "receipt_id": "6af8039d-b277-4ddb-b5e5-132295f454cc",
     "session": {
-      "session_id": "84df5340-675b-4423-814f-0eed0c7655be",
+      "session_id": "35875f49-b6e2-4476-a0f1-5a04d3dc0009",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:19.423Z",
+      "started_at": "2026-05-01T21:21:34.811Z",
       "ended_at": null,
-      "session_hash": "c23fccdf041327bc8daa1f95b2db107855e3f9af34d8b8396ff47455626c8f3e"
+      "session_hash": "07d8eb5b9584ca5180b2572503ceaa10740081d173d227715e22c2d79550d9fe"
     },
     "outputs": [
       {
-        "output_id": "c1328508-1d05-4e20-b8e7-31af16bb6d80",
-        "session_id": "84df5340-675b-4423-814f-0eed0c7655be",
+        "output_id": "f7fbec5e-e262-4355-a485-aa131aa5d559",
+        "session_id": "35875f49-b6e2-4476-a0f1-5a04d3dc0009",
         "content_hash": "01aa57c3deeba6aa9bf540d61251d8b67e94bab949c1d8016dd46eabca688abf",
         "content_summary": "Audit of \"HEXAGONAL LEXICAL ENGINE v1.1\".      HEXAGONAL LEXICAL ENGINE v1.1\r\n\r\n                       Core 50 Discovery Lattice Deployment Map Governing Laws\r\n\r\nHX Parent DOI: 10.5281/zenodo.18928855",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "a1612a02",
             "uri": "https://doi.org/10.5281/zenodo.18928855",
             "span_hash": "6a311bc67c5e62ccc8792a52506c252a356f2f95e030939e61f6cd72ea85721a",
-            "retrieved_at": "2026-04-30T21:35:19.425Z",
+            "retrieved_at": "2026-05-01T21:21:34.813Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "d61e305c",
+            "anchor_id": "55873fc9",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/Hexagonal_Lexical_Engine_v1.pdf",
             "span_hash": "6a311bc67c5e62ccc8792a52506c252a356f2f95e030939e61f6cd72ea85721a",
-            "retrieved_at": "2026-04-30T21:35:19.425Z"
+            "retrieved_at": "2026-05-01T21:21:34.813Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:19.425Z"
+          "scored_at": "2026-05-01T21:21:34.813Z"
         },
-        "produced_at": "2026-04-30T21:35:19.425Z"
+        "produced_at": "2026-05-01T21:21:34.813Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.425Z"
+        "checked_at": "2026-05-01T21:21:34.814Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.425Z"
+        "checked_at": "2026-05-01T21:21:34.814Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:19.426Z"
+        "checked_at": "2026-05-01T21:21:34.814Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:19.426Z"
+      "computed_at": "2026-05-01T21:21:34.814Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:19.426Z",
+        "signed_at": "2026-05-01T21:21:34.815Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:19.426Z",
-        "completion_hash": "8cdacb9a304eefd58592ecfd7fa31a37e4999d771186e814e2b3c10ba3f7ce13"
+        "signed_at": "2026-05-01T21:21:34.815Z",
+        "completion_hash": "dfcc72042272b3d18c6545c97a1f8fd57be7dec2c103a2a10022579fae9b8e57"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "89c5414534814812974eb5d373a6ccf66a7a16bbc6fa3383f540ebf59f1cb02f"
+    "this_hash": "690aa4a5f45f5cb9d107d7b251d1e6971b237aa995d1fa0cac4b0a0bb3703457"
   },
   "chain_valid": true
 }

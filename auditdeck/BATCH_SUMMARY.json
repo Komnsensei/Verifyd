@@ -1,6 +1,6 @@
 {
-  "run_at": "2026-04-30T21:35:25.551Z",
-  "folder": "C:\\Users\\lynnh\\verifyd-ship\\auditdeck",
+  "run_at": "2026-05-01T21:21:40.832Z",
+  "folder": "auditdeck",
   "results": [
     {
       "file": "Ancient_Skepticism_as_Psychic_Technology.pdf",
@@ -8,7 +8,7 @@
       "sha": "839dd759ec07",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "12f38d80181b",
+      "receipt": "cd1b751e601e",
       "valid": true
     },
     {
@@ -17,7 +17,7 @@
       "sha": "d8848feb4ef4",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "b992f02cee44",
+      "receipt": "53c9736e4b17",
       "valid": true
     },
     {
@@ -26,7 +26,7 @@
       "sha": "a4f17f7d6b60",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "364c3dd80c1c",
+      "receipt": "3e519d56c482",
       "valid": true
     },
     {
@@ -35,7 +35,7 @@
       "sha": "6a311bc67c5e",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "89c541453481",
+      "receipt": "690aa4a5f45f",
       "valid": true
     },
     {
@@ -44,7 +44,7 @@
       "sha": "6e8bc755d281",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "48a3d5ed498c",
+      "receipt": "0a1edc04f4c6",
       "valid": true
     },
     {
@@ -53,7 +53,7 @@
       "sha": "b5c76591290c",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "067bc06abece",
+      "receipt": "e1ef36f3e663",
       "valid": true
     },
     {
@@ -62,7 +62,7 @@
       "sha": "1e8c89cf01bd",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "e57a4de03199",
+      "receipt": "01354b32e14f",
       "valid": true
     },
     {
@@ -71,7 +71,7 @@
       "sha": "8f54b2e41651",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "f6ae9198c97b",
+      "receipt": "0e9e4513363f",
       "valid": true
     },
     {
@@ -80,7 +80,7 @@
       "sha": "5e2f0a81ce4c",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "22a2641458fe",
+      "receipt": "956f4f2c0482",
       "valid": true
     },
     {
@@ -89,7 +89,7 @@
       "sha": "c6447e56de75",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "1faf85c0bf5c",
+      "receipt": "7b494afb404b",
       "valid": true
     },
     {
@@ -98,7 +98,7 @@
       "sha": "14c4feca3d65",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "dfe5384fa0d7",
+      "receipt": "16a96cae5c98",
       "valid": true
     },
     {
@@ -107,16 +107,16 @@
       "sha": "7044455653c2",
       "trust": 95,
       "lattice": "RATIFIED",
-      "receipt": "674799468c21",
+      "receipt": "96e8c42e6b2f",
       "valid": true
     },
     {
       "file": "The_Semantic_Economy_A_Marxian_Accountin - Copy.pdf",
-      "error": "Command failed: node \"C:\\Users\\lynnh\\verifyd-ship\\bin\\verifyd.cjs\" audit \"C:\\Use"
+      "error": "Command failed: node \"C:\\Users\\lynnh\\verifyd-ship\\bin\\verifyd.cjs\" audit \"auditd"
     },
     {
       "file": "The_Semantic_Economy_A_Marxian_Accountin.pdf",
-      "error": "Command failed: node \"C:\\Users\\lynnh\\verifyd-ship\\bin\\verifyd.cjs\" audit \"C:\\Use"
+      "error": "Command failed: node \"C:\\Users\\lynnh\\verifyd-ship\\bin\\verifyd.cjs\" audit \"auditd"
     }
   ]
 }

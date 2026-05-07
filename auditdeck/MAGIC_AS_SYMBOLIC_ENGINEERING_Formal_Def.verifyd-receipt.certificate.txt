@@ -22,25 +22,25 @@ DOCUMENT
 ------------------------------------------------------------------------
 AUDIT SESSION
 ------------------------------------------------------------------------
-  Session ID:     26370d14-1120-4d93-9897-a34438c2822e
+  Session ID:     96498ab4-6ee7-4ae0-87b6-e190c0468f52
   Auditor:        auditor-cli
   Agent:          verifyd-cli@1.0
-  Started:        2026-04-30T21:35:19.859Z
-  Session hash:   04a85909b34167760193812f71129a453afe4829b174f9e1e697838253fa7838
+  Started:        2026-05-01T21:21:35.255Z
+  Session hash:   64248b559c5a19e6582c79716a37b9a97cbf4dde86c6d27aa20d360a40b4715e
 
 ------------------------------------------------------------------------
 SOURCE ANCHORS
 ------------------------------------------------------------------------
   [1] file://C:/Users/lynnh/verifyd-ship/auditdeck/MAGIC_AS_SYMBOLIC_ENGINEERING_Formal_Def.pdf
-      anchor_id: 4d2bb32a
-      retrieved: 2026-04-30T21:35:19.861Z
+      anchor_id: 686fb6ae
+      retrieved: 2026-05-01T21:21:35.257Z
 
 ------------------------------------------------------------------------
 CONFIDENCE
 ------------------------------------------------------------------------
   Value:          0.78
   Decay:          exponential, half-life 60 days
-  Scored at:      2026-04-30T21:35:19.861Z
+  Scored at:      2026-05-01T21:21:35.257Z
 
 ------------------------------------------------------------------------
 POLICY CHECKS  (each with citation grounds)
@@ -138,17 +138,17 @@ RATIFICATION
   Method:         cli-attestation
   Human party:    auditor-cli
   Agent party:    verifyd-cli@1.0
-  Signed at:      2026-04-30T21:35:19.863Z
+  Signed at:      2026-05-01T21:21:35.259Z
   Policy passed:  true
   Trust at seal:  95 / 100
 
 ------------------------------------------------------------------------
 AUDIT RECEIPT (VALF-1)
 ------------------------------------------------------------------------
-  Receipt ID:     723ae350-1604-46e6-885c-441fa41e9be5
+  Receipt ID:     5d2c2977-a46e-4422-83a1-ffd2618efaaf
   VALF version:   1.0
   prev_hash:      GENESIS
-  this_hash:      48a3d5ed498cc4a2e564fe561831a0656d0bcba6e4aafe765b4b48c28f5be660
+  this_hash:      0a1edc04f4c6a4d600d794237f9b0c034ab51537572ea8acff1ffd56aab23c83
   Chain valid:    true
 
   Receipt format grounded in:
@@ -225,6 +225,6 @@ VERIFICATION
   No network required. No central server. Pure protocol.
 
 ========================================================================
-  Generated: 2026-04-30T21:35:20.017Z
+  Generated: 2026-05-01T21:21:35.401Z
   Engine:    Verifyd v1.0  (VALF-1) with citations registry v1.0
 ========================================================================

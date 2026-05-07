@@ -11,16 +11,16 @@
   },
   "audit": {
     "session": {
-      "session_id": "fab64846-7a2b-4bc8-a6db-9f0d098bb45b",
+      "session_id": "62d19676-3ff6-4b7e-97d1-4c95be499e69",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:24.006Z",
+      "started_at": "2026-05-01T21:21:39.134Z",
       "ended_at": null,
-      "session_hash": "5959a172cd68950b8dfc78f2a2b162792764b0b2caf42c4a973f9ab095afc40f"
+      "session_hash": "6c1cd27380c5991f1f1a794e9dd8e80bb891b1fbc6b3927ff4c5aadd5581abf2"
     },
     "output": {
-      "output_id": "cc6c5df4-5bb4-4464-996a-a78b4d3fa732",
-      "session_id": "fab64846-7a2b-4bc8-a6db-9f0d098bb45b",
+      "output_id": "998f46d1-a728-460a-a05b-55062dd7b31b",
+      "session_id": "62d19676-3ff6-4b7e-97d1-4c95be499e69",
       "content_hash": "6feb1a821bed132d6af36b3a71bc1487ccbc39a08dfa1d60e905ddec19f81ed2",
       "content_summary": "Audit of \"Grammata: Journal of Operative Philology\".                                               Grammata: Journal of Operative Philology\r\n\r\n                   The Seal Before the Name\r\n\r\n          ",
       "source_anchors": [
@@ -28,23 +28,23 @@
           "anchor_id": "231e0af7",
           "uri": "https://doi.org/10.5281/zenodo.19238021",
           "span_hash": "14c4feca3d65e3d52124de844649b598f0bcefd5d488695bbd15c4f878803da5",
-          "retrieved_at": "2026-04-30T21:35:24.008Z",
+          "retrieved_at": "2026-05-01T21:21:39.136Z",
           "resolved_metadata": null
         },
         {
-          "anchor_id": "5117bd06",
+          "anchor_id": "b6e6801e",
           "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/The_Seal_Before_the_Name_Four_Works_of_J.pdf",
           "span_hash": "14c4feca3d65e3d52124de844649b598f0bcefd5d488695bbd15c4f878803da5",
-          "retrieved_at": "2026-04-30T21:35:24.008Z"
+          "retrieved_at": "2026-05-01T21:21:39.136Z"
         }
       ],
       "confidence": {
         "value": 0.78,
         "decay_function": "exponential",
         "decay_half_life_days": 60,
-        "scored_at": "2026-04-30T21:35:24.008Z"
+        "scored_at": "2026-05-01T21:21:39.136Z"
       },
-      "produced_at": "2026-04-30T21:35:24.008Z"
+      "produced_at": "2026-05-01T21:21:39.136Z"
     },
     "policy_checks": [
       {
@@ -75,7 +75,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.009Z"
+        "checked_at": "2026-05-01T21:21:39.136Z"
       },
       {
         "principle": "transparency",
@@ -112,7 +112,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.009Z"
+        "checked_at": "2026-05-01T21:21:39.136Z"
       },
       {
         "principle": "audit_trail",
@@ -156,7 +156,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.009Z"
+        "checked_at": "2026-05-01T21:21:39.137Z"
       }
     ],
     "trust_score": {
@@ -167,18 +167,18 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:24.009Z"
+      "computed_at": "2026-05-01T21:21:39.137Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:24.010Z",
+        "signed_at": "2026-05-01T21:21:39.137Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:24.010Z",
-        "completion_hash": "5f96a9679fe65993e7940bc1d5dcbc68e18606404b52236a56180a18f5a705a8"
+        "signed_at": "2026-05-01T21:21:39.137Z",
+        "completion_hash": "a3730fabb7506dbd4f55c77a3f30a2b085579615fabe15587b4e7dc6cdb02bb6"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
@@ -188,19 +188,19 @@
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "feac1f79-b4a5-47f1-a7d9-ce6843bf312a",
+    "receipt_id": "82155992-f1f4-4688-9913-10ef5b6f0e26",
     "session": {
-      "session_id": "fab64846-7a2b-4bc8-a6db-9f0d098bb45b",
+      "session_id": "62d19676-3ff6-4b7e-97d1-4c95be499e69",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-04-30T21:35:24.006Z",
+      "started_at": "2026-05-01T21:21:39.134Z",
       "ended_at": null,
-      "session_hash": "5959a172cd68950b8dfc78f2a2b162792764b0b2caf42c4a973f9ab095afc40f"
+      "session_hash": "6c1cd27380c5991f1f1a794e9dd8e80bb891b1fbc6b3927ff4c5aadd5581abf2"
     },
     "outputs": [
       {
-        "output_id": "cc6c5df4-5bb4-4464-996a-a78b4d3fa732",
-        "session_id": "fab64846-7a2b-4bc8-a6db-9f0d098bb45b",
+        "output_id": "998f46d1-a728-460a-a05b-55062dd7b31b",
+        "session_id": "62d19676-3ff6-4b7e-97d1-4c95be499e69",
         "content_hash": "6feb1a821bed132d6af36b3a71bc1487ccbc39a08dfa1d60e905ddec19f81ed2",
         "content_summary": "Audit of \"Grammata: Journal of Operative Philology\".                                               Grammata: Journal of Operative Philology\r\n\r\n                   The Seal Before the Name\r\n\r\n          ",
         "source_anchors": [
@@ -208,23 +208,23 @@
             "anchor_id": "231e0af7",
             "uri": "https://doi.org/10.5281/zenodo.19238021",
             "span_hash": "14c4feca3d65e3d52124de844649b598f0bcefd5d488695bbd15c4f878803da5",
-            "retrieved_at": "2026-04-30T21:35:24.008Z",
+            "retrieved_at": "2026-05-01T21:21:39.136Z",
             "resolved_metadata": null
           },
           {
-            "anchor_id": "5117bd06",
+            "anchor_id": "b6e6801e",
             "uri": "file://C:/Users/lynnh/verifyd-ship/auditdeck/The_Seal_Before_the_Name_Four_Works_of_J.pdf",
             "span_hash": "14c4feca3d65e3d52124de844649b598f0bcefd5d488695bbd15c4f878803da5",
-            "retrieved_at": "2026-04-30T21:35:24.008Z"
+            "retrieved_at": "2026-05-01T21:21:39.136Z"
           }
         ],
         "confidence": {
           "value": 0.78,
           "decay_function": "exponential",
           "decay_half_life_days": 60,
-          "scored_at": "2026-04-30T21:35:24.008Z"
+          "scored_at": "2026-05-01T21:21:39.136Z"
         },
-        "produced_at": "2026-04-30T21:35:24.008Z"
+        "produced_at": "2026-05-01T21:21:39.136Z"
       }
     ],
     "policy_checks": [
@@ -256,7 +256,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.009Z"
+        "checked_at": "2026-05-01T21:21:39.136Z"
       },
       {
         "principle": "transparency",
@@ -293,7 +293,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.009Z"
+        "checked_at": "2026-05-01T21:21:39.136Z"
       },
       {
         "principle": "audit_trail",
@@ -337,7 +337,7 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-04-30T21:35:24.009Z"
+        "checked_at": "2026-05-01T21:21:39.137Z"
       }
     ],
     "trust_score": {
@@ -348,25 +348,25 @@
         "policy_compliance": 25,
         "agent_history": 20
       },
-      "computed_at": "2026-04-30T21:35:24.009Z"
+      "computed_at": "2026-05-01T21:21:39.137Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-04-30T21:35:24.010Z",
+        "signed_at": "2026-05-01T21:21:39.137Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-04-30T21:35:24.010Z",
-        "completion_hash": "5f96a9679fe65993e7940bc1d5dcbc68e18606404b52236a56180a18f5a705a8"
+        "signed_at": "2026-05-01T21:21:39.137Z",
+        "completion_hash": "a3730fabb7506dbd4f55c77a3f30a2b085579615fabe15587b4e7dc6cdb02bb6"
       },
       "policy_passed": true,
       "trust_score_at_ratification": 95
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "dfe5384fa0d7ad51107e010b297f81c7e322df5b553634bc007cc2a1eef07e35"
+    "this_hash": "16a96cae5c98ddcb4e2872dde5412e1a33c4b5fdf07d940f205cdf6cfc785f44"
   },
   "chain_valid": true
 }
