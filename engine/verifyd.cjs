@@ -9,24 +9,18 @@ const PolicyEngine = require('./policy.cjs');
 const AuditChain = require('./audit-chain.cjs');
 const TrustScoreCalculator = require('./trust-score.cjs');
 
+const Canonical = require('./canonicalize.cjs');
+const EngineTrace = require('./engine-trace.cjs');
+const SecretScan = require('./secret-scan.cjs');
+const FileType = require('./file-type.cjs');
+const FolderManifest = require('./folder-manifest.cjs');
+const LightExif = require('./light-exif.cjs');
 function sha256(s) { return crypto.createHash('sha256').update(s).digest('hex'); }
 function uuid() { return crypto.randomUUID(); }
 
 function canonicalJSON(obj, omitKeys) {
-  omitKeys = omitKeys || [];
-  function walk(v) {
-    if (v === null || typeof v !== 'object') return v;
-    if (Array.isArray(v)) return v.map(walk);
-    const sorted = {};
-    for (const k of Object.keys(v).sort()) {
-      if (omitKeys.indexOf(k) !== -1) continue;
-      sorted[k] = walk(v[k]);
-    }
-    return sorted;
-  }
-  return JSON.stringify(walk(obj));
+  return Canonical.canonicalJSON(obj, { omitKeys: omitKeys || [] });
 }
-
 function authenticatedSession(opts) {
   const session_id = uuid();
   const started_at = new Date().toISOString();
@@ -114,8 +108,13 @@ module.exports = {
   PolicyEngine,
   AuditChain,
   TrustScoreCalculator,
+  Canonical,
+  EngineTrace,
+  SecretScan,
+  FileType,
+  FolderManifest,
+  LightExif,
 };
-
 if (require.main === module) {
   const arg = process.argv[2];
   if (arg === '--demo') {

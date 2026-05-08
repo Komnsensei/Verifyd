@@ -1,0 +1,72 @@
+{
+  "manifest_version": "verifyd-folder-manifest-v1",
+  "root_label": "examples",
+  "file_count": 10,
+  "excluded_count": 0,
+  "total_size_bytes": 1687756,
+  "path_normalization": "posix-relative-v1",
+  "symlink_policy": "reject",
+  "manifest_hash": "sha256:721f9ee19bd444ff12c24817c827c5e20b698a4c10a5208b366706b28a33503e",
+  "entries": [
+    {
+      "path": "audit-paper.cjs",
+      "size_bytes": 7359,
+      "sha256": "ce76818bd9f5125b4f0164d6af1b5cc5647b682ddd09bbb458f1474975de107e",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "lattice-demo.cjs",
+      "size_bytes": 4617,
+      "sha256": "61fe08027dfd3bfd28b020f310f02120192509a6fa510bc5621039cfb4771e2a",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "paper-audit-receipt.json",
+      "size_bytes": 5970,
+      "sha256": "c4df5a0c23181a78874956b9157a55c466c855d354e142fb0ac66475a95bc983",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "paper.txt",
+      "size_bytes": 154979,
+      "sha256": "335289049ffdfb0d21fc609051216b35e4b507f10d65205bb5c1fc704042704d",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "paper.verifyd-receipt.json",
+      "size_bytes": 16607,
+      "sha256": "8c97c0be7f5647732b5b9bf6104d4a7c1a6dc7814509370a74b916c803329320",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "Quantum Information Holography and the Born Rule.pdf",
+      "size_bytes": 1314735,
+      "sha256": "cc0caac558edbd768faec9f7d6ef5a9617a865a3f35e6165f2640feabcd404e2",
+      "magic_type": "application/pdf"
+    },
+    {
+      "path": "Quantum Information Holography and the Born Rule.txt",
+      "size_bytes": 154979,
+      "sha256": "335289049ffdfb0d21fc609051216b35e4b507f10d65205bb5c1fc704042704d",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "Quantum Information Holography and the Born Rule.verifyd-receipt.certificate.txt",
+      "size_bytes": 10359,
+      "sha256": "4a8439d19696ffa53826b96f97dd7b66bb3deea1da3b4575f300c566815f9ab2",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "Quantum Information Holography and the Born Rule.verifyd-receipt.json",
+      "size_bytes": 15082,
+      "sha256": "b7df9da294c03aaaedfbbe54986d09d75d070c5f7bd62bf4e19bf79d536e647c",
+      "magic_type": "application/octet-stream"
+    },
+    {
+      "path": "run-example.cjs",
+      "size_bytes": 3069,
+      "sha256": "7160ec1ac9dfc99bc92d45222864d6d6a6c58bd3018d152dbad72bcf91ce1473",
+      "magic_type": "application/octet-stream"
+    }
+  ]
+}

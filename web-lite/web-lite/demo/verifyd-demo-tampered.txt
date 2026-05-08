@@ -1,0 +1,9 @@
+VERIFYD DEMO ORIGINAL
+Document ID: verifyd-demo-alpha
+Claim: This is the known original demo artifact.
+Version: 1
+Payload:
+The receipt is only valid while these exact bytes remain unchanged.
+
+TAMPERED CHANGE:
+This extra line changes the file hash and should trigger LOW TRUST.

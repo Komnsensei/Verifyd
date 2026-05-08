@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verifyd Web Lite</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="manifest" href="./manifest.json" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="badge">VERIFYD WEB LITE</div>
+      <h1>Tamper-evident receipts in your browser.</h1>
+      <p>
+        Drop a file or folder. Verifyd hashes it locally, creates a receipt,
+        and renders a shareable certificate. No upload.
+      </p>
+      <div class="trust">
+        <span>Local browser hashing</span>
+        <span>No account</span>
+        <span>No upload</span>
+        <span>Engine Auth: WEB LITE / UNSIGNED</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div id="dropzone" class="dropzone">
+        <div class="drop-icon">VERIFYD</div>
+        <h2>Drop file or folder here</h2>
+        <p>or choose below</p>
+        <div class="buttons">
+          <label class="btn">
+            Choose File
+            <input id="fileInput" type="file" hidden />
+          </label>
+          <label class="btn secondary">
+            Choose Folder
+            <input id="folderInput" type="file" webkitdirectory directory multiple hidden />
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultPanel" class="panel hidden">
+      <div class="result-head">
+        <div>
+          <div class="eyebrow">AUDIT RESULT</div>
+          <h2 id="resultTitle">Receipt ready</h2>
+        </div>
+        <div id="sealStatus" class="seal">VALID</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="label">Subject</div>
+          <div id="subjectName" class="value">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Mode</div>
+          <div id="auditMode" class="value">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Size</div>
+          <div id="subjectSize" class="value">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Primary Hash</div>
+          <div id="primaryHash" class="value mono">-</div>
+        </div>
+      </div>
+
+      <pre id="certificatePreview" class="certificate"></pre>
+
+      <div class="buttons">
+        <button id="downloadReceipt" class="btn">Download Receipt JSON</button>
+        <button id="downloadCert" class="btn secondary">Download Certificate TXT</button>
+        <button id="copyCert" class="btn ghost">Copy Certificate</button>
+      </div>
+    </section>
+
+    <section class="notice">
+      <strong>Evidence-honest notice:</strong>
+      Verifyd Web Lite creates local browser receipts. It does not prove truth,
+      authorship, legal ownership, or official engine authenticity. Signed
+      Verifyd release verification is a separate trust layer.
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

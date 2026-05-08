@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Verifyd</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="popup">
+    <div class="badge">VERIFYD</div>
+    <h1>Web Lite</h1>
+    <p>Local tamper-evident receipts. No upload.</p>
+
+    <label class="btn">
+      Choose File
+      <input id="fileInput" type="file" hidden />
+    </label>
+
+    <div id="result" class="result hidden">
+      <div class="label">SHA-256</div>
+      <div id="hash" class="hash"></div>
+      <button id="download" class="btn secondary">Download Receipt</button>
+    </div>
+
+    <div class="notice">
+      Engine Auth: WEB LITE / UNSIGNED
+    </div>
+  </div>
+
+  <script src="./popup.js"></script>
+</body>
+</html>

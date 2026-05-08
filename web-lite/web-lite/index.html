@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verifyd Web Lite</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="manifest" href="./manifest.json" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="badge">VERIFYD WEB LITE</div>
+      <h1>Watch tampering fail in the browser.</h1>
+      <p>
+        Download the known original and the known tampered demo file.
+        Drop each one into Verifyd. Same process. Different hash. Immediate result.
+      </p>
+      <div class="trust">
+        <span>No upload</span>
+        <span>WebCrypto SHA-256</span>
+        <span>Deterministic receipt</span>
+        <span>Engine Auth: WEB LITE / UNSIGNED</span>
+      </div>
+    </section>
+
+    <section class="panel demo-panel">
+      <div class="demo-copy">
+        <div class="eyebrow">LIVE DEMO</div>
+        <h2>Original vs Tampered</h2>
+        <p>
+          The original demo file has a known expected SHA-256. The tampered file
+          looks similar, but its bytes differ. Verifyd compares the dropped file
+          against the known demo baseline.
+        </p>
+      </div>
+
+      <div class="demo-actions">
+        <a class="btn" href="./demo/verifyd-demo-original.txt" download>Download Original Demo</a>
+        <a class="btn danger" href="./demo/verifyd-demo-tampered.txt" download>Download Tampered Demo</a>
+      </div>
+
+      <div class="demo-hashes">
+        <div>
+          <span>Expected Original SHA-256</span>
+          <code id="expectedHash">2366efe9a228614a319c1789f2a1bf3997febd76963d7dfc098fc20a5a9fa9ff</code>
+        </div>
+        <div>
+          <span>Known Tampered SHA-256</span>
+          <code id="tamperedHash">0129525b6c4fd597def12d315526633666e75c03faaf934da828bf16c5fcba43</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div id="dropzone" class="dropzone">
+        <div class="drop-icon">VERIFYD</div>
+        <h2>Drop original, tampered, or your own file</h2>
+        <p>Everything is hashed locally in your browser.</p>
+        <div class="buttons">
+          <label class="btn">
+            Choose File
+            <input id="fileInput" type="file" hidden />
+          </label>
+          <label class="btn secondary">
+            Choose Folder
+            <input id="folderInput" type="file" webkitdirectory directory multiple hidden />
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultPanel" class="panel hidden">
+      <div class="result-head">
+        <div>
+          <div class="eyebrow">AUDIT RESULT</div>
+          <h2 id="resultTitle">Receipt ready</h2>
+          <p id="resultSubtitle" class="mutedline"></p>
+        </div>
+        <div id="sealStatus" class="seal">VALID</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="label">Subject</div>
+          <div id="subjectName" class="value">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Mode</div>
+          <div id="auditMode" class="value">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Trust</div>
+          <div id="trustScore" class="value">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Primary Hash</div>
+          <div id="primaryHash" class="value mono">-</div>
+        </div>
+      </div>
+
+      <pre id="certificatePreview" class="certificate"></pre>
+
+      <div class="buttons">
+        <button id="downloadReceipt" class="btn">Download Receipt JSON</button>
+        <button id="downloadCert" class="btn secondary">Download Certificate TXT</button>
+        <button id="copyCert" class="btn ghost">Copy Certificate</button>
+      </div>
+    </section>
+
+    <section class="notice">
+      <strong>Evidence-honest notice:</strong>
+      This demo proves hash mismatch detection against a known browser demo
+      baseline. Verifyd Web Lite does not prove truth, authorship, legal
+      ownership, or official signed engine authenticity.
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

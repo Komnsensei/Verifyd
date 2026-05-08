@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Verifyd Web Lite",
+  "version": "0.1.0",
+  "description": "Create local tamper-evident file receipts in your browser. No upload.",
+  "action": {
+    "default_title": "Verifyd",
+    "default_popup": "popup.html"
+  },
+  "permissions": []
+}

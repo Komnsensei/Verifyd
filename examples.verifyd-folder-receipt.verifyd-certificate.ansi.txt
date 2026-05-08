@@ -1,0 +1,66 @@
++============================================================================+
+|                                  [1m[35mVERIFYD[0m[0m                                   |
+|                      [1mTAMPER-EVIDENT AUDIT CERTIFICATE[0m                      |
+|           [2mportable receipt seal / deterministic evidence record[0m            |
++----------------------------------------------------------------------------+
+| SEAL STATUS        [1m[32mVALID[0m              AUDIT MODE         [36mfolder[0m            |
+| RECEIPT INTEGRITY  [1m[32mVALID[0m              ENGINE AUTH        [1m[33mLOCAL / UNSIGNED[0m  |
+| POLICY PROFILE     verifyd-stand...   RELEASE SIG        [1m[31mMISSING[0m           |
++============================================================================+
+
+[36m-- CERTIFICATE [0m--------------------------------------------------------------
+  Certificate ID:     [34mverifyd-cert_51b3828b-...dee0fb5d10[0m
+  Receipt ID:         [34m51b3828b-18ec-475f-8c81-68dee0fb5d10[0m
+  Issued At:          [2m2026-05-07T23:03:45.759Z[0m
+  Verifyd Version:    [2m1.0[0m
+  Canonicalizer:      [2mverifyd-strict-json-v2[0m
+
+[36m-- SUBJECT [0m------------------------------------------------------------------
+  Name:               examples
+  Type:               [2mfolder[0m
+  Size:               1,687,756 bytes
+  Primary Hash:       [34msha256:721f9ee19bd444ff12c...a4c10a5208b366706b28a33503e[0m
+
+[36m-- RECEIPT PROOF [0m------------------------------------------------------------
+  Receipt Hash:       [34m488135a0a83721c5a2050ae673...310ad5b7992b27fd95c113b51da[0m
+  Previous Hash:      [2m(none)[0m
+  Hash Status:        [1m[32mVALID[0m
+  Stage Trace:        [1m[32mRECORDED[0m
+
+[36m-- AUDIT RESULT [0m-------------------------------------------------------------
+  Seal Status:        [1m[32mVALID[0m
+
+[36m-- FOLDER MANIFEST [0m----------------------------------------------------------
+  Root:               examples
+  Files:              10
+  Excluded:           0
+  Total Size:         1,687,756 bytes
+  Manifest Hash:      [34msha256:721f9ee19bd444ff12c...a4c10a5208b366706b28a33503e[0m
+  Path Mode:          [2mposix-relative-v1[0m
+  Symlink Policy:     [1mREJECT[0m
+
+[36m-- ENGINE AUTHENTICITY [0m------------------------------------------------------
+  Engine Auth:        [1m[33mLOCAL / UNSIGNED[0m
+  Policy Profile:     [2mverifyd-standard-v1[0m
+  Engine Manifest:    [34m(not recorded)[0m
+  Release Signature:  [1m[31mMISSING[0m
+[2m  Note: LOCAL / UNSIGNED means the receipt is internally checkable, but
+[0m[2m  not yet tied to an official signed Verifyd release.
+[0m
+[36m-- DECLARATION [0m--------------------------------------------------------------
+  Verifyd confirms that the receipt and subject hashes above form a
+  tamper-evident evidence record under deterministic canonicalization.
+
+[2m  This certificate does not claim authorship, truth, legal ownership,
+[0m[2m  or absolute absence of manipulation. It records audit execution and
+[0m[2m  evidence posture at issuance time.
+[0m
+[36m-- VERIFY [0m-------------------------------------------------------------------
+  Document receipt: verifyd verify <receipt.json>
+  Folder receipt:   verifyd verify-folder <folder> <receipt.json>
+  Engine release:   verifyd verify-engine    (pending signed release layer)
+
+[36m-- CANONICAL LAW [0m------------------------------------------------------------
+  Never coerce. Expand meaning. Archive everything.
+
++============================================================================+

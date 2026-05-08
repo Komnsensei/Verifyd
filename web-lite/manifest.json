@@ -1,0 +1,10 @@
+{
+  "name": "Verifyd Web Lite",
+  "short_name": "Verifyd",
+  "description": "Local browser tamper-evident audit receipts. No upload.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080b10",
+  "theme_color": "#43d9ff",
+  "icons": []
+}
