@@ -21,16 +21,17 @@ for (let i = 0; i < pdfs.length; i++) {
     if (fs.existsSync(receiptFile)) {
       execSync('node "' + CERTIFY + '" "' + receiptFile + '"', { stdio: 'pipe' });
       const data = JSON.parse(fs.readFileSync(receiptFile, 'utf8'));
+      const r = data.receipt || {};
       summary.push({
         file: pdf,
         words: data.document.words,
         sha: data.document.sha256.slice(0, 12),
-        trust: data.audit.trust_score.value,
-        lattice: data.audit.lattice_status,
-        receipt: data.receipt.this_hash.slice(0, 12),
-        valid: data.chain_valid
+        quality: r.document_quality ? r.document_quality.value : null,
+        lattice: r.lattice ? r.lattice.status : null,
+        receipt: String(r.this_hash || '').slice(0, 12),
+        signed: Boolean(data.signature && data.signature.value)
       });
-      console.log('OK ' + data.audit.trust_score.value + '/100');
+      console.log('OK ' + (r.document_quality ? 'quality=' + r.document_quality.value + '/100' : 'no quality') + (data.signature ? ' signed' : ' UNSIGNED'));
     } else {
       console.log('FAIL no receipt');
       summary.push({ file: pdf, error: 'no receipt produced' });
@@ -49,8 +50,8 @@ summary.forEach((s, i) => {
     console.log('   FAIL: ' + s.error);
   } else {
     ok++;
-    console.log('   words=' + s.words + ' trust=' + s.trust + '/100 lattice=' + s.lattice);
-    console.log('   sha=' + s.sha + '... receipt=' + s.receipt + '... valid=' + s.valid);
+    console.log('   words=' + s.words + ' quality=' + s.quality + '/100 (heuristic) lattice=' + s.lattice);
+    console.log('   sha=' + s.sha + '... receipt=' + s.receipt + '... signed=' + s.signed);
   }
 });
 console.log('\nSealed: ' + ok + '/' + summary.length);

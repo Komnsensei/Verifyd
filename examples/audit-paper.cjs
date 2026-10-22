@@ -40,7 +40,7 @@ console.log('');
 
 // ---- 2. Build session output describing the audit verdict ----
 const summary = 'Audit of "' + title.slice(0, 60) + '". ' +
-  'Document hashed, anchors and confidence declared, policy checked, trust scored.';
+  'Document hashed, anchors and confidence declared, policy checked, quality scored.';
 
 const anchors = [];
 if (arxivMatch) anchors.push({
@@ -91,11 +91,11 @@ const policyPassed = v.PolicyEngine.passed(checks);
 console.log('    => ' + (policyPassed ? 'PASSED' : 'FAILED'));
 console.log('');
 
-// ---- 4. Trust score ----
-const trustScore = v.TrustScoreCalculator.compute(session, output, checks);
-console.log('[4] Trust Score');
-console.log('    value: ' + trustScore.value + '/100');
-Object.entries(trustScore.components).forEach(([k, val]) =>
+// ---- 4. Document quality (uncalibrated heuristic) ----
+const documentQuality = v.TrustScoreCalculator.documentQuality(session, output, checks);
+console.log('[4] Document Quality (heuristic, uncalibrated)');
+console.log('    value: ' + documentQuality.value + '/100');
+Object.entries(documentQuality.components).forEach(([k, val]) =>
   console.log('    ' + k.padEnd(24) + val + '/25'));
 console.log('');
 
@@ -137,7 +137,7 @@ const ratification = v.ratificationEvent({
   session, output,
   human_method: 'auditor-attestation',
   policy_passed: policyPassed,
-  trust_score_value: trustScore.value,
+  document_quality_value: documentQuality.value,
 });
 
 const chain = new v.AuditChain();
@@ -145,7 +145,7 @@ const receipt = v.buildReceipt({
   session,
   outputs: [output],
   policy_checks: checks,
-  trust_score: trustScore,
+  document_quality: documentQuality,
   ratification,
   prev_hash: chain.lastHash(),
 });
@@ -180,7 +180,7 @@ fs.writeFileSync(outFile, JSON.stringify({
     session,
     output,
     policy_checks: checks,
-    trust_score: trustScore,
+    document_quality: documentQuality,
     ratification,
     lattice_status: el.status,
     persistence: lattice.persistence(el),
@@ -191,6 +191,6 @@ fs.writeFileSync(outFile, JSON.stringify({
 
 console.log('=== Audit complete. Receipt saved: paper-audit-receipt.json ===');
 console.log('    Lattice status:  ' + el.status);
-console.log('    Trust score:     ' + trustScore.value + '/100');
+console.log('    Doc quality:     ' + documentQuality.value + '/100 (heuristic, uncalibrated)');
 console.log('    Policy verdict:  ' + (policyPassed ? 'PASSED' : 'FAILED'));
 console.log('    Chain integrity: ' + (verification.valid ? 'OK' : 'BROKEN'));

@@ -10,6 +10,12 @@ const AuditChain = require('./audit-chain.cjs');
 const TrustScoreCalculator = require('./trust-score.cjs');
 
 const Canonical = require('./canonicalize.cjs');
+const Signing = require('./signing.cjs');
+const TSA = require('./tsa.cjs');
+const Merkle = require('./merkle.cjs');
+const Witness = require('./witness.cjs');
+const Determination = require('./determination.cjs');
+const AssuranceEvidence = require('./evidence.cjs');
 const EngineTrace = require('./engine-trace.cjs');
 const SecretScan = require('./secret-scan.cjs');
 const FileType = require('./file-type.cjs');
@@ -65,7 +71,7 @@ function ratificationEvent(opts) {
       completion_hash: sha256(opts.output.content_hash + opts.session.session_hash),
     },
     policy_passed: !!opts.policy_passed,
-    trust_score_at_ratification: opts.trust_score_value,
+    document_quality_at_ratification: opts.document_quality_value,
   };
 }
 
@@ -76,13 +82,26 @@ function buildReceipt(opts) {
     session: opts.session,
     outputs: opts.outputs,
     policy_checks: opts.policy_checks,
-    trust_score: opts.trust_score,
+    document_quality: opts.document_quality || null,
     ratification: opts.ratification,
+    lattice: opts.lattice || null,
     prev_hash: opts.prev_hash,
     external_anchors: [],
   };
   receipt.this_hash = sha256(canonicalJSON(receipt, ['this_hash']));
   return receipt;
+}
+
+// One owner for receipt state: the envelope is what gets sealed and written.
+// `document` and `receipt` live here once, and the signature covers both.
+function buildEnvelope(opts) {
+  return {
+    valf_version: '1.0',
+    receipt_type: opts.receipt_type || 'document',
+    signed_at: new Date().toISOString(),
+    document: opts.document || null,
+    receipt: opts.receipt,
+  };
 }
 
 function verifyChain(chain) {
@@ -102,7 +121,14 @@ module.exports = {
   sessionOutput,
   ratificationEvent,
   buildReceipt,
+  buildEnvelope,
   verifyChain,
+  Signing,
+  TSA,
+  Merkle,
+  Witness,
+  Determination,
+  AssuranceEvidence,
   canonicalJSON,
   sha256,
   PolicyEngine,

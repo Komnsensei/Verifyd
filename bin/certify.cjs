@@ -11,6 +11,10 @@
 const fs = require('fs');
 const path = require('path');
 
+const v = require('../engine/verifyd.cjs');
+const Artifacts = require('../engine/artifacts.cjs');
+const TrustScore = v.TrustScoreCalculator;
+
 const ESC = String.fromCharCode(27);
 
 const A = {
@@ -137,9 +141,12 @@ function policyPassed(checks) {
 
 function normalize(data) {
   const core = data.receipt && data.receipt.this_hash ? data.receipt : data;
-  const auditBlock = data.audit || core.audit || {};
+  // One owner: the signed envelope's `receipt`. `data.audit` is legacy input.
+  const auditBlock = (data.receipt && data.receipt.this_hash) ? data.receipt : (data.audit || core.audit || {});
   const checks = auditBlock.policy_checks || core.policy_checks || [];
   const policyOk = policyPassed(checks);
+  const signature = data.signature && data.signature.value ? data.signature : null;
+  const latticeStatus = (core.lattice && core.lattice.status) || auditBlock.lattice_status || null;
 
   const folder = core.folder || (core.manifest ? {
     root_label: core.manifest.root_label,
@@ -163,7 +170,7 @@ function normalize(data) {
   if (light && light.forgery_posture) sealStatus = light.forgery_posture.verdict || 'UNKNOWN';
   else if (data.chain_valid === false) sealStatus = 'FAILED';
   else if (policyOk === false) sealStatus = 'FAILED';
-  else if (auditBlock.lattice_status) sealStatus = auditBlock.lattice_status;
+  else if (latticeStatus) sealStatus = latticeStatus;
   else if (folder) sealStatus = 'VALID';
 
   const engineIdentity = core.engine_identity || data.engine_identity || {};
@@ -210,6 +217,8 @@ function normalize(data) {
     core,
     data,
     auditBlock,
+    signature,
+    latticeStatus,
     checks,
     folder,
     light,
@@ -225,7 +234,11 @@ function normalize(data) {
     issued_at: core.created_at || core.issued_at || (core.session && core.session.started_at) || new Date().toISOString(),
     version: core.valf_version || '1.0',
     engine_manifest_hash: engineIdentity.engine_manifest_hash || '(not recorded)',
-    release_signature: engineIdentity.release_signature || engineIdentity.release_signature_status || 'MISSING'
+    release_signature: engineIdentity.release_signature || engineIdentity.release_signature_status || 'MISSING',
+    signature_status: signature ? 'SIGNED' : 'UNSIGNED',
+    signer_key_id: signature ? signature.key_id : '(none)',
+    time_token: data.timestamp && data.timestamp.token ? 'PRESENT' : 'NONE',
+    time_authority: (data.timestamp && data.timestamp.tsa_url) || null
   };
 }
 
@@ -233,8 +246,28 @@ function renderCertificate(data, opts) {
   opts = opts || {};
   const color = C(!!opts.color);
   const r = normalize(data);
+  // Policy on the certificate follows the assurance feature, not
+  // PolicyEngine.passed(): a warning or an untraceable citation is not PASSED.
+  const strictPolicy = opts.assurance && opts.assurance.evidence && opts.assurance.evidence.policy;
+  if (strictPolicy && strictPolicy.status !== 'absent') r.policyOk = strictPolicy.value === 1;
+  if (opts.integrity && opts.integrity.hash === 'MISMATCH') r.sealStatus = 'TAMPERED';
+  if (opts.verdict) {
+    // A verified pass may keep the lattice word; anything less must not read as
+    // a seal. Without a signed receipt there is no verdict to pass, so the
+    // certificate says UNVERIFIED instead of inheriting normalize()'s VALID.
+    if (opts.verdict.ok) {
+      if (r.sealStatus !== 'TAMPERED') r.sealStatus = r.latticeStatus === 'RATIFIED' ? 'RATIFIED' : 'VALID';
+    } else {
+      if (r.sealStatus !== 'TAMPERED') r.sealStatus = 'REJECTED';
+      if (r.latticeStatus === 'RATIFIED') r.latticeStatus = 'RATIFIED (UNVERIFIED)';
+    }
+  } else if (r.sealStatus !== 'TAMPERED') {
+    r.sealStatus = 'UNVERIFIED';
+  }
 
-  const receiptIntegrity = r.this_hash && r.this_hash !== '(none)' ? 'VALID' : 'MISSING';
+  const receiptIntegrity = opts.integrity
+    ? opts.integrity.hash
+    : (r.this_hash && r.this_hash !== '(none)' ? 'NOT CHECKED' : 'MISSING');
   const engineAuthLabel = String(r.engineAuth || '').toUpperCase();
 
   let out = '';
@@ -279,14 +312,40 @@ function renderCertificate(data, opts) {
   out += kv('Receipt Hash', color.blue(short(r.this_hash, 56)));
   out += kv('Previous Hash', color.dim(short(r.prev_hash, 56)));
   out += kv('Hash Status', color.status(receiptIntegrity));
+  out += kv('Receipt Signature', color.status(opts.integrity ? opts.integrity.signature : 'NOT CHECKED'));
+  out += kv('Signer Key ID', color.dim(short(r.signer_key_id, 48)));
+  out += kv('Time Token', color.status(r.time_token));
+  if (r.time_authority) out += kv('Time Authority', color.dim(short(r.time_authority, 48)));
   out += kv('Stage Trace', r.core.engine_trace ? color.status('RECORDED') : color.status('MISSING'));
 
   out += section('Audit Result', color);
-  if (r.policyOk !== null) out += kv('Policy', color.status(r.policyOk ? 'PASSED' : 'FAILED'));
-  if (r.auditBlock.trust_score) out += kv('Trust Score', color.status(String(r.auditBlock.trust_score.value) + ' / 100'));
-  if (r.auditBlock.lattice_status) out += kv('Lattice Status', color.status(r.auditBlock.lattice_status));
+  if (r.policyOk !== null) out += kv('Policy', color.status(r.policyOk ? 'PASSED' : 'UNVERIFIED'));
+  if (r.auditBlock.document_quality) {
+    out += kv('Doc Quality', color.dim(String(r.auditBlock.document_quality.value) +
+      ' / 100 (heuristic, UNCALIBRATED, not a probability)'));
+  } else if (r.auditBlock.trust_score) {
+    out += kv('Legacy Field', color.dim(String(r.auditBlock.trust_score.value) +
+      ' / 100 (old heuristic, UNCALIBRATED; not this version\'s score)'));
+  }
+  if (opts.assurance && !opts.assurance.error) {
+    const a = opts.assurance;
+    out += kv('Assurance', color.status(a.percent + ' / 100') + color.dim('  p=' + a.probability.toFixed(3)));
+    out += kv('Assurance Model', color.dim(a.scheme + ' ' + a.model_version + ' / ' + a.labels_origin + ' labels'));
+    out += kv('Assurance Data', color.dim('sha256:' + short(a.dataset_sha256, 40)));
+    if (a.absent.length) out += kv('Evidence Absent', color.yellow(a.absent.join(', ')));
+    if (a.notes.length) out += kv('Assurance Notes', color.dim(a.notes.map(n => n.code).join(', ')));
+  } else if (opts.assurance) {
+    out += kv('Assurance', color.status('NOT COMPUTED') + color.dim('  ' + opts.assurance.error));
+  }
+  if (r.latticeStatus) out += kv('Lattice Status', color.status(r.latticeStatus));
   if (r.data.chain_valid !== undefined) out += kv('Chain Valid', color.status(String(!!r.data.chain_valid).toUpperCase()));
   out += kv('Seal Status', color.status(r.sealStatus));
+  if (opts.verdict) {
+    out += kv('Verification', color.status(opts.verdict.ok ? 'PASSED' : 'REJECTED'));
+    if (!opts.verdict.ok && opts.verdict.reasons.length) {
+      out += kv('Reason', color.dim(short(opts.verdict.reasons.join('; '), 56)));
+    }
+  }
 
   if (r.folder) {
     out += section('Folder Manifest', color);
@@ -330,6 +389,7 @@ function renderCertificate(data, opts) {
   out += kv('Release Signature', color.status(r.release_signature));
   out += color.dim('  Note: LOCAL / UNSIGNED means the receipt is internally checkable, but\n');
   out += color.dim('  not yet tied to an official signed Verifyd release.\n');
+  out += color.dim('  A receipt signature proves key possession over these bytes, not honesty.\n');
 
   out += section('Declaration', color);
   out += '  Verifyd confirms that the receipt and subject hashes above form a\n';
@@ -337,9 +397,16 @@ function renderCertificate(data, opts) {
   out += color.dim('  This certificate does not claim authorship, truth, legal ownership,\n');
   out += color.dim('  or absolute absence of manipulation. It records audit execution and\n');
   out += color.dim('  evidence posture at issuance time.\n');
+  if (opts.assurance && !opts.assurance.error) {
+    out += color.dim('  The assurance probability estimates whether the evidence above holds.\n');
+    out += color.dim('  It is fitted on synthetic labels, not observed audit outcomes, so it\n');
+    out += color.dim('  shows the method is wired, not that the estimate matches the world.\n');
+  }
+
 
   out += section('Verify', color);
-  out += '  Document receipt: verifyd verify <receipt.json>\n';
+  out += '  Document receipt: verifyd verify <receipt.json>   (signature + hash + keyring)\n';
+  out += '  Timestamp token:  add --tsa-ca <pem> to check the TSA chain\n';
   out += '  Folder receipt:   verifyd verify-folder <folder> <receipt.json>\n';
   out += '  Engine release:   verifyd verify-engine    (pending signed release layer)\n';
 
@@ -370,15 +437,65 @@ function usage() {
   console.log('Usage:');
   console.log('  node bin/certify.cjs <receipt.json> [--color] [--ansi] [--out file]');
   console.log('  node bin/verifyd.cjs certify <receipt.json> [--color] [--ansi] [--out file]');
+  console.log('    --keyring <dir>         keyring that must trust the signer (assurance recompute)');
+  console.log('    --witness-keys <dir>    trusted witness keys (assurance recompute)');
+  console.log('    --tsa-ca <pem>          TSA root, so attested time counts as attested');
+  console.log('    --batch <root.json>     authenticate the inclusion root');
+  console.log('    --determination <file>  include a signed compliance determination');
+  console.log('    --reviewer-keyring <d>  keyring that must trust the reviewer');
   console.log('');
   console.log('Default saves plain ASCII .txt. --color colors preview. --ansi saves colored ANSI file.');
 }
 
-function main(argv) {
+function argValue(argv, flag) {
+  const index = argv.indexOf(flag);
+  return index >= 0 && argv[index + 1] && !argv[index + 1].startsWith('--') ? argv[index + 1] : null;
+}
+
+// A certificate must not call a tampered receipt valid. Recompute the stored
+// hash and verify the signature when a document receipt is present; folder and
+// light records carry a hash but no signature.
+function checkIntegrity(data, evidence) {
+  try {
+    if (data.receipt && typeof data.receipt === 'object') {
+      const stored = typeof data.receipt.this_hash === 'string' ? data.receipt.this_hash : null;
+      let hash = 'MISSING';
+      if (stored) {
+        const recomputed = v.sha256(v.canonicalJSON(data.receipt, ['this_hash']));
+        hash = recomputed === stored ? 'VALID' : 'MISMATCH';
+      }
+
+      // Signature verification is owned by AssuranceEvidence; never re-open
+      // the envelope here, or the certificate and the score can disagree.
+      const signature = evidence
+        ? (evidence.signature.ok ? 'VALID' : (evidence.signature.code || 'INVALID'))
+        : 'NOT CHECKED';
+      return { hash, signature };
+    }
+
+    if (typeof data.this_hash === 'string') {
+      const recomputed = v.sha256(v.canonicalJSON(data, ['this_hash']));
+      return { hash: recomputed === data.this_hash ? 'VALID' : 'MISMATCH', signature: 'UNSIGNED' };
+    }
+  } catch (e) {
+    return { hash: 'MISMATCH', signature: 'ERROR' };
+  }
+  return { hash: 'MISSING', signature: 'UNSIGNED' };
+}
+
+async function main(argv) {
   argv = argv || process.argv.slice(2);
   if (argv[0] === 'certify') argv = argv.slice(1);
 
-  const receiptFile = argv.find(a => !a.startsWith('--'));
+  const valueFlags = new Set(['--out', '--keyring', '--witness-keys', '--tsa-ca', '--batch', '--determination', '--reviewer-keyring']);
+  let receiptFile = null;
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (valueFlags.has(a)) { i += 1; continue; }
+    if (a.startsWith('--')) continue;
+    receiptFile = a;
+    break;
+  }
   const colorOut = argv.includes('--color');
   const ansiFile = argv.includes('--ansi');
 
@@ -390,19 +507,67 @@ function main(argv) {
     return receiptFile ? 0 : 1;
   }
 
-  if (!fs.existsSync(receiptFile)) {
-    console.error('verifyd certify: receipt not found: ' + receiptFile);
+  const read = Artifacts.readJsonObject(receiptFile, {
+    messages: {
+      notFound: 'receipt not found: ' + receiptFile,
+      directory: 'not a receipt file',
+      invalidJson: 'receipt is not valid JSON',
+      notObject: 'not a receipt',
+      readError: 'receipt could not be read',
+    },
+  });
+  if (!read.ok) {
+    console.error('verifyd certify: ' + read.message);
+    if (read.code === 'IS_DIRECTORY') {
+      console.error('  Pass a receipt from audit or audit-folder, not a folder.');
+    }
     return 1;
   }
 
-  const data = JSON.parse(fs.readFileSync(receiptFile, 'utf8'));
+  const data = read.value;
+  const looksLikeReceipt =
+    (data.receipt && typeof data.receipt === 'object') ||
+    typeof data.this_hash === 'string' ||
+    typeof data.receipt_type === 'string' ||
+    (data.manifest && typeof data.manifest === 'object');
+  if (!looksLikeReceipt) {
+    console.error('verifyd certify: not a receipt: ' + receiptFile);
+    return 1;
+  }
+  if (argValue(argv, '--determination') && !(data.receipt && typeof data.receipt === 'object')) {
+    console.error('verifyd certify: --determination needs a signed document receipt');
+    return 1;
+  }
 
   if (!outFile) {
     outFile = receiptFile.replace(/\.json$/i, '') + '.verifyd-certificate' + (ansiFile ? '.ansi.txt' : '.txt');
   }
 
-  const saved = renderCertificate(data, { color: ansiFile });
-  const preview = renderCertificate(data, { color: colorOut });
+  // Recompute the probability from the receipt and the evidence on this
+  // machine. Rendering never trusts a score stored in the file.
+  let assurance = null;
+  let evidence = null;
+  if (data && data.receipt) {
+    try {
+      evidence = await v.AssuranceEvidence.collect(data, {
+        keyring: argValue(argv, '--keyring') || v.Signing.defaultKeyringDir(),
+        witnessKeys: argValue(argv, '--witness-keys') || process.env.VERIFYD_WITNESS_KEYS || null,
+        tsaCa: argValue(argv, '--tsa-ca') || process.env.VERIFYD_TSA_CA || null,
+        batch: argValue(argv, '--batch'),
+        determination: argValue(argv, '--determination'),
+        reviewerKeyring: argValue(argv, '--reviewer-keyring'),
+      });
+      assurance = await TrustScore.assess(data, { evidence });
+    } catch (e) {
+      assurance = { error: e.code || e.message };
+    }
+  }
+
+  const integrity = checkIntegrity(data, evidence);
+  const verdict = evidence ? v.AssuranceEvidence.verdict(data, evidence) : null;
+
+  const saved = renderCertificate(data, { color: ansiFile, assurance, integrity, verdict });
+  const preview = renderCertificate(data, { color: colorOut, assurance, integrity, verdict });
 
   fs.writeFileSync(outFile, saved, 'utf8');
 
@@ -410,11 +575,17 @@ function main(argv) {
   console.log('Certificate saved: ' + outFile);
   console.log(renderCompletion(outFile, data, colorOut));
 
-  return 0;
+  const failed = (integrity && (integrity.hash !== 'VALID' ||
+    (data.receipt && typeof data.receipt === 'object' && integrity.signature !== 'VALID'))) ||
+    (verdict && !verdict.ok);
+  return failed ? 1 : 0;
 }
 
 if (require.main === module) {
-  process.exit(main());
+  main().then(rc => process.exit(rc), e => {
+    console.error('verifyd certify: ' + (e.code || e.message));
+    process.exit(1);
+  });
 }
 
 module.exports = {

@@ -1,0 +1,73 @@
++============================================================================+
+|                                  VERIFYD                                   |
+|                      TAMPER-EVIDENT AUDIT CERTIFICATE                      |
+|           portable receipt seal / deterministic evidence record            |
++----------------------------------------------------------------------------+
+| SEAL STATUS        VALID              AUDIT MODE         document          |
+| RECEIPT INTEGRITY  VALID              ENGINE AUTH        LOCAL / UNSIGNED  |
+| POLICY PROFILE     verifyd-stand...   RELEASE SIG        MISSING           |
++============================================================================+
+
+-- CERTIFICATE --------------------------------------------------------------
+  Certificate ID:     verifyd-cert_e087f70c-...1214e88e8a
+  Receipt ID:         e087f70c-4c63-48cf-b9b6-a41214e88e8a
+  Issued At:          2026-10-22T23:20:48.157Z
+  Verifyd Version:    1.0
+  Canonicalizer:      verifyd-strict-json-v2
+
+-- SUBJECT ------------------------------------------------------------------
+  Name:               paper.txt
+  Type:               TXT
+  Size:               22885 words
+  Primary Hash:       sha256:72ad72fc235e2f6fb88...b236b868e521a5e946660d769f9
+
+-- RECEIPT PROOF ------------------------------------------------------------
+  Receipt Hash:       ca1f71c19f477d906b15908f89...1f072c64f8a942775f5d3228363
+  Previous Hash:      GENESIS
+  Hash Status:        VALID
+  Receipt Signature:  VALID
+  Signer Key ID:      ed25519:091dfcf4215420...f8a2c0d6c5757dfee36bac5
+  Time Token:         NONE
+  Stage Trace:        MISSING
+
+-- AUDIT RESULT -------------------------------------------------------------
+  Policy:             PASSED
+  Doc Quality:        46 / 100 (heuristic, UNCALIBRATED, not a probability)
+  Assurance:          18 / 100  p=0.181
+  Assurance Model:    verifyd-trust-assurance-v1 1.3.0 / synthetic labels
+  Assurance Data:     sha256:03233e80b378ab2aa3...f34183ca77a78b637f8
+  Evidence Absent:    attested_time, proven_inclusion, witness_quorum, compliant_determination, resolved_anchor
+  Lattice Status:     PROVISIONAL
+  Seal Status:        VALID
+  Verification:       PASSED
+
+-- ENGINE AUTHENTICITY ------------------------------------------------------
+  Engine Auth:        LOCAL / UNSIGNED
+  Policy Profile:     verifyd-standard-v1
+  Engine Manifest:    (not recorded)
+  Release Signature:  MISSING
+  Note: LOCAL / UNSIGNED means the receipt is internally checkable, but
+  not yet tied to an official signed Verifyd release.
+  A receipt signature proves key possession over these bytes, not honesty.
+
+-- DECLARATION --------------------------------------------------------------
+  Verifyd confirms that the receipt and subject hashes above form a
+  tamper-evident evidence record under deterministic canonicalization.
+
+  This certificate does not claim authorship, truth, legal ownership,
+  or absolute absence of manipulation. It records audit execution and
+  evidence posture at issuance time.
+  The assurance probability estimates whether the evidence above holds.
+  It is fitted on synthetic labels, not observed audit outcomes, so it
+  shows the method is wired, not that the estimate matches the world.
+
+-- VERIFY -------------------------------------------------------------------
+  Document receipt: verifyd verify <receipt.json>   (signature + hash + keyring)
+  Timestamp token:  add --tsa-ca <pem> to check the TSA chain
+  Folder receipt:   verifyd verify-folder <folder> <receipt.json>
+  Engine release:   verifyd verify-engine    (pending signed release layer)
+
+-- CANONICAL LAW ------------------------------------------------------------
+  Never coerce. Expand meaning. Archive everything.
+
++============================================================================+

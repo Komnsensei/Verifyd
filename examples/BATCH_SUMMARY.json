@@ -1,0 +1,15 @@
+{
+  "run_at": "2026-10-22T23:20:47.937Z",
+  "folder": "examples",
+  "results": [
+    {
+      "file": "Quantum Information Holography and the Born Rule.pdf",
+      "words": 22874,
+      "sha": "9055a44f7ffd",
+      "quality": 46,
+      "lattice": "PROVISIONAL",
+      "receipt": "3ae986bd9ba1",
+      "signed": true
+    }
+  ]
+}

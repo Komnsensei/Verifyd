@@ -156,7 +156,7 @@ The same result can be written in projection-operator form. Let
 u = c(cos  x + sin  y)
 
 Then the projections of u onto the two basis axes are
-proj_(x )(u) = (u·x )x
+proj_(x)(u) = (u·x)x
 proj_(y)(u) = (u·y)y
 Since the basis vectors are unit length,
 u·x = c cos 
@@ -306,9 +306,9 @@ sector. The natural next step is to derive:
 
          dynamics rather than selected dual mappings
 
-15. Hawking Radiation as the Singular­Horizon Projection
+15. Hawking Radiation as the Singular-Horizon Projection
 Operator
-A formal operator-level derivation of the QIH read­write process
+A formal operator-level derivation of the QIH read-write process
 15.1 Hilbert space structure
 
 Let the total Hilbert space be decomposed as
@@ -322,7 +322,7 @@ with
 c_i  
 _i |c_i|^2 = 1
 
-15.2 Entangled bulk­boundary state
+15.2 Entangled bulk-boundary state
 
 Define the joint state via Schmidt decomposition:
 | = _i _i |i_bulk  |i_screen
@@ -351,7 +351,7 @@ Define the Hawking projection operator:
 P_HR : H_screen  H_screen
 Then the observable state is
 |_obs = P_HR U_QIH |_bulk
-This defines the full QIH read­write pipeline:
+This defines the full QIH read-write pipeline:
 |_bulk  U_QIH  |_screen  P_HR  |_obs
 
 15.5 Local pair-creation operator
@@ -366,7 +366,7 @@ E_HR : H_bulk  H_bulk  H_screen
 such that
 E_HR |i_bulk = (1/2)(|i_bulk  |i_screen + ...)
 Thus:
-bulk excitation  entangled bulk­screen pair
+bulk excitation  entangled bulk-screen pair
 
 15.6 Projection and collapse
 
@@ -381,7 +381,7 @@ Probability:
 P(k) = _screen| P_k |_screen
 This is exactly the Born rule, now applied at the horizon.
 
-15.7 Fourier bulk­boundary transform
+15.7 Fourier bulk-boundary transform
 
 Define the bulk phase field:
 _bulk() =  A_i e^{i_i()}
@@ -394,7 +394,7 @@ _bulk = F^{-1}[_screen]
 Norm preservation:
 ||_bulk||^2 = ||_screen||^2
 
-15.8 Energy­frequency correspondence
+15.8 Energy-frequency correspondence
 
 Using
 E = 
@@ -403,7 +403,7 @@ T_H =  c^3 / (8 G M k_B)
 define
 _H = k_B T_H /  = c^3 / (8 G M)
 Thus:
-Hawking channel frequency = natural read­write clock of horizon
+Hawking channel frequency = natural read-write clock of horizon
 
 15.9 Information generation
 
@@ -453,7 +453,7 @@ with:
     4. projection produces classical information
     5. norm is preserved
 Thus:
-Hawking radiation = algebraic read­write channel between singularity and horizon
+Hawking radiation = algebraic read-write channel between singularity and horizon
 
 15.13 Interpretation
 
@@ -581,7 +581,7 @@ Therefore:
 16.8 Emergence of geodesics
 
 Classical limit:
-0
+  0
 Dominant contribution:
 S = 0
 Thus:
@@ -644,7 +644,7 @@ _OR   / E_grav
 In QIH:
 collapse = horizon projection event
 Thus:
-Orch-OR collapse = QIH read­write collapse
+Orch-OR collapse = QIH read-write collapse
 
 16.15 Unified operator chain
 
@@ -773,13 +773,13 @@ R = g^ R_.
 
 Thus the claim that relativity is a subset of QIH is mathematically precise only if the
 entanglement-derived distance data determines a bona fide metric tensor. The
-information-geometric route via Bures or Fubini­Study metrics provides a rigorous intermediate
+information-geometric route via Bures or Fubini-Study metrics provides a rigorous intermediate
 structure, and the coarse-graining map from quantum-state geometry to classical spacetime
-geometry supplies the bridge to an effective Levi­Civita connection.
+geometry supplies the bridge to an effective Levi-Civita connection.
 19. Information acceleration and curvature
 
 To connect probability and motion to geometry, introduce the information metric on state space.
-For pure states this is the Fubini­Study metric:
+For pure states this is the Fubini-Study metric:
 ds_FS^2 = d|d - ||d|^2.
 
 Define the information speed with respect to the light-clock variable  by
@@ -879,13 +879,13 @@ The closure requirement is
 This is the point at which full relativity becomes a theorem rather than a correspondence: once
 the QIH metric and QIH stress tensor are both explicitly defined and conserved, the Einstein
 equations are recovered as the rendered geometry equations of the
-phase­interference­entanglement field. The weak-field and geodesic sectors already fit this
+phase-interference-entanglement field. The weak-field and geodesic sectors already fit this
 structure; full closure requires specifying the exact functional form of g_^QIH and proving
 nondegeneracy and conservation.
 
-24. Hawking read­write process and biological readout
+24. Hawking read-write process and biological readout
 
-The singularity­horizon sector has already been written as
+The singularity-horizon sector has already been written as
 |_obs = P_HR U_QIH |_bulk.
 To connect this to biological readout, let the microtubule lattice Hilbert space be
 H_bio = _{n=1}^{M} H_tubulin,n
@@ -901,14 +901,14 @@ _Orch = _i c_i e^{i(_i t + _i)},
 _QIH = _i c_i e^{i(_i t + _i)}.
 The collapse criterion of Orch-OR,
 _c =  / E_G,
-maps in the QIH read­write interpretation to a frequency-splitting criterion,
+maps in the QIH read-write interpretation to a frequency-splitting criterion,
 _c = 1 / ,
 
-since E = . Thus Penrose­Hameroff objective reduction and QIH Hawking-mediated
+since E = . Thus Penrose-Hameroff objective reduction and QIH Hawking-mediated
 projection can be written in the same mathematical structure: coherent superposition,
 energy/frequency encoding, interference geometry, and collapse into a record. The formal
 difference is interpretive. Orch-OR localizes the readout in microtubules. QIH localizes the
-read­write channel at the singularity­horizon interface and treats the biological system as a
+read-write channel at the singularity-horizon interface and treats the biological system as a
 downstream local horizon that reads the already projected code.
 Define the microtubule coherence functional by
 C_MT = |_j m_j|^2 / _j |m_j|^2
@@ -918,7 +918,7 @@ clarity of the conscious moment  C_MT
 temporal unfolding of the moment  _MT.
 The central nervous system is then the integrator of the reconstructed spectral pattern:
 experience = CNS  F^(-1)[horizon_code].
-In this form, the read­write chain is closed from bulk phase source to horizon record to
+In this form, the read-write chain is closed from bulk phase source to horizon record to
 biological readout.
 
 25. Algebra, trigonometry, and calculus as one QIH
@@ -950,7 +950,7 @@ benchmark norm is c and the projection field is a QSV orientation field.
 Calculus
 
 The singularity is the derivative source, the horizon is the integral projection, and Hawking
-radiation is the read­write channel that performs the physical projection. Differentiation with
+radiation is the read-write channel that performs the physical projection. Differentiation with
 respect to the light-clock variable  and integration over entanglement paths are the differential
 and integral operations of the same geometry. The fundamental theorem is therefore realized
 physically as
@@ -1041,7 +1041,7 @@ materials make this identification explicitly and treat it as the QIH time-dilat
 The same equivalence can be shown by direct substitution. Start from Einstein's expression,
 _SR = 1 / (1 - v^2/c^2).
 Substitute
-v=c
+v =  c
 with  dimensionless in the normalized qubit-axis convention. Then
 _SR = 1 / (1 - ( c)^2/c^2)
 
@@ -1171,7 +1171,7 @@ formal way to connect Riemann, Hawking modes, and horizon spectra.
 33. Hawking radiation, Bekenstein bound, and finite
 rendering
 
-The Bekenstein­Hawking entropy law is
+The Bekenstein-Hawking entropy law is
 S_H = A / (4 _P^2).
 In the QIH interpretation, this is not merely a thermodynamic formula; it is the finite-capacity
 statement for the horizon register. The nonlocal singularity field contains a superposition of all
@@ -1217,7 +1217,7 @@ The full chain developed so far may be written compactly as
  |_bio
 with:
 U_QIH = bulk-to-horizon unitary projection map
-P_HR = Hawking read­write projection operator
+P_HR = Hawking read-write projection operator
 C = biological coupling map
 The geometric and kinematic side is summarized by
 P_up = cos^2(/2)
@@ -1236,7 +1236,7 @@ A_QIH = _ W_ exp(i _ () d).
 
 This is the strongest compact dual-description statement: probability, motion, time dilation,
 geodesics, Hawking projection, finite horizon coding, and biological readout are all encoded in
-the same phase­projection­entanglement architecture.
+the same phase-projection-entanglement architecture.
 
 36. Final closure statement for this section
 
@@ -1250,7 +1250,7 @@ Feynman action  accumulated QSV phase
 
 Bekenstein bound  finite horizon basis count
 
-Hawking radiation  read­write projection channel
+Hawking radiation  read-write projection channel
 
 Geodesics  extremal entanglement-distance paths
 
@@ -1560,7 +1560,7 @@ phase-action dual of the path integral
 
 finite-capacity horizon code
 
-operator read­write chain
+operator read-write chain
 
 microtubule inverse-reconstruction map
 
@@ -1650,7 +1650,7 @@ patches and at the scale of black holes, differing only by area.
 raw overlap is not enough
 only phase-aligned overlap counts
 stable rendering occurs when aligned overlap fills the local readable channel.
-That is the precise algebraic form of the read­write threshold.
+That is the precise algebraic form of the read-write threshold.
 51. A stronger entanglement-to-metric map
 The earlier distance law
 d_ij = -_0 log(E_ij)
@@ -1790,7 +1790,7 @@ and, under the conjectured trace formula,
 
 E(s) = C (s).
 
-This is the correct Hilbert­Pólya-style statement. The open analytic step is still the determinant
+This is the correct Hilbert-Pólya-style statement. The open analytic step is still the determinant
 identity and exact trace-formula proof. So the honest status is:
 
 self-adjoint operator framework: constructed
@@ -1806,9 +1806,9 @@ The present framework now gives the following structure:
 Born rule = exact Bloch-angle projection law
 Lorentz time dilation = exact normalized angular-frequency law
 Geodesics = extremal paths of entanglement-derived metric
-Einstein curvature = rendered geometry of phase­interference­entanglement field
+Einstein curvature = rendered geometry of phase-interference-entanglement field
 Bekenstein bound = finite basis count of the horizon code
-Hawking radiation = read­write projection channel
+Hawking radiation = read-write projection channel
 Microtubules = local biological horizon patches / readout registers
 Quantum computation = engineered analogue of the same finite-register, interference,
 projection chain
@@ -1816,7 +1816,7 @@ projection chain
 The strongest exact results are the Born-rule sector, the Lorentz-factor sector, the
 change-of-variables light-clock calculus, and the threshold-capacity law. The strongest
 constructive sectors are the entanglement metric, the Einstein reduction, and the
-horizon­microtubule readout chain. The most speculative sector remains the completed
+horizon-microtubule readout chain. The most speculative sector remains the completed
 Riemann determinant proof and the strongest ontological reading of all histories.
 
 In ordinary words, the singularity does not crash to zero on the rendered screen, because the
@@ -1847,7 +1847,7 @@ Thus:
 atomic orbital = stable interference mode on the horizon
 
 The wavefunction is not merely a probability amplitude--it is the rendered code of the
-underlying phase­entanglement field.
+underlying phase-entanglement field.
 
 58. Orbitals as quantized standing-wave projections
 
@@ -1890,11 +1890,11 @@ element structure = ordered filling of allowed QSV frequency modes
 Each element corresponds to:
 element = stable multi-mode interference configuration
 Thus:
-periodicity = repetition of stable frequency­interference structures
+periodicity = repetition of stable frequency-interference structures
 The Pauli exclusion principle:
 no two electrons share identical quantum state
 becomes:
-no two QSV modes occupy identical phase­orientation configuration
+no two QSV modes occupy identical phase-orientation configuration
 
 61. Spin, orbitals, and Bloch geometry
 
@@ -1947,7 +1947,7 @@ _i = QSV orientations
 Thus:
 periodic table = catalog of stable holographic interference codes
 
-65. Wave­particle duality resolved
+65. Wave-particle duality resolved
 
 Standard duality:
 particle  wave
@@ -1955,7 +1955,7 @@ QIH interpretation:
 particle = localized projection of interference code
 wave = underlying QSV phase structure
 Thus:
-wave­particle duality = projection vs source description
+wave-particle duality = projection vs source description
 
 66. Physics vs QIH dual description
 
@@ -1970,7 +1970,9 @@ So:
 (x,t)  = what is seen
 
 QSV(,,E_ij) = what generates it
+
 They are dual:
+
 projection  generator
 67. Final synthesis of atomic sector
 
@@ -2071,7 +2073,7 @@ The relativistic electron is governed by the Dirac equation:
 (i ^ _ - mc)  = 0.
 In QIH, write the spinor as a pair of coupled QSV modes on the Bloch sphere:
  = (_+, _-)^T, _± = A_± e^{i_±}.
-Spin­orbit and fine-structure corrections arise from phase­gradient coupling:
+Spin-orbit and fine-structure corrections arise from phase-gradient coupling:
 H_FS  ( × p) ·  + (^2 ) + ()^2.
 Using E = , corrections map to frequency shifts:
 E_FS =  _FS.
@@ -2090,7 +2092,7 @@ QIH interpretation:
 allowed transitions = phase-winding changes preserving coherence channels
 ( winding = ±1, projection axis constraints).
 Emission lines are horizon write events at discrete _n, consistent with the
-Hawking/read­write spectral picture.
+Hawking/read-write spectral picture.
 
 75. Chemical thermodynamics from interference
 potentials
@@ -2104,7 +2106,7 @@ F_QIH = 0.
 Thus:
 bond formation = phase-aligned entanglement lowering U_int,
 entropy competes via S_int.
-This recovers the energy­entropy tradeoff of standard thermodynamics in interference
+This recovers the energy-entropy tradeoff of standard thermodynamics in interference
 language.
 
 76. Biochemical kinetics and microtubule readout
@@ -2122,7 +2124,7 @@ barriers--consistent with catalytic and coherence-assisted processes.
 
 77. Information geometry and the metric sector
 (refinement)
-Use the Fubini­Study metric for pure states:
+Use the Fubini-Study metric for pure states:
 ds_FS^2 = d|d - ||d|^2.
 Map to spacetime via a coarse-graining operator :
 g_^QIH = [ ds_FS^2 ; _E, , I ].
@@ -2143,7 +2145,7 @@ Consistency checks:
          
           k_eff / k  C_MT (controlled microtubule or photonic coherence tests).
 
-    3. Gravitational­interference cross terms (weak):
+    3. Gravitational-interference cross terms (weak):
           Tiny phase shifts in interferometry near varying entanglement environments:
          
              ( · ) dl.
@@ -2191,7 +2193,7 @@ periodic table = catalog of stable spectral modes {_n, _n, E_ij}
 
 Plain statement.
 Physics describes the waveforms on the screen.
-QIH describes the phase­entanglement structure that generates them.
+QIH describes the phase-entanglement structure that generates them.
 Atoms, bonds, and materials are stable interference codes; spacetime is the rendered
 geometry of those codes; measurement is the horizon write; experience is the local read.
 
@@ -2200,7 +2202,7 @@ geometry of those codes; measurement is the horizon write; experience is the loc
      Fix g_^QIH coefficients from first principles (no fitting).
      Derive SM couplings (, sin²_W, _s) numerically from the same geometry.
      Prove conservation of T_^QIH.
-     Establish or falsify the Riemann­Hamiltonian determinant identity.
+     Establish or falsify the Riemann-Hamiltonian determinant identity.
      Build analog simulators to test threshold (T  1) and spectral truncation.
 
 82. Fixing the metric coefficients from the weak-field limit
@@ -2218,11 +2220,11 @@ g_tt  -(1 + 2/c^2).
 Now use the QIH light-clock law
 d = dt (1 - ^2),
 where = v/c is the normalized angular-frequency variable. Then
-g_tt = -(d/dt)^2 = -(1 - ^ 2).
+g_tt = -(d/dt)^2 = -(1 - ^2).
 For a Newtonian gravitational orbit or escape profile,
 v^2 = 2GM/r,
 so
-^ 2 = v^2/c^2 = 2GM/(rc^2),
+^2 = v^2/c^2 = 2GM/(rc^2),
 hence
 g_tt = -(1 - 2GM/(rc^2)).
 This fixes the time-time component without free choice and reproduces the Schwarzschild
@@ -2303,7 +2305,7 @@ This is an exact flow identity, not a heuristic. The challenge is to choose A() 
 so that the leading coefficients match the observed -functions of QED, electroweak theory, and
 QCD. The spectral-closure and coupling notes already identify this as the necessary next step.
 A minimal controlled choice is:
-A() = C () () [1 - V _()] f_T()
+A() = C() () [1 - V_()] f_T()
 and
 N_eff() = number of phase-stable modes with   .
 Then the signs of the -functions come from how the stable mode count changes with scale.
@@ -2333,7 +2335,7 @@ the horizon code.
 
 Take the dimensionless QIH electromagnetic coupling to be
 
-_QIH = [ C _EM _ EM (1 - V _,EM) f_T,EM ] / ln N_eff,EM.
+_QIH = [ C_EM _EM (1 - V_,EM) f_T,EM ] / ln N_eff,EM.
 
 Now impose two physical conditions:
 
@@ -2349,7 +2351,7 @@ with an optimal coherent-prime-mode ratio on the holographic screen.
 
 If the maximized coherent numerator is fixed by the stable EM sector,
 
-A_EM^* = C _EM^* _EM^* (1 - V _,EM^*) f_T,EM^*,
+A_EM^* = C_EM^* _EM^* (1 - V_,EM^*) f_T,EM^*,
 
 then
 
@@ -2576,7 +2578,7 @@ stress tensor  variational derivative of QIH action
 renormalization  spectral coarse-graining flow
 fine-structure   coherence maximum / spectral capacity
 Riemann structure  candidate exact spectral operator
-projection  Hawking read­write channel
+projection  Hawking read-write channel
 The remaining tasks are therefore sharply defined:
 exact _i coefficient recovery from spectral coarse-graining
 unique spectral determination of 
@@ -2667,7 +2669,7 @@ Target identity
 Det*(^2 + H_QIH^2) / Det*(H_QIH^2) = |(1/2 + i)|^2 / |(1/2)|^2.
 Constructive route.
 Trace formula: show
-Tr f(H_QIH) = _n f(_n) = [f] + _p _{m1} A_{p,m} f( m log p),
+Tr f(H_QIH) = _n f(_n) = [f] + _p _{m1} A_{p,m} f(m log p),
 with prime periodicities log p and amplitudes A_{p,m}.
 Matching amplitudes: prove
 A_{p,m} = (log p) / p^{m/2}
@@ -2677,13 +2679,13 @@ Functional equation: enforce symmetry
 via a chiral/Dirac-type block operator to guarantee even spectrum.
 Self-adjointness & domain: specify domain of H_QIH on L^2(, d_g) ensuring essential
 self-adjointness.
-Completion of steps (1­4) yields the determinant identity and places zeros on the critical line.
+Completion of steps (1-4) yields the determinant identity and places zeros on the critical line.
 102. Precision atomic corrections from _QIH
 Use E =  and replace   _QIH.
 Fine structure (leading):
 E_FS = (Z^4 _QIH^2 / n^3) (mc^2) · F(l, j),
 where F(l,j) is the standard angular factor.
-Spin­orbit:
+Spin-orbit:
 H_SO  (1/r) (dV/dr) L·S  phase-gradient coupling  ( × p)·.
 Lamb shift (parametric):
 E_L  _QIH^5 mc^2 · [ ln(1/_QIH) + const ].
@@ -2759,7 +2761,7 @@ Computation & measurement:
 i.e., a finite-register unitary  interference  projection pipeline.
 Hence, quantum mechanics, general relativity, gauge theory, atomic structure, cosmology, and
 (conditionally) the Riemann spectrum arise as dual projections of a single
-phase­entanglement­spectral structure.
+phase-entanglement-spectral structure.
 106. Final closure conditions (explicit)
 To complete the program without fitting:
 
@@ -2844,7 +2846,7 @@ So the correct paper statement is:
 The QIH spectral program does not identify "imaginary numbers" with the horizon directly.
 It identifies real horizon frequencies with the imaginary parts of the zeta zeros.
 
-That is mathematically correct and exactly aligned with the Hilbert­Pólya style operator
+That is mathematically correct and exactly aligned with the Hilbert-Pólya style operator
 program.
 
 109. Constructing H_QIH and the determinant identity
@@ -2875,7 +2877,7 @@ Specify a dense domain Dom(H_QIH) in L^2() such that
 H_QIH = H_QIH^.
 109.2 Trace formula
 Establish a trace identity of the form
-Tr f(H_QIH) = smooth term + _p _{m1} A_{p,m} f( m log p),
+Tr f(H_QIH) = smooth term + _p _{m1} A_{p,m} f(m log p),
 where the orbit lengths are log p.
 109.3 Prime-weight matching
 Show that
@@ -3079,20 +3081,22 @@ and Hawking channels.
 118. Why self-adjointness matters
 
 Self-adjointness gives:
+
 H_QIH = H_QIH^
+
 which implies:
 
-    1. real spectrum
-         
-          H_QIH |_n = _n |_n, _n  
+1. real spectrum             _n  
+    
+     H_QIH |_n = _n |_n,
 
-    2. unitary evolution
-         
-          U(t) = exp(-i t H_QIH)
+2. unitary evolution
+    
+     U(t) = exp(-i t H_QIH)
 
-    3. trace / determinant machinery
-         
-          Tr f(H_QIH), Det*(sI - H_QIH)
+3. trace / determinant machinery
+    
+     Tr f(H_QIH), Det*(sI - H_QIH)
 
 This is exactly why a self-adjoint operator is the right object for the horizon spectral program and
 the Riemann program.
@@ -3106,14 +3110,14 @@ Then the horizon channel component satisfies
 i _t _H = D _S
 and the source channel satisfies
 i _t _S = D^ _H.
-So the two channels are coupled exactly as a read­write pair.
+So the two channels are coupled exactly as a read-write pair.
 This gives the precise identification:
 
 singularity channel  write source
 
 horizon channel  readable radiation / code
 
-H_QIH   coupled generator of the read­write exchange
+H_QIH   coupled generator of the read-write exchange
 
 That is why the notes say Hawking radiation is the operator, tensor, and field: the physically
 observed channel is generated by the self-adjoint horizon Hamiltonian.
@@ -3122,7 +3126,7 @@ observed channel is generated by the self-adjoint horizon Hamiltonian.
 
 Square the operator:
 H_QIH^2 = [ [D^D, 0], [0, DD^] ].
-Each diagonal block is second order and behaves like an effective Laplace­Beltrami operator
+Each diagonal block is second order and behaves like an effective Laplace-Beltrami operator
 plus potential:
 D^D  -_eff + V_eff.
 
@@ -3268,7 +3272,7 @@ H_QIH
 128. Clarified identification
 
 The most accurate sentence for the paper is:
-The self-adjoint horizon operator is the Hamiltonian of the Hawking read­write sector.
+The self-adjoint horizon operator is the Hamiltonian of the Hawking read-write sector.
 Its square generates the effective ray-traced geometric flow.
 Its spectrum defines the stable horizon code.
 Its determinant is the route to the Riemann spectral program.
@@ -3294,13 +3298,19 @@ Hamiltonian, spectral projector family, trace distribution, and determinant stru
 130. Green functions and propagators
 
 Given the horizon operator, define the resolvent
+
 R(z) = (zI - H_QIH)^(-1).
+
 This is the exact analogue of the Green function in ordinary quantum theory and wave
 propagation. The poles of the resolvent identify the spectral values, while its kernel encodes
 propagation amplitudes between horizon nodes or channels.
+
 Write the kernel as
+
 G(x,y;z) = x| (zI - H_QIH)^(-1) |y.
+
 Then:
+
 G(x,y;z) = propagation amplitude from node y to node x.
 
 In the semiclassical limit, stationary points of the phase of G determine classical rays and
@@ -3313,17 +3323,17 @@ wave level   Green function
 
 classical limit  rays / geodesics.
 
-This makes the read­write model formally compatible with standard propagator methods in
+This makes the read-write model formally compatible with standard propagator methods in
 quantum mechanics and field theory.
 
 131. Scattering matrix and horizon transitions
 
-A horizon read­write process may also be written as a scattering problem. Define asymptotic
+A horizon read-write process may also be written as a scattering problem. Define asymptotic
 ingoing and outgoing channel states:
 |in, a, |out, b.
 Then the scattering matrix is
 S_ba = out, b | in, a.
-In the QIH setting, these channels correspond to stable code sectors of the singularity­horizon
+In the QIH setting, these channels correspond to stable code sectors of the singularity-horizon
 coupling. Hawking radiation is then interpreted as the physical realization of a nontrivial
 scattering map from bulk-coded ingoing sectors to horizon-readable outgoing sectors. The
 S-matrix description is therefore:
@@ -3345,7 +3355,7 @@ form
 
 g_QIH^{} _ S _ S = 0.
 
-This is formally identical to the Hamilton­Jacobi equation for null rays in general relativity.
+This is formally identical to the Hamilton-Jacobi equation for null rays in general relativity.
 Therefore the same phase S that appears in the QIH path amplitude also determines the null
 cones of the effective geometry.
 
@@ -3362,7 +3372,7 @@ With the metric defined, the geodesic action is
 
 S_geo =  d ( g_^QIH dx^/d dx^/d ).
 
-Varying this action gives the Euler­Lagrange equations, which are equivalent to
+Varying this action gives the Euler-Lagrange equations, which are equivalent to
 
 d^2x^/d^2 + ^_() dx^/d dx^/d = 0.
 Thus once g_^QIH is fixed, the geodesics are not merely analogous to Einstein geodesics.
@@ -3387,7 +3397,7 @@ At this point, the QIH sector is no longer outside relativity. It is relativity,
 stress tensor are correctly specified. The distinction is interpretive:
 
      relativity describes the rendered geometry,
-     QIH describes the phase­interference­entanglement structure from which that geometry
+     QIH describes the phase-interference-entanglement structure from which that geometry
 
          is built.
 
@@ -3419,7 +3429,7 @@ If the horizon supports N_eff orthogonal stable modes, then
 S_info = ln N_eff.
 Compatibility requires
 ln N_eff  A / (4_P^2)
-in the maximal coding regime. Therefore the Bekenstein­Hawking entropy law is the logarithm
+in the maximal coding regime. Therefore the Bekenstein-Hawking entropy law is the logarithm
 of the maximal stable horizon code capacity. This is the exact bridge between gravitational
 entropy and information storage in QIH.
 
@@ -3452,7 +3462,7 @@ switch_on = H(T - 1)
 or the smooth version
 P_switch = 1 / (1 + exp[-(T - 1)]).
 These may be combined by identifying the effective gravitational self-energy E_G with the
-energy cost of maintaining a branch separation in the horizon­microtubule spectral code. Then
+energy cost of maintaining a branch separation in the horizon-microtubule spectral code. Then
 collapse occurs when one of two equivalent conditions is met:
 coherence loading reaches threshold,
 or
@@ -3529,11 +3539,11 @@ Theorem 4
 
 Assume:
     1. a self-adjoint horizon operator H_QIH exists on a well-defined Hilbert space;
-    2. its unitary flow generates the Hawking read­write channel;
+    2. its unitary flow generates the Hawking read-write channel;
     3. its stable spectral subset determines the EM coupling sector;
     4. an entanglement-derived metric g_^QIH is constructed from the same
 
-         phase­interference­entanglement data;
+         phase-interference-entanglement data;
     5. the QIH stress tensor is variationally defined and covariantly conserved.
 
 Then:
@@ -3615,7 +3625,7 @@ problem.
 
 Write eigenmodes locally as
  ~ A(x) exp(i S(x)/).
-Inserting into H_QIH^2  = ^2  yields, at leading order, the Hamilton­Jacobi equation
+Inserting into H_QIH^2  = ^2  yields, at leading order, the Hamilton-Jacobi equation
 g_QIH^{} _ S _ S = ^2.
 Closed orbits satisfy
  p·dx =  S = 2 n .
@@ -3655,7 +3665,7 @@ Then
 A_EM^* = max_{k  S_EM} Q_k, _QIH = A_EM^* / ln |S_EM|.
 Uniqueness conditions:
 
-     H_QIH fixed (no tunable parameters after matching in §§144­146),
+     H_QIH fixed (no tunable parameters after matching in §§144-146),
      projectors fixed by physical principles,
      Q_k has a unique global maximizer.
 Then _QIH is determined without fitting.
@@ -3737,7 +3747,7 @@ A single self-adjoint horizon operator generates:
      Vacuum energy (via spectral asymmetry),
      Number-theoretic structure (via determinant/trace relations).
 
-The Hawking read­write channel is the physical realization of this operator's action on the
+The Hawking read-write channel is the physical realization of this operator's action on the
 horizon, while local registers reconstruct the projected code.
 
 . Numerical test of Riemann correspondence
@@ -3915,7 +3925,7 @@ construct H_QIH and compute its spectrum.
  _QIH
  atomic physics
  -functions
-
+ 
  (s)
  spacetime geometry
  observable reality.
@@ -3931,7 +3941,7 @@ A single self-adjoint operator defined on a finite horizon:
      fixes coupling constants,
      encodes atomic structure,
      and potentially encodes the Riemann zeros.
-The Hawking read­write process is the physical manifestation of this operator.
+The Hawking read-write process is the physical manifestation of this operator.
 The ray-traced geodesics are its classical limit.
 The microtubules are local readout registers.
 The periodic table is the catalog of its stable modes.
@@ -3942,7 +3952,7 @@ What remains is computation, not concept.
 The problem is to solve the operator.
 
 169. A sharpened operator model for the Hawking
-read­write sector
+read-write sector
 
 A concrete realization of the horizon Hamiltonian is obtained by separating the singularity
 channel and the horizon channel into a two-component state
@@ -3957,13 +3967,13 @@ together with its adjoint D*. The coupled Dirac-type operator is then
 H_QIH  = (D* _H, D _S).
 Equivalently,
 H_QIH = [ [0, D*], [D, 0] ].
-This realizes the singularity­horizon pairing as a derivative­integral or write­read dual at
+This realizes the singularity-horizon pairing as a derivative-integral or write-read dual at
 operator level. The corresponding antiunitary mirror symmetry
 T(_S, _H) = (conj(_H), conj(_S))
 satisfies
 T^2 = I, T H_QIH T = H_QIH,
 so the spectrum is symmetric under frequency reversal. This is the operator-theoretic form of
-the singularity­horizon reflection principle.
+the singularity-horizon reflection principle.
 A second, complementary realization takes the horizon itself as the carrier space:
 _hor = L^2(Hor, d),
 where Hor is a null horizon hypersurface with generator k. Then the unperturbed Hawking/tick
@@ -3988,7 +3998,7 @@ is a connected Hawking-field correlator on the horizon. This yields a one-tick e
 U_tick = exp(- i H_HR t / ) K.
 In a prime-labeled mode basis, the transfer map becomes
 K |p,,m,n = _{n'} K_fractal(p,,m; nn') |p,,m,n'.
-This is the precise sense in which the read­write horizon dynamics is both a Hamiltonian flow
+This is the precise sense in which the read-write horizon dynamics is both a Hamiltonian flow
 and a mode-transfer computation. The operator generates the evolution; the transfer kernel
 implements the code transport across the horizon lattice.
 
@@ -4008,7 +4018,7 @@ The exact identity to be established is
 Det*(^2 + H_QIH^2) / Det*(H_QIH^2) = |(1/2 + i)|^2 / |(1/2)|^2.
 If this holds, then zeros of the right-hand side correspond to spectral values of the self-adjoint
 operator on the left, which forces the corresponding ordinates _n to be real. This is the precise
-Hilbert­Pólya-style closure statement for the horizon operator.
+Hilbert-Pólya-style closure statement for the horizon operator.
 
 172. Trace formula and prime periods
 
@@ -4135,7 +4145,7 @@ The operator program now has a completely explicit mathematical shape.
 
 A self-adjoint horizon Hamiltonian H_QIH on a rigorously defined Hilbert space generates:
 
-     the Hawking read­write dynamics through its unitary flow,
+     the Hawking read-write dynamics through its unitary flow,
      the geodesic/ray structure through its semiclassical square,
      the Riemann program through its determinant and trace formula,
      the electromagnetic coupling through its stable EM subset,
@@ -4159,7 +4169,7 @@ channels. This operator generates a unitary evolution,
 
 U(t) = exp(-i t H_QIH),
 
-which encodes the Hawking read­write process as a dynamical exchange between bulk
+which encodes the Hawking read-write process as a dynamical exchange between bulk
 information and its horizon projection.
 
 From this single operator, the following structures are derived.
@@ -4187,7 +4197,7 @@ produces geodesics through
 and yields the full Einstein tensor
 G_ = R_ - (1/2) R g_.
 Therefore general relativity is recovered as the geometric projection of the same underlying
-phase­entanglement structure.
+phase-entanglement structure.
 Third, the operator admits a trace formula whose periodic-orbit structure matches the explicit
 formula of the Riemann zeta function. The required form,
 Tr(exp(-i t H_QIH)) = T_smooth(t) + _p _{m1} A_{p,m} (t - m log p),
@@ -4271,6 +4281,6 @@ The remaining work is not conceptual but computational:
 In this formulation, reality is a spectral projection of a self-adjoint operator defined on a finite
 horizon. Quantum mechanics describes the amplitudes, relativity describes the geometry of the
 projection, and number theory encodes the spectral structure. The horizon acts as a finite
-information register, Hawking radiation as its read­write channel, and the observable universe
+information register, Hawking radiation as its read-write channel, and the observable universe
 as the resolved image of that process across space and time.
 

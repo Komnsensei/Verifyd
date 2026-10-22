@@ -1,0 +1,132 @@
+{
+  "scheme": "verifyd-trust-assurance-v1",
+  "model_version": "1.3.0",
+  "created_at": "2026-10-22T00:00:00.000Z",
+  "dataset": {
+    "path": "engine/calibration/corpus.jsonl",
+    "sha256": "03233e80b378ab2aa35ebd9ecca3a4853585796963f4bf34183ca77a78b637f8",
+    "rows": 1200,
+    "train_rows": 840,
+    "heldout_rows": 360,
+    "labels_origin": "synthetic",
+    "label_rule": "signature, time, inclusion, witness_count, policy, anchors and determination are binary: 1 only when checked and passed, 0 when absent, failed or unverifiable; a failed check never pays. witness_count is 1 only for a met quorum, and then tier is 0.5 or 1; policy is 1 only when every result passed and traced to a registered citation; anchors is 1 only when every external anchor has a verified resolution; ratification is 0 unless witness_count is 1. missing counts the five zero verification dimensions (signature, time, inclusion, witness, determination). z = -3.20 + 1.80*signature + 0.90*time + 0.70*inclusion + 1.10*witness_count + 0.55*witness_tier + 0.70*policy + 0.50*ratification + 0.35*anchors + 0.80*determination - 0.90*missing; label ~ Bernoulli(sigmoid(z)) with a seeded PRNG."
+  },
+  "features": [
+    "signature",
+    "time",
+    "inclusion",
+    "witness_count",
+    "witness_tier",
+    "policy",
+    "ratification",
+    "anchors",
+    "determination",
+    "missing"
+  ],
+  "parameters": {
+    "intercept": -2.3362975636968724,
+    "weights": [
+      1.240442156033624,
+      0.9510418680609116,
+      0.4788648792070932,
+      0.7386941615636196,
+      0.9462414784996231,
+      0.45566639278514265,
+      0.6533193215957361,
+      0.0872911150243172,
+      0.7854918673753629,
+      -1.0905745783372147
+    ]
+  },
+  "training": {
+    "method": "l2-logistic-regression",
+    "iterations": 4000,
+    "learning_rate": 0.8,
+    "l2": 0.001,
+    "seed": 20261022
+  },
+  "metrics": {
+    "brier": 0.16826,
+    "log_loss": 0.503107,
+    "ece": 0.045279,
+    "auc": 0.810033,
+    "bins": [
+      {
+        "lower": 0,
+        "upper": 0.1,
+        "n": 32,
+        "mean_predicted": 0.063386,
+        "observed_rate": 0.03125
+      },
+      {
+        "lower": 0.1,
+        "upper": 0.2,
+        "n": 62,
+        "mean_predicted": 0.148314,
+        "observed_rate": 0.145161
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.3,
+        "n": 50,
+        "mean_predicted": 0.254745,
+        "observed_rate": 0.26
+      },
+      {
+        "lower": 0.3,
+        "upper": 0.4,
+        "n": 53,
+        "mean_predicted": 0.341994,
+        "observed_rate": 0.320755
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "n": 44,
+        "mean_predicted": 0.456826,
+        "observed_rate": 0.409091
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6,
+        "n": 30,
+        "mean_predicted": 0.568675,
+        "observed_rate": 0.4
+      },
+      {
+        "lower": 0.6,
+        "upper": 0.7,
+        "n": 26,
+        "mean_predicted": 0.651013,
+        "observed_rate": 0.538462
+      },
+      {
+        "lower": 0.7,
+        "upper": 0.8,
+        "n": 18,
+        "mean_predicted": 0.758342,
+        "observed_rate": 0.777778
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "n": 28,
+        "mean_predicted": 0.852007,
+        "observed_rate": 0.964286
+      },
+      {
+        "lower": 0.9,
+        "upper": 1,
+        "n": 17,
+        "mean_predicted": 0.934839,
+        "observed_rate": 0.941176
+      }
+    ]
+  },
+  "baseline": {
+    "method": "hand-tuned-0-100",
+    "calibrated": false,
+    "note": "Legacy trust score. It is a heuristic index, not a probability, and is not calibrated against any outcome data."
+  },
+  "fit_command": "npm run calibrate"
+}

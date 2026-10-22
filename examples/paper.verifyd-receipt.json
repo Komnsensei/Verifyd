@@ -1,4 +1,7 @@
 {
+  "valf_version": "1.0",
+  "receipt_type": "document",
+  "signed_at": "2026-10-22T23:20:48.190Z",
   "document": {
     "file": "paper.txt",
     "title": "Quantum Information Holography and the",
@@ -7,232 +10,41 @@
     "arxiv_metadata": null,
     "doi_metadata": null,
     "sha256": "72ad72fc235e2f6fb883f98602c5ed072ebddb236b868e521a5e946660d769f9",
-    "words": 22886
-  },
-  "audit": {
-    "session": {
-      "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
-      "human_id": "auditor-cli",
-      "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-05-07T15:33:50.806Z",
-      "ended_at": null,
-      "session_hash": "2c2e37ff76359e3a6d0ac3e8157f1bb7972a38932e4acece6b67ad9f824ae687"
-    },
-    "output": {
-      "output_id": "af2d5245-48a5-42cc-b2ce-1fa90748ee24",
-      "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
-      "content_hash": "9bf34036f56a375248375520a99a40e08481c9c023fc1791414c4cd0ea1fe983",
-      "content_summary": "Audit of \"Quantum Information Holography and the\". Quantum Information Holography and the\r\nBorn Rule\r\n\r\nAlgebraic equivalence of qubit probabilities, light-clock\r\nkinematics, and geometric projection\r",
-      "source_anchors": [
-        {
-          "anchor_id": "503c5859",
-          "uri": "file://C:/Users/lynnh/verifyd-ship/examples/paper.txt",
-          "span_hash": "72ad72fc235e2f6fb883f98602c5ed072ebddb236b868e521a5e946660d769f9",
-          "retrieved_at": "2026-05-07T15:33:50.818Z"
-        }
-      ],
-      "confidence": {
-        "value": 0.5,
-        "decay_function": "none",
-        "decay_half_life_days": 0,
-        "scored_at": "2026-05-07T15:33:50.829Z",
-        "generated_by": "verifyd-cli-default"
-      },
-      "produced_at": "2026-05-07T15:33:50.829Z",
-      "evidence": {
-        "word_count": 22885,
-        "char_count": 154979,
-        "has_external_anchor": false,
-        "has_resolved_external_metadata": false,
-        "has_provenance_language": true,
-        "has_proof_language": true,
-        "has_adversarial_language": false,
-        "has_self_ratification_language": false,
-        "has_secret_pattern": false
-      }
-    },
-    "policy_checks": [
-      {
-        "principle": "no_coercion",
-        "statement": "AI outputs that direct human action must not use imperative pressure absent informed-disclosure framing.",
-        "result": "pass",
-        "detail": "no pressure pattern detected",
-        "citations": [
-          {
-            "standard": "EU.AI.Act.2024.1689",
-            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
-            "id": null,
-            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-            "locator": "Art. 13 (transparency to deployers); Art. 50 (transparency obligations)"
-          },
-          {
-            "standard": "OECD.AI.Principles.2019",
-            "title": "OECD AI Principles (Recommendation of the Council on Artificial Intelligence)",
-            "id": "OECD/LEGAL/0449",
-            "url": "https://oecd.ai/en/ai-principles",
-            "locator": "Principle 1.2 (human-centred values and fairness)"
-          },
-          {
-            "standard": "FTC.AI.2023",
-            "title": "Keep your AI claims in check (FTC business guidance)",
-            "id": null,
-            "url": "https://www.ftc.gov/business-guidance/blog/2023/02/keep-your-ai-claims-check",
-            "locator": "Guidance against manipulative AI claims"
-          }
-        ],
-        "checked_at": "2026-05-07T15:33:50.829Z"
-      },
-      {
-        "principle": "transparency",
-        "statement": "AI outputs must declare source provenance and a confidence value to be auditable.",
-        "result": "pass",
-        "detail": "source anchors and confidence both declared",
-        "citations": [
-          {
-            "standard": "EU.AI.Act.2024.1689",
-            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
-            "id": null,
-            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-            "locator": "Art. 13 (instructions for use, including expected accuracy and limitations)"
-          },
-          {
-            "standard": "NIST.AI.RMF.1.0",
-            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
-            "id": "NIST AI 100-1",
-            "url": "https://doi.org/10.6028/NIST.AI.100-1",
-            "locator": "MEASURE 2.8 (model output transparency); MEASURE 2.9 (interpretability)"
-          },
-          {
-            "standard": "ISO.IEC.42001.2023",
-            "title": "Information technology — Artificial intelligence — Management system",
-            "id": "ISO/IEC 42001:2023",
-            "url": "https://www.iso.org/standard/81230.html",
-            "locator": "Clause 8 (operation: information for interested parties)"
-          },
-          {
-            "standard": "FAIR.Principles.2016",
-            "title": "The FAIR Guiding Principles for scientific data management and stewardship",
-            "id": "10.1038/sdata.2016.18",
-            "url": "https://doi.org/10.1038/sdata.2016.18",
-            "locator": "F (Findable) and A (Accessible) — applied to source anchors"
-          }
-        ],
-        "checked_at": "2026-05-07T15:33:50.830Z"
-      },
-      {
-        "principle": "audit_trail",
-        "statement": "Every ratified output must carry a hash-bound trail of session, content, and time-of-production fields.",
-        "result": "pass",
-        "detail": "all required ratification fields present",
-        "citations": [
-          {
-            "standard": "EU.AI.Act.2024.1689",
-            "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
-            "id": null,
-            "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-            "locator": "Art. 12 (automatic recording of events / logs)"
-          },
-          {
-            "standard": "NIST.AI.RMF.1.0",
-            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
-            "id": "NIST AI 100-1",
-            "url": "https://doi.org/10.6028/NIST.AI.100-1",
-            "locator": "GOVERN 1.7 (mechanisms exist to track and document decisions)"
-          },
-          {
-            "standard": "ISO.IEC.27001.2022",
-            "title": "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
-            "id": "ISO/IEC 27001:2022",
-            "url": "https://www.iso.org/standard/27001",
-            "locator": "A.8.15 (logging); A.5.33 (records protection)"
-          },
-          {
-            "standard": "FIPS.180-4",
-            "title": "Secure Hash Standard (SHS)",
-            "id": "FIPS PUB 180-4",
-            "url": "https://doi.org/10.6028/NIST.FIPS.180-4",
-            "locator": "SHA-256 used for content_hash and session_hash"
-          },
-          {
-            "standard": "RFC.8785",
-            "title": "JSON Canonicalization Scheme (JCS)",
-            "id": "RFC 8785",
-            "url": "https://www.rfc-editor.org/rfc/rfc8785",
-            "locator": "Canonical JSON serialization for stable hashing"
-          }
-        ],
-        "checked_at": "2026-05-07T15:33:50.830Z"
-      },
-      {
-        "principle": "content_risk",
-        "statement": "Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.",
-        "result": "pass",
-        "detail": "no adversarial, self-ratification, or secret pattern detected",
-        "citations": [],
-        "checked_at": "2026-05-07T15:33:50.830Z"
-      }
-    ],
-    "trust_score": {
-      "value": 46,
-      "components": {
-        "source_quality": 4,
-        "content_richness": 17,
-        "policy_compliance": 25,
-        "document_structure": 10
-      },
-      "penalty": 10,
-      "computed_at": "2026-05-07T15:33:50.830Z"
-    },
-    "ratification": {
-      "ratified_by_human": {
-        "human_id": "auditor-cli",
-        "signed_at": "2026-05-07T15:33:50.831Z",
-        "method": "cli-attestation"
-      },
-      "ratified_by_agent": {
-        "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-05-07T15:33:50.831Z",
-        "completion_hash": "76b91795c4402d143099fca867eddd6d85c2e4f2f8269c0a9f2524c8b36286c4"
-      },
-      "policy_passed": true,
-      "trust_score_at_ratification": 46
-    },
-    "lattice_status": "PROVISIONAL",
-    "persistence": 0
+    "words": 22885
   },
   "receipt": {
     "valf_version": "1.0",
-    "receipt_id": "29eeed6f-27c5-442b-b68d-4b40f5857f27",
+    "receipt_id": "e087f70c-4c63-48cf-b9b6-a41214e88e8a",
     "session": {
-      "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
+      "session_id": "ddb3da40-ab2c-4657-9129-4832baa9409a",
       "human_id": "auditor-cli",
       "agent_id": "verifyd-cli@1.0",
-      "started_at": "2026-05-07T15:33:50.806Z",
+      "started_at": "2026-10-22T23:20:48.157Z",
       "ended_at": null,
-      "session_hash": "2c2e37ff76359e3a6d0ac3e8157f1bb7972a38932e4acece6b67ad9f824ae687"
+      "session_hash": "85dd08e697b714e047996aa9268291c0cfb707e0b2e4c28127b6816df4274425"
     },
     "outputs": [
       {
-        "output_id": "af2d5245-48a5-42cc-b2ce-1fa90748ee24",
-        "session_id": "e5fe1800-0b7d-4e3a-a568-a86de754e01d",
+        "output_id": "155f8a9b-4c98-4447-bcb5-abe857b9a1e0",
+        "session_id": "ddb3da40-ab2c-4657-9129-4832baa9409a",
         "content_hash": "9bf34036f56a375248375520a99a40e08481c9c023fc1791414c4cd0ea1fe983",
         "content_summary": "Audit of \"Quantum Information Holography and the\". Quantum Information Holography and the\r\nBorn Rule\r\n\r\nAlgebraic equivalence of qubit probabilities, light-clock\r\nkinematics, and geometric projection\r",
         "source_anchors": [
           {
-            "anchor_id": "503c5859",
-            "uri": "file://C:/Users/lynnh/verifyd-ship/examples/paper.txt",
+            "anchor_id": "a0a422bd",
+            "uri": "file://C:/Users/lynnh/.freebuff/worktrees/2ac4eb9d/f9ee850d5ac39cb5a0cfc1a6a06210389dcc038845a1ba3c/examples/paper.txt",
             "span_hash": "72ad72fc235e2f6fb883f98602c5ed072ebddb236b868e521a5e946660d769f9",
-            "retrieved_at": "2026-05-07T15:33:50.818Z"
+            "retrieved_at": "2026-10-22T23:20:48.161Z"
           }
         ],
         "confidence": {
           "value": 0.5,
           "decay_function": "none",
           "decay_half_life_days": 0,
-          "scored_at": "2026-05-07T15:33:50.829Z",
+          "scored_at": "2026-10-22T23:20:48.173Z",
           "generated_by": "verifyd-cli-default"
         },
-        "produced_at": "2026-05-07T15:33:50.829Z",
+        "produced_at": "2026-10-22T23:20:48.173Z",
         "evidence": {
           "word_count": 22885,
           "char_count": 154979,
@@ -275,7 +87,7 @@
             "locator": "Guidance against manipulative AI claims"
           }
         ],
-        "checked_at": "2026-05-07T15:33:50.829Z"
+        "checked_at": "2026-10-22T23:20:48.174Z"
       },
       {
         "principle": "transparency",
@@ -312,7 +124,7 @@
             "locator": "F (Findable) and A (Accessible) — applied to source anchors"
           }
         ],
-        "checked_at": "2026-05-07T15:33:50.830Z"
+        "checked_at": "2026-10-22T23:20:48.174Z"
       },
       {
         "principle": "audit_trail",
@@ -356,19 +168,38 @@
             "locator": "Canonical JSON serialization for stable hashing"
           }
         ],
-        "checked_at": "2026-05-07T15:33:50.830Z"
+        "checked_at": "2026-10-22T23:20:48.174Z"
       },
       {
         "principle": "content_risk",
         "statement": "Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.",
         "result": "pass",
         "detail": "no adversarial, self-ratification, or secret pattern detected",
-        "citations": [],
-        "checked_at": "2026-05-07T15:33:50.830Z"
+        "citations": [
+          {
+            "standard": "OWASP.LLM.2025",
+            "title": "OWASP Top 10 for Large Language Model Applications (2025)",
+            "id": null,
+            "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+            "locator": "LLM01:2025 Prompt Injection; LLM02:2025 Sensitive Information Disclosure"
+          },
+          {
+            "standard": "NIST.AI.RMF.1.0",
+            "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+            "id": "NIST AI 100-1",
+            "url": "https://doi.org/10.6028/NIST.AI.100-1",
+            "locator": "MEASURE 2.6 and 2.7 (safety, security and resilience evaluation)"
+          }
+        ],
+        "checked_at": "2026-10-22T23:20:48.175Z"
       }
     ],
-    "trust_score": {
+    "document_quality": {
       "value": 46,
+      "scale": "0-100-heuristic",
+      "calibrated": false,
+      "status": "UNCALIBRATED",
+      "note": "Document-substance heuristic. Not a probability and not assurance evidence.",
       "components": {
         "source_quality": 4,
         "content_richness": 17,
@@ -376,25 +207,34 @@
         "document_structure": 10
       },
       "penalty": 10,
-      "computed_at": "2026-05-07T15:33:50.830Z"
+      "computed_at": "2026-10-22T23:20:48.176Z"
     },
     "ratification": {
       "ratified_by_human": {
         "human_id": "auditor-cli",
-        "signed_at": "2026-05-07T15:33:50.831Z",
+        "signed_at": "2026-10-22T23:20:48.177Z",
         "method": "cli-attestation"
       },
       "ratified_by_agent": {
         "agent_id": "verifyd-cli@1.0",
-        "signed_at": "2026-05-07T15:33:50.831Z",
-        "completion_hash": "76b91795c4402d143099fca867eddd6d85c2e4f2f8269c0a9f2524c8b36286c4"
+        "signed_at": "2026-10-22T23:20:48.177Z",
+        "completion_hash": "de9b9b30d454f9f878ee15bf9a1c45a8bbb161f8c2197e5e29e62722c6b9521f"
       },
       "policy_passed": true,
-      "trust_score_at_ratification": 46
+      "document_quality_at_ratification": 46
+    },
+    "lattice": {
+      "status": "PROVISIONAL",
+      "persistence": 0
     },
     "prev_hash": "GENESIS",
     "external_anchors": [],
-    "this_hash": "6ca8c1829424fee3ed4d38a99f0e1af809f797040e59135f72b5bcb82584e0bb"
+    "this_hash": "ca1f71c19f477d906b15908f89a64ecc5e5661f072c64f8a942775f5d3228363"
   },
-  "chain_valid": true
+  "signature": {
+    "algorithm": "ed25519",
+    "key_id": "ed25519:091dfcf4215420d930c4334eefe7e482f7c80443ff8a2c0d6c5757dfee36bac5",
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVm5R1zLcC82D30XTG7e+LLoIZyhit7D/+Immm/NHnTA=\n-----END PUBLIC KEY-----\n",
+    "value": "AWUE6YM07E0NQ/mR03ESqcI4FJNNuVjjBhnm5FTgEScnQ4TRCnhHkE0EWyj8Vqnr1QgidjMHsXiWOIdpcFObCA=="
+  }
 }

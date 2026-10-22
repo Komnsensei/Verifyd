@@ -32,26 +32,26 @@ checks.forEach(c => console.log('    ' + c.principle.padEnd(20) + c.result.toUpp
 const policyPassed = v.PolicyEngine.passed(checks);
 console.log('    => ' + (policyPassed ? 'PASSED' : 'FAILED') + '\n');
 
-const trustScore = v.TrustScoreCalculator.compute(session, output, checks);
-console.log('[4] Trust Score');
-console.log('    value: ' + trustScore.value + '/100');
-Object.entries(trustScore.components).forEach(([k,v2]) => console.log('    ' + k.padEnd(24) + v2 + '/25'));
+const documentQuality = v.TrustScoreCalculator.documentQuality(session, output, checks);
+console.log('[4] Document Quality (heuristic, uncalibrated)');
+console.log('    value: ' + documentQuality.value + '/100');
+Object.entries(documentQuality.components).forEach(([k,v2]) => console.log('    ' + k.padEnd(24) + v2 + '/25'));
 console.log('');
 
 const ratification = v.ratificationEvent({
   session, output,
   human_method: 'sso',
   policy_passed: policyPassed,
-  trust_score_value: trustScore.value,
+  document_quality_value: documentQuality.value,
 });
 console.log('[5] Ratification');
 console.log('    human method:    ' + ratification.ratified_by_human.method);
 console.log('    policy_passed:   ' + ratification.policy_passed);
-console.log('    trust at ratify: ' + ratification.trust_score_at_ratification + '\n');
+console.log('    quality at ratify: ' + ratification.document_quality_at_ratification + '\n');
 
 const chain = new v.AuditChain();
 const receipt = v.buildReceipt({
-  session, outputs:[output], policy_checks:checks, trust_score:trustScore, ratification,
+  session, outputs:[output], policy_checks:checks, document_quality:documentQuality, ratification,
   prev_hash: chain.lastHash(),
 });
 chain.append(receipt);

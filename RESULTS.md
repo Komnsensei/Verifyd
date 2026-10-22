@@ -8,7 +8,7 @@ A Verifyd v1.0 case study, written so you do not have to read the source.
 
 We took a real research paper, "Quantum Information Holography and the Born Rule," handed it to Verifyd, and asked: can a small protocol engine produce a forensic-grade audit receipt for a document this dense, this fast, with no AI model in the loop?
 
-Answer: yes. In under three seconds, with a 95/100 trust score, and a chain-verified receipt that anyone with the spec can re-validate offline.
+Answer: yes. In under three seconds, with a 95/100 document-quality score from the heuristic of that version, and a chain-verified receipt that anyone with the spec can re-validate offline. That 95 is not a probability and not the assurance score this repo now computes; see the note in section 6.
 
 ---
 
@@ -37,7 +37,7 @@ Produced this:
 | Word count | 22,886 |
 | Content SHA-256 | b3ea250f0b788b92041d554a3479545c... |
 | Policy verdict | PASSED |
-| Trust score | 95/100 |
+| Document quality (heuristic, uncalibrated) | 95/100 |
 | Lattice status | RATIFIED |
 | Receipt ID | 30460649-ddee-4192-9dd9-364cbc83ea2f |
 | this_hash | bc6c63c1fee4195621ef643ffe343fa55e0842003f704492975d8f1cfd2e4953 |
@@ -77,9 +77,16 @@ Three principles ran against the session:
 
 A fourth check, independent oversight, runs at ratification time and demands two distinct ratifying parties.
 
-### 6. Trust score
+### 6. Document quality (uncalibrated heuristic)
 
-Verifyd computes a 0 to 100 score across four 0 to 25 components:
+This run used the version of the hand-tuned 0 to 100 index that existed at the
+time. It is a document-substance heuristic, not a probability, and it is not
+calibrated against any outcome data. Current Verifyd keeps a heuristic of the
+same kind as `documentQuality` for lattice promotion gates, and separately
+reports an assurance probability fitted on a committed corpus whose labels are
+synthetic. Neither number is a truth claim.
+
+The 0 to 100 index across four 0 to 25 components, as recorded in that run:
 
 | Component | Score |
 |---|---|
@@ -124,7 +131,7 @@ In every one of these cases, the question is identical: show me how that decisio
 
 Today the answer is a chat log. Maybe a screenshot. Maybe nothing.
 
-With Verifyd, the answer is a receipt. The receipt is portable JSON. It contains hashes of every input, anchors to every source, the AI's stated confidence, the policy checks that ran, the trust score, the parties that ratified it, and a hash chain that proves nothing has been altered since the moment of decision.
+With Verifyd, the answer is a receipt. The receipt is portable JSON. It contains hashes of every input, anchors to every source, the AI's stated confidence, the policy checks that ran, the document-quality heuristic, the parties that ratified it, and a hash chain that proves nothing has been altered since the moment of decision.
 
 You can store it in S3. Email it. Print it. Anyone with `verifyd verify` can re-prove its integrity in milliseconds.
 

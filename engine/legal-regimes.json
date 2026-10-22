@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "notice": "Engineering index only. It maps evidence checks to citations already present in engine/citations.json. It is not legal advice, not an applicability analysis, and not a completeness claim. A qualified reviewer in the relevant jurisdiction must decide whether a regime applies and what it requires.",
+  "jurisdictions": {
+    "EU": {
+      "label": "European Union",
+      "basis": ["EU.AI.Act.2024.1689", "ISO.IEC.42001.2023"],
+      "regimes": ["EU_AI_ACT_2024"]
+    },
+    "US": {
+      "label": "United States (federal)",
+      "basis": ["Reg.B.ECOA.1003", "NIST.AI.RMF.1.0"],
+      "regimes": ["US_ECOA_REG_B"]
+    }
+  },
+  "regimes": {
+    "EU_AI_ACT_2024": {
+      "jurisdiction": "EU",
+      "label": "EU AI Act 2024/1689 - engineering evidence checklist",
+      "coverage_note": "Represents only obligations already cited in engine/citations.json. It is not a conformity assessment and omits obligations outside those citations.",
+      "required_facts": [
+        {
+          "id": "actor_role",
+          "question": "Is the audited party acting as provider or deployer?",
+          "allowed": ["provider", "deployer"]
+        },
+        {
+          "id": "high_risk",
+          "question": "Has a qualified reviewer classified the system as high-risk under the regime?",
+          "allowed": ["yes", "no", "unknown"]
+        }
+      ],
+      "requirements": [
+        {
+          "id": "record_keeping",
+          "statement": "The receipt keeps a hash-bound record of session, content and production time.",
+          "predicate": "policy_check_passed:audit_trail",
+          "source": { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 12 (automatic recording of events / logs)" }
+        },
+        {
+          "id": "transparency",
+          "statement": "The output declares provenance and confidence.",
+          "predicate": "policy_check_passed:transparency",
+          "source": { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 13 (instructions for use, including expected accuracy and limitations)" }
+        },
+        {
+          "id": "human_oversight",
+          "statement": "A named human and a distinct agent party ratified the output.",
+          "predicate": "human_ratification_recorded",
+          "source": { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 14 (human oversight, including separation of duties)" }
+        }
+      ]
+    },
+    "US_ECOA_REG_B": {
+      "jurisdiction": "US",
+      "label": "Reg. B / ECOA 12 CFR 1002.9 - engineering evidence checklist",
+      "coverage_note": "Covers only the repo-cited obligation (adverse-action review independence). It is not a complete Reg. B assessment and omits notice content, timing and record retention rules.",
+      "required_facts": [
+        {
+          "id": "adverse_action",
+          "question": "Was the decision an adverse action on a credit application?",
+          "allowed": ["yes", "no"]
+        },
+        {
+          "id": "actor_role",
+          "question": "Is the audited party the creditor or the applicant?",
+          "allowed": ["creditor", "applicant", "other"]
+        }
+      ],
+      "requirements": [
+        {
+          "id": "adverse_action_review_independence",
+          "statement": "Policy checks record independent oversight rather than one-party sealing.",
+          "predicate": "policy_check_passed:independent_oversight",
+          "source": { "ref": "Reg.B.ECOA.1003", "locator": "Adverse-action review independence" }
+        }
+      ]
+    }
+  }
+}

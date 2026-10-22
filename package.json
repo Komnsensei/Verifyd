@@ -13,7 +13,8 @@
     "audit": "node bin/verifyd.cjs audit",
     "verify": "node bin/verifyd.cjs verify",
     "batch": "node bin/batch-audit.cjs auditdeck",
-    "test": "node bin/verifyd.cjs demo",
+    "calibrate": "node scripts/calibrate-trust.cjs",
+    "test": "node --test \"engine/test/*.test.cjs\"",
     "sentinel": "node bin/sentinel.cjs",
     "test:sentinel": "node --test sentinel/test/*.test.cjs"
   },
@@ -37,6 +38,7 @@
   "files": [
     "engine/",
     "bin/",
+    "scripts/",
     "BUILD.md",
     "RESULTS.md",
     "README.md",

@@ -1,0 +1,7 @@
+{
+  "key_id": "ed25519:091dfcf4215420d930c4334eefe7e482f7c80443ff8a2c0d6c5757dfee36bac5",
+  "algorithm": "ed25519",
+  "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAVm5R1zLcC82D30XTG7e+LLoIZyhit7D/+Immm/NHnTA=\n-----END PUBLIC KEY-----\n",
+  "created_at": "2026-10-22T23:20:29.027Z",
+  "status": "active"
+}

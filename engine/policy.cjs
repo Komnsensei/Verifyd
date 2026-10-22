@@ -139,10 +139,10 @@ function checkContentRisk(session, output) {
 
   return {
     principle: 'content_risk',
-    statement: 'Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.',
+    statement: principleStatement('content_risk'),
     result,
     detail,
-    citations: [],
+    citations: citationsFor('content_risk'),
     checked_at: new Date().toISOString(),
   };
 }

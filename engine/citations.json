@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "generated": "2026-04-30",
-  "note": "Authoritative references that ground every Verifyd policy check, trust-score component, and lattice gate. Citations are stable identifiers (DOI, ISO number, regulation article, RFC, NIST publication ID) so receipts remain verifiable independent of any vendor.",
+  "note": "Authoritative references that ground every Verifyd policy check, lattice gate and compliance requirement. Citations are stable identifiers (DOI, ISO number, regulation article, RFC, NIST publication ID) so receipts remain verifiable independent of any vendor. The assurance probability is an empirical model, not a standards claim; its provenance is engine/calibration/trust-model.json.",
   "standards": {
     "NIST.AI.RMF.1.0": {
       "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
@@ -86,7 +86,7 @@
       "doi": "10.17487/RFC6962",
       "url": "https://www.rfc-editor.org/rfc/rfc6962",
       "year": 2013,
-      "note": "Append-only Merkle log model that informs Verifyd's audit chain."
+      "note": "Merkle tree model (0x00 leaf / 0x01 node domain separation, fixed left/right ordering) used for Verifyd batch roots. The audit chain is a linear hash chain, and RFC 6962 consistency proofs are not implemented."
     },
     "OWASP.LLM.2025": {
       "title": "OWASP Top 10 for Large Language Model Applications (2025)",
@@ -152,44 +152,27 @@
         { "ref": "ISO.IEC.42001.2023", "locator": "Clause 5.3 (roles, responsibilities and authorities)" },
         { "ref": "Reg.B.ECOA.1003", "locator": "Adverse-action review independence" }
       ]
+    },
+    "content_risk": {
+      "principle": "Audited content must not contain secret patterns, adversarial audit instructions, or self-ratification language.",
+      "grounds": [
+        { "ref": "OWASP.LLM.2025", "locator": "LLM01:2025 Prompt Injection; LLM02:2025 Sensitive Information Disclosure" },
+        { "ref": "NIST.AI.RMF.1.0", "locator": "MEASURE 2.6 and 2.7 (safety, security and resilience evaluation)" }
+      ]
     }
   },
-  "trust_score_citations": {
-    "source_quality": {
-      "measures": "Resolvability of declared source anchors.",
-      "grounds": [
-        { "ref": "FAIR.Principles.2016", "locator": "Findable + Accessible" },
-        { "ref": "NIST.AI.RMF.1.0", "locator": "MAP 4.1 (data lineage)" }
-      ]
-    },
-    "calibration_freshness": {
-      "measures": "Time-decayed validity of declared confidence.",
-      "grounds": [
-        { "ref": "NIST.AI.RMF.1.0", "locator": "MEASURE 2.6 (model robustness over time)" },
-        { "ref": "ISO.IEC.23894.2023", "locator": "Continuous risk monitoring" }
-      ]
-    },
-    "policy_compliance": {
-      "measures": "Aggregate of policy check outcomes.",
-      "grounds": [
-        { "ref": "ISO.IEC.42001.2023", "locator": "Clause 9 (performance evaluation)" },
-        { "ref": "EU.AI.Act.2024.1689", "locator": "Art. 15 (accuracy, robustness)" }
-      ]
-    },
-    "agent_history": {
-      "measures": "Reputation signal for the AI agent identity.",
-      "grounds": [
-        { "ref": "NIST.AI.RMF.1.0", "locator": "GOVERN 4 (third-party risks and accountability)" },
-        { "ref": "OWASP.LLM.2025", "locator": "LLM07 (Insecure Plugin Design) — agent provenance" }
-      ]
-    }
+  "assurance_model": {
+    "principle": "The assurance probability is an empirical estimate fitted on a committed labeled corpus. It is not a standards claim, not a policy check and not grounded in a citation.",
+    "artifact": "engine/calibration/trust-model.json",
+    "labels_origin": "synthetic",
+    "note": "Provenance is the model version, corpus SHA-256 and held-out metrics carried by the artifact and by every result."
   },
   "lattice_citations": {
     "promotion_ladder": {
       "principle": "Status promotions follow gated transitions; forbidden shortcuts are protocol-rejected.",
       "grounds": [
         { "ref": "ISO.IEC.42001.2023", "locator": "Clause 8.1 (operational planning and control)" },
-        { "ref": "RFC.6962", "locator": "Append-only Merkle-style record discipline" }
+        { "ref": "RFC.6962", "locator": "Tamper-evident hash-linked record discipline" }
       ]
     },
     "deposited_requires_external_anchor": {

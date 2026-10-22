@@ -77,7 +77,7 @@
     "quorum_required": 4,
     "self_ratification_forbidden": true,
     "tier_0_sovereign_forbidden": true,
-    "note": "No single party may unilaterally ratify. Independent Oversight is enforced at the protocol layer."
+    "note": "No single party may unilaterally ratify. Quorum counts independently verified witness keys and identities, never labels. Independent Oversight is enforced at the protocol layer."
   },
   "operator_laws": {
     "fixpoint_idempotence": "Theta o Theta = Theta",
