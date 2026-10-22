@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verifyd Campus - Northline Online University</title>
+<meta name="description" content="Tamper-evident audit receipts for AI decisions in an online university. A Verifyd v1.0 showcase.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080b10'/%3E%3Cpath d='M8 8h16v4H8zm0 6h10v4H8zm0 6h16v4H8z' fill='%23b8f24a'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Verifyd Campus home">
+    <span class="brand-mark" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+    <span class="brand-text">VERIFYD <em>CAMPUS</em></span>
+  </a>
+  <nav class="main-nav" aria-label="Sections">
+    <a href="#cases">Case register</a>
+    <a href="#ledger">Ledger</a>
+    <a href="#intake">Intake desk</a>
+    <a href="#why">Why it matters</a>
+  </nav>
+  <div class="top-right">
+    <span class="live"><i aria-hidden="true"></i> engine online</span>
+    <span class="inst">Northline Online University <span class="slash">/</span> Office of AI Accountability</span>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">VALF-1 pilot <span class="dot-sep"></span> term 2026-AUT <span class="dot-sep"></span> synthetic cases</p>
+      <h1>Every AI decision that touches a student now has a <span class="accent">receipt</span>.</h1>
+      <p class="lede">
+        Grading. Integrity screening. Accommodations. Proctoring referrals. Advising.
+        Northline Online's agents make thousands of recommendations a term.
+        Verifyd binds each one to a hash, a citation trail, and a named quorum - so a provost,
+        a regulator, or a student can re-prove exactly what happened, offline, in milliseconds.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#cases">Open the case register</a>
+        <button class="btn btn-ghost" type="button" data-action="hero-tamper">Try to forge a receipt</button>
+      </div>
+      <div class="hero-proof">
+        <span><strong id="hero-sealed">7</strong> sealed receipts</span>
+        <span><strong id="hero-valid">100%</strong> hash valid</span>
+        <span><strong>0</strong> network calls to verify</span>
+      </div>
+    </div>
+
+    <aside class="ledger-card" aria-label="Live campus ledger">
+      <div class="ledger-card-head">
+        <span class="kicker">Campus append-only ledger</span>
+        <span class="pill pill-live"><i aria-hidden="true"></i> live</span>
+      </div>
+      <div class="ledger-card-body">
+        <div class="ledger-stat">
+          <span class="ledger-label">Chain state</span>
+          <strong id="hero-chain" class="mono">valid</strong>
+        </div>
+        <div class="mini-chain" id="mini-chain"></div>
+      </div>
+      <div class="ledger-card-foot">
+        <span>SHA-256 over RFC 8785 canonical JSON</span>
+        <span class="mono" id="hero-chain-length">7 blocks</span>
+      </div>
+    </aside>
+  </section>
+
+  <section class="stats" id="stats" aria-label="Pilot statistics">
+    <div class="stat">
+      <span class="stat-value" id="stat-sealed">7</span>
+      <span class="stat-label">receipts sealed</span>
+      <span class="stat-note">7 cases, 1 refusal</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-standards">10</span>
+      <span class="stat-label">authorities cited</span>
+      <span class="stat-note">NIST, EU AI Act, ISO, FIPS, RFC</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">4<span class="stat-den">/7</span></span>
+      <span class="stat-label">oversight quorum</span>
+      <span class="stat-note">no single party can ratify</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-verify">-</span>
+      <span class="stat-label">verify round-trip</span>
+      <span class="stat-note">receipt + content + chain</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-tamper">1</span>
+      <span class="stat-label">forgeries caught</span>
+      <span class="stat-note">content edited after sealing</span>
+    </div>
+  </section>
+
+  <section class="workspace" id="cases">
+    <aside class="case-rail">
+      <div class="rail-head">
+        <div>
+          <span class="kicker">Case register</span>
+          <h2>Decision records</h2>
+        </div>
+        <span class="case-count" id="case-count">8</span>
+      </div>
+
+      <div class="filters" id="filters" role="tablist" aria-label="Filter cases"></div>
+
+      <label class="search">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input id="case-search" type="search" placeholder="Search case, agent, student ref" autocomplete="off">
+      </label>
+
+      <div class="case-list" id="case-list"></div>
+
+      <div class="rail-note">
+        <strong>Read this first.</strong>
+        <span>Refused and tampered records are left visible on purpose. A clean audit trail that hides its failures is not an audit trail.</span>
+      </div>
+    </aside>
+
+    <article class="detail" id="detail" aria-live="polite">
+      <div class="loading">Loading case...</div>
+    </article>
+  </section>
+
+  <section class="ledger-section" id="ledger">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Append-only chain</p>
+        <h2>One ledger, every receipt linked backwards.</h2>
+        <p class="section-lede">
+          Each receipt commits to the hash of the receipt before it. Change one field anywhere in the
+          chain and every later block stops recomputing. No central server is needed to check it.
+        </p>
+      </div>
+      <div class="chain-badge" id="chain-badge">chain valid</div>
+    </div>
+    <div class="chain-table" id="chain-table"></div>
+  </section>
+
+  <section class="intake" id="intake">
+    <div class="intake-copy">
+      <p class="eyebrow">Intake desk</p>
+      <h2>Seal a decision. Then try to break it.</h2>
+      <p class="section-lede">
+        This form calls the real engine: policy checks, trust score, lattice promotion, quorum, receipt.
+        Choose four seats and it ratifies. Choose three and the gate holds. Ask one office to override
+        the board and the protocol refuses to produce a receipt at all.
+      </p>
+      <ul class="intake-facts">
+        <li><span class="mono">4/7</span> distinct seats required for RATIFIED</li>
+        <li><span class="mono">DRAFT -&gt; PROVISIONAL -&gt; DEPOSITED -&gt; RATIFIED</span> only</li>
+        <li><span class="mono">sole sovereign</span> is a hard protocol failure</li>
+      </ul>
+    </div>
+
+    <div class="intake-grid">
+      <form class="intake-form" id="intake-form">
+        <div class="field">
+          <label for="f-template">Decision type</label>
+          <select id="f-template" name="template"></select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-student">Student reference</label>
+            <input id="f-student" name="student" value="N-7701" maxlength="24" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="f-course">Course or program</label>
+            <input id="f-course" name="course" value="CS 210" maxlength="24" autocomplete="off">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-confidence">Agent confidence <output id="f-confidence-out">0.86</output></label>
+          <input id="f-confidence" name="confidence" type="range" min="0.05" max="0.99" step="0.01" value="0.86">
+        </div>
+        <fieldset class="field witnesses">
+          <legend>Oversight Board attestations <span id="witness-count">4 / 7 selected</span></legend>
+          <div class="witness-grid" id="witness-grid"></div>
+        </fieldset>
+        <label class="switch">
+          <input type="checkbox" id="f-unilateral" name="unilateral">
+          <span class="switch-track" aria-hidden="true"></span>
+          <span class="switch-copy">
+            <strong>Attempt a unilateral override</strong>
+            <small>One office signs on behalf of the board. The engine should refuse.</small>
+          </span>
+        </label>
+        <button class="btn btn-primary btn-wide" type="submit" id="intake-submit">Seal through the engine</button>
+      </form>
+
+      <div class="intake-result" id="intake-result">
+        <div class="result-empty">
+          <span class="kicker">Nothing sealed yet</span>
+          <p>Submit the form to produce a live VALF-1 receipt. The result will show the hash, the quorum
+          that approved it, and exactly which check refused it if the protocol says no.</p>
+          <div class="result-ghost">
+            <span class="mono">this_hash</span>
+            <span class="ghost-line"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scale" id="why">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Why this setting</p>
+        <h2>An online university is the hardest honest test.</h2>
+        <p class="section-lede">
+          No hallway conversations. No registrar's window. Decisions happen inside software, at distance,
+          across time zones, and increasingly with an agent in the loop. The institution still owes every
+          student a reason and every regulator a record.
+        </p>
+      </div>
+    </div>
+
+    <div class="scale-grid">
+      <article class="scale-card">
+        <span class="scale-num">01</span>
+        <h3>Appeals stop being archaeology</h3>
+        <p>The evidence is already assembled at decision time: the agent, the model, the sources, the
+        confidence, the dissent, the four seats. An appeal becomes a lookup instead of a search through
+        tickets and inboxes.</p>
+        <span class="scale-tag">grade appeal - 2026-AUT</span>
+      </article>
+      <article class="scale-card">
+        <span class="scale-num">02</span>
+        <h3>Due process is visible, not promised</h3>
+        <p>A detector score is not a finding. The receipt records the vote, the dissent, and the
+        students' disclosure. If the evidence base is thin, the trust score says so instead of hiding
+        behind a confident paragraph.</p>
+        <span class="scale-tag">integrity case - trust 48/100</span>
+      </article>
+      <article class="scale-card">
+        <span class="scale-num">03</span>
+        <h3>The override is part of the record</h3>
+        <p>When the accessibility office overrules an AI denial, that reversal is not an embarrassment
+        to be scrubbed. It is the proof that human oversight worked, signed by the seats that did it.</p>
+        <span class="scale-tag">accommodation - human override</span>
+      </article>
+      <article class="scale-card">
+        <span class="scale-num">04</span>
+        <h3>Accreditation becomes a query</h3>
+        <p>Instead of a binder assembled once every seven years, the institution carries a live,
+        hash-linked index of every AI-assisted decision, ready for sampling by an external examiner.</p>
+        <span class="scale-tag">evidence packet - 214 items</span>
+      </article>
+    </div>
+
+    <div class="scale-strip">
+      <div><strong>0</strong><span>servers needed to re-verify</span></div>
+      <div><strong>3</strong><span>independent checks per receipt</span></div>
+      <div><strong>10</strong><span>authorities cited in this dataset</span></div>
+      <div><strong>7</strong><span>seats, 4 required, one refusal</span></div>
+    </div>
+
+    <p class="scale-caveat">
+      Northline Online University is fictional and the cases are synthetic. The engine, the hashes,
+      the chain, and the refusals are real. Illustrative scale: at 24,000 AI-assisted decisions a term,
+      the bottleneck moves from finding evidence to reading it.
+    </p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-brand">
+    <span class="brand-text">VERIFYD <em>CAMPUS</em></span>
+    <p>Tamper-evident audit receipts for AI decisions. A v1.0 showcase built on the Verifyd engine.</p>
+  </div>
+  <div class="footer-meta">
+    <span>Engine v1.0 / VALF-1</span>
+    <span>FIPS 180-4 <span class="dot-sep"></span> RFC 8785 <span class="dot-sep"></span> RFC 6962</span>
+    <span>Zero dependencies. Runs offline.</span>
+    <span class="footer-links"><a href="/docs/SYSTEM-REPORT.md" target="_blank" rel="noreferrer">System report</a> <span class="dot-sep"></span> <a href="/docs/UNIVERSITY-PLAYBOOK.md" target="_blank" rel="noreferrer">University playbook</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>
