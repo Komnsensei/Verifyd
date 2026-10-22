@@ -1,0 +1,212 @@
+{
+  "schema": "sentinel.config/1",
+  "service": {
+    "name": "sentinel",
+    "state_dir": "./state",
+    "log_level": "info"
+  },
+  "runtime": {
+    "poll_interval_ms": 10000,
+    "adapter_timeout_ms": 20000,
+    "max_events_per_cycle": 5000,
+    "shutdown_timeout_ms": 5000,
+    "max_runtime_state_bytes": 1048576
+  },
+  "store": {
+    "max_bytes": 8388608,
+    "max_files": 8,
+    "retention_days": 30,
+    "fsync": false,
+    "anchor": {
+      "path": "",
+      "url": "",
+      "secret_env": "SENTINEL_ANCHOR_SECRET",
+      "interval_ms": 60000,
+      "allow_insecure_loopback": false
+    }
+  },
+  "detection": {
+    "mode": "detect",
+    "window_ms": 300000,
+    "dedupe_cooldown_ms": 300000,
+    "min_alert_score": 10,
+    "severity_thresholds": {
+      "low": 1,
+      "medium": 25,
+      "high": 50,
+      "critical": 80
+    },
+    "protected_routes": [
+      "/admin/*",
+      "/api/v1/export*"
+    ],
+    "sensitive_routes": [
+      "/admin/*",
+      "/api/v1/users*",
+      "/api/v1/export*"
+    ],
+    "rules": {
+      "auth_fail_burst": { "enabled": true, "score": 15, "min_events": 5 },
+      "rate_limit_burst": { "enabled": true, "score": 10, "min_events": 3 },
+      "denied_then_success": { "enabled": true, "score": 20 },
+      "sequential_enumeration": { "enabled": true, "score": 25, "min_pages": 5, "min_ids": 10 },
+      "bulk_response_volume": { "enabled": true, "score": 30, "min_bytes_window": 10485760, "min_bytes_single": 2097152 },
+      "sensitive_route_repeat": { "enabled": true, "score": 20, "min_hits": 10 },
+      "protected_unauthenticated": { "enabled": true, "score": 100 },
+      "new_listener": { "enabled": true, "score": 15 },
+      "process_from_temp": { "enabled": true, "score": 20 },
+      "defender_detection": { "enabled": true, "score": 40 },
+      "file_integrity_change": { "enabled": true, "score": 15, "score_deleted": 20 },
+      "db_bulk_read": { "enabled": true, "score": 30, "min_rows": 5000 },
+      "db_auth_failure": { "enabled": true, "score": 15 },
+      "db_new_identity": { "enabled": true, "score": 20 },
+      "db_privilege_change": { "enabled": true, "score": 25 },
+      "host_auth_failure_burst": { "enabled": true, "score": 15, "min_events": 5 },
+      "persistence_change": { "enabled": true, "score": 35 },
+      "wmi_subscription": { "enabled": true, "score": 60 },
+      "cloud_privilege_change": { "enabled": true, "score": 40 },
+      "db_live_bulk_read": { "enabled": true, "score": 30, "min_logical_reads": 100000 },
+      "sysmon_tamper": { "enabled": true, "score": 60 },
+      "network_bulk_transfer": { "enabled": true, "score": 30, "min_bytes": 52428800 },
+      "network_ids_alert": { "enabled": true, "score": 25, "min_severity": 2 }
+    }
+  },
+  "baseline": {
+    "enabled": true,
+    "bucket_ms": 60000,
+    "buckets": 30,
+    "min_buckets": 5,
+    "alert_ratio": 3,
+    "require_baseline": true
+  },
+  "allowlist": [],
+  "adapters": {
+    "http_access": {
+      "enabled": true,
+      "path": "./logs/api-access.jsonl",
+      "format": "sentinel-jsonl",
+      "poll_interval_ms": 2000,
+      "max_lines_per_poll": 2000
+    },
+    "host_listeners": {
+      "enabled": true,
+      "poll_interval_ms": 30000,
+      "ignore_ports": [],
+      "allow_processes": []
+    },
+    "host_process": {
+      "enabled": true,
+      "mode": "auto",
+      "poll_interval_ms": 20000
+    },
+    "host_security": {
+      "enabled": false,
+      "poll_interval_ms": 60000,
+      "events": [4624, 4625, 4647, 4672, 4673]
+    },
+    "host_defender": {
+      "enabled": true,
+      "poll_interval_ms": 60000
+    },
+    "host_files": {
+      "enabled": false,
+      "paths": [],
+      "poll_interval_ms": 60000
+    },
+    "host_persistence": {
+      "enabled": false,
+      "poll_interval_ms": 60000
+    },
+    "host_fileaudit": {
+      "enabled": false,
+      "poll_interval_ms": 30000
+    },
+    "host_sysmon": {
+      "enabled": false,
+      "poll_interval_ms": 15000
+    },
+    "host_dns": {
+      "enabled": false,
+      "poll_interval_ms": 30000
+    },
+    "cloud_audit": {
+      "enabled": false,
+      "path": "",
+      "provider": "generic",
+      "poll_interval_ms": 5000
+    },
+    "sqlserver": {
+      "enabled": false,
+      "server": "",
+      "database": "",
+      "connection_string_env": "SENTINEL_SQL_CONNECTION",
+      "poll_interval_ms": 30000,
+      "max_sessions": 50
+    },
+    "saas_audit": {
+      "enabled": false,
+      "url": "",
+      "token_env": "SENTINEL_SAAS_TOKEN",
+      "records_path": "events",
+      "since_param": "since",
+      "poll_interval_ms": 60000
+    },
+    "db_audit": {
+      "enabled": false,
+      "path": "",
+      "poll_interval_ms": 5000
+    },
+    "proxy_log": {
+      "enabled": false,
+      "path": "",
+      "provider": "generic-jsonl",
+      "poll_interval_ms": 5000
+    },
+    "network_sensor": {
+      "enabled": false,
+      "path": "",
+      "provider": "auto",
+      "log_type": "",
+      "poll_interval_ms": 5000
+    },
+    "webflow": {
+      "enabled": false,
+      "log_path": "",
+      "poll_interval_ms": 300000
+    },
+    "self_health": {
+      "enabled": true,
+      "poll_interval_ms": 30000,
+      "max_store_utilization": 0.9
+    }
+  },
+  "alerts": {
+    "min_severity": "low",
+    "webhook": {
+      "url": "",
+      "secret_env": "SENTINEL_WEBHOOK_SECRET",
+      "timeout_ms": 5000,
+      "max_attempts": 6,
+      "backoff_base_ms": 500,
+      "backoff_max_ms": 60000,
+      "allow_insecure_loopback": false
+    }
+  },
+  "actions": {
+    "enabled": false,
+    "dry_run": true,
+    "targets": {
+      "gateway_rate_limit": { "url": "", "secret_env": "SENTINEL_ACTION_SECRET" },
+      "waf_block": { "url": "", "secret_env": "SENTINEL_ACTION_SECRET" },
+      "credential_rotation": { "url": "", "secret_env": "SENTINEL_ACTION_SECRET" }
+    },
+    "max_ttl_seconds": 3600
+  },
+  "diagnostics": {
+    "bind": "127.0.0.1",
+    "port": 8790,
+    "token_env": "SENTINEL_DIAG_TOKEN",
+    "allow_remote": false,
+    "recent_alerts": 25
+  }
+}

@@ -1,0 +1,43 @@
+VERIFYD / SENTINEL - WINDOWS ONE-CLICK SETUP
+============================================
+
+1. Extract the whole archive to C:\Verifyd.
+
+   If Windows warns about the downloaded zip, right-click the zip, choose
+   Properties, tick "Unblock", then extract. Do not run anything from inside
+   the zip.
+
+2. Double-click:
+
+   C:\Verifyd\SETUP-SENTINEL.cmd
+
+3. Click Yes on the Windows administrator prompt, then wait. The window shows
+   each step:
+
+   - installs Node.js LTS automatically if Node is missing
+   - installs Sentinel and registers the scheduled task
+   - creates a local diagnostics token (value is never displayed)
+   - starts the service and runs the validation checklist
+
+4. When it finishes, Explorer opens the evidence folder. Open report.json to
+   see the ACTIVE / UNAVAILABLE / NOT_CONFIGURED adapters and the captured
+   samples in the samples\ subfolder. A Sentinel status icon (blue, amber or
+   red) also appears in the notification area.
+
+   Later, use Start Menu > Sentinel Status to reopen it. The window shows live
+   health, the adapter split and the latest alerts. Buttons run a fresh check,
+   open the evidence folder or open the latest report.
+
+   C:\ProgramData\Sentinel\validation\<timestamp>\
+
+   Review report.json and the samples for host names, account names and paths
+   before sharing them.
+
+No commands need to be typed.
+
+If double-clicking does nothing, right-click SETUP-SENTINEL.cmd and choose
+"Run as administrator". The full log is C:\ProgramData\Sentinel\setup.log.
+
+Manual steps, only if you prefer them:
+   sentinel\windows\README-WINDOWS.md
+   sentinel\docs\WINDOWS-VALIDATION.md

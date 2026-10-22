@@ -31,13 +31,34 @@ node bin/verifyd.cjs verify <receipt.json>
 
 Expected output: `Chain valid: true`. If `false`, the receipt has been tampered with.
 
-## Test (when added)
+## Test
 
 ```
-npm test
+npm test              # engine demo (legacy)
+npm run test:sentinel # 61 node:test tests for the monitoring service
 ```
 
-Currently no test runner. Adding Jest is a v1.1 task.
+## Sentinel (monitoring subsystem)
+
+`sentinel/` is a zero-dependency Node service that monitors data access on
+Windows hosts and their APIs. It is separate from the receipt engine: it reuses
+`engine/canonicalize.cjs`, writes its own hash-chained JSONL store, and never
+requires Windows to run its tests (Windows adapters accept injected telemetry
+and report UNAVAILABLE on other platforms).
+
+```
+bin/sentinel.cjs            CLI: run/once/status/coverage/verify/rules/simulate
+sentinel/adapters/          10 collector adapters with ACTIVE/UNAVAILABLE/NOT_CONFIGURED
+sentinel/rules.cjs          deterministic rubric, correlation, dedupe
+sentinel/store.cjs          hash-chained JSONL, rotation, retention, verification
+sentinel/dispatcher.cjs     durable HMAC webhook queue
+sentinel/test/              61 tests (node --test)
+sentinel/windows/           install/control/uninstall/preflight PowerShell
+sentinel/docs/              coverage matrix, runbook, rubric, verification record
+```
+
+Read `sentinel/README.md` before modifying an adapter or a rule. Rule changes
+require the test suite to stay green, including the false-positive tests.
 
 ## Repo layout
 

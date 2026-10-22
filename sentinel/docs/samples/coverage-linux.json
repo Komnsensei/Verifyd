@@ -1,0 +1,702 @@
+{
+  "generated_at": "2026-10-21T06:13:21.221Z",
+  "mode": "detect",
+  "adapters": [
+    {
+      "id": "http.access",
+      "name": "HTTP/API access log",
+      "category": "A: HTTP/API access",
+      "status": "UNAVAILABLE",
+      "reason": "access log not found at /workspace/chats/3689be55ed17d6731ac0b22c/sentinel/logs/api-access.jsonl (ENOENT)",
+      "detail": {},
+      "source": null,
+      "capabilities": [
+        "request rate by route, method, principal and source address",
+        "status-code outcomes including auth failures and rate limits",
+        "pagination/offset parameters and response byte counts",
+        "sensitive/protected route matching"
+      ],
+      "limitations": [
+        "only sees traffic that reaches an instrumented app or reverse proxy that writes an access log",
+        "cannot observe requests blocked upstream by a CDN/WAF unless those logs are also collected",
+        "log timestamps are trusted as supplied by the writer"
+      ],
+      "interval_ms": 2000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.listeners",
+      "name": "Windows listening ports",
+      "category": "B: Windows host",
+      "status": "UNAVAILABLE",
+      "reason": "requires Windows (Get-NetTCPConnection); host is linux",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "cmdlet": "Get-NetTCPConnection"
+      },
+      "capabilities": [
+        "enumerates TCP listeners with owning PID and process name",
+        "diffs against a persisted baseline to surface new listeners",
+        "records both newly added and removed listeners as evidence"
+      ],
+      "limitations": [
+        "baseline is established on first successful poll; pre-existing listeners are not retroactively reported",
+        "UDP listeners are not covered",
+        "short-lived listeners between polls can be missed",
+        "process name can be null for protected processes without elevation"
+      ],
+      "interval_ms": 30000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.process",
+      "name": "Windows process creation",
+      "category": "B: Windows host",
+      "status": "UNAVAILABLE",
+      "reason": "requires Windows process telemetry; host is linux",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "cmdlet": "Get-WinEvent Security 4688 / Get-CimInstance Win32_Process"
+      },
+      "capabilities": [
+        "process creation with image, parent, user and PID",
+        "command line when the 4688 policy includes it",
+        "flags images launched from temporary directories"
+      ],
+      "limitations": [
+        "4688 requires \"Audit Process Creation\" success auditing and a Security log read permission",
+        "CIM fallback is a snapshot diff and misses processes that start and exit between polls",
+        "command lines are truncated and credential-shaped text is redacted before storage"
+      ],
+      "interval_ms": 20000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.security",
+      "name": "Windows Security log (logon events)",
+      "category": "B: Windows host",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config; enable only where Security log access is authorized",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "cmdlet": "Get-WinEvent Security 4624/4625/4647/4672/4673"
+      },
+      "capabilities": [
+        "failed logons (4625) with source address, account and logon type",
+        "successful logons (4624) and logoffs (4647)",
+        "special privileges assigned (4672)",
+        "sensitive privilege use (4673) with process and service name"
+      ],
+      "limitations": [
+        "requires an elevated account with Security log read access",
+        "requires the matching audit policy subcategories to be enabled",
+        "cannot see domain-controller-side events unless this host is the DC"
+      ],
+      "interval_ms": 60000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.defender",
+      "name": "Windows Defender detections",
+      "category": "B: Windows host",
+      "status": "UNAVAILABLE",
+      "reason": "requires Windows Defender event log; host is linux",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "log": "Microsoft-Windows-Windows Defender/Operational"
+      },
+      "capabilities": [
+        "Defender detection events (1116/1117) and configuration changes (5007)"
+      ],
+      "limitations": [
+        "only reports what the Defender operational log records",
+        "message parsing is best-effort because the event schema is not stable across Defender versions",
+        "does not replace EDR telemetry"
+      ],
+      "interval_ms": 60000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.files",
+      "name": "Monitored application/config directories",
+      "category": "B: Windows host",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "in-process",
+        "method": "sha256 baseline diff"
+      },
+      "capabilities": [
+        "SHA-256 baseline of configured files and directories",
+        "created/modified/deleted change events"
+      ],
+      "limitations": [
+        "polling, so a change that is reverted between polls is not seen",
+        "bounded to 5000 files and 32MB per file",
+        "does not use the Windows USN journal (no extra privilege requirement)"
+      ],
+      "interval_ms": 60000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.persistence",
+      "name": "Windows persistence (registry, scheduled tasks, WMI)",
+      "category": "B: Windows host",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "logs": "Security 4657/4698/4699/4700/4702, WMI-Activity 5861"
+      },
+      "capabilities": [
+        "registry value changes (4657) for audited persistence keys",
+        "scheduled task creation, deletion, disable and update (4698/4699/4700/4702)",
+        "WMI permanent event subscriptions (WMI-Activity 5861)"
+      ],
+      "limitations": [
+        "4657 requires Audit Registry and a SACL on the monitored key",
+        "4698/4702 require Audit Other Object Access Events",
+        "WMI-Activity operational log must be enabled and readable",
+        "Sysmon registry events are covered separately by host.sysmon"
+      ],
+      "interval_ms": 60000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.fileaudit",
+      "name": "Windows file access audit (4663)",
+      "category": "B: Windows host",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "log": "Security 4663"
+      },
+      "capabilities": [
+        "file read/write/delete access with process and account",
+        "object path and access mask from the Security log",
+        "complements hash-based host.files polling with access events"
+      ],
+      "limitations": [
+        "requires Audit File System policy and a SACL on each monitored path",
+        "4663 is generated only when the object SACL matches the access",
+        "security log volume can be high on busy file servers",
+        "does not capture file contents"
+      ],
+      "interval_ms": 30000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.sysmon",
+      "name": "Sysmon endpoint telemetry",
+      "category": "B: Windows host",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "log": "Microsoft-Windows-Sysmon/Operational"
+      },
+      "capabilities": [
+        "process creation including short-lived processes (event 1)",
+        "network connection metadata (event 3)",
+        "DNS queries (event 22)",
+        "file creation (event 11), registry changes (12/13/14)",
+        "WMI filter/consumer/binding persistence (19/20/21)",
+        "image loads, process access, injection and process tampering (7/8/10/25)"
+      ],
+      "limitations": [
+        "requires Sysmon installed and its operational log readable",
+        "event 3 is connection metadata, not packet contents",
+        "event 22 is DNS client telemetry, not a network sensor",
+        "Sysmon configuration controls which events exist at all"
+      ],
+      "interval_ms": 15000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "host.dns",
+      "name": "Windows DNS Client queries",
+      "category": "B: Windows host",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "log": "Microsoft-Windows-DNS-Client/Operational"
+      },
+      "capabilities": [
+        "DNS query names, types, status and results from the DNS Client operational log"
+      ],
+      "limitations": [
+        "the DNS Client log records client lookups, not all DNS traffic on the wire",
+        "requires the Microsoft-Windows-DNS-Client/Operational log to be enabled and readable",
+        "Sysmon event 22 is preferable when Sysmon is already deployed"
+      ],
+      "interval_ms": 30000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "cloud.audit",
+      "name": "Cloud control-plane audit log (exported)",
+      "category": "C: Data stores and external services",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "file",
+        "format": "jsonl"
+      },
+      "capabilities": [
+        "AWS CloudTrail, Azure Activity and GCP Audit Log records exported to JSONL",
+        "principal, source address, action, resource and error outcome",
+        "privilege and IAM policy changes are scored"
+      ],
+      "limitations": [
+        "requires the provider audit export to be delivered to a readable file; this adapter holds no cloud credentials",
+        "export latency and retention are controlled by the provider",
+        "JSONL only: one audit record per line, or a single CloudTrail Records object per line"
+      ],
+      "interval_ms": 5000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "sqlserver.live",
+      "name": "SQL Server live sessions and requests",
+      "category": "C: Data stores and external services",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "powershell",
+        "technology": "System.Data.SqlClient + DMVs"
+      },
+      "capabilities": [
+        "live user sessions and active requests from sys.dm_exec_sessions/sys.dm_exec_requests",
+        "statement text for active requests (truncated and redacted)",
+        "read/write/logical-read counters and blocking sessions"
+      ],
+      "limitations": [
+        "requires Windows, a SQL Server client assembly and an account with VIEW SERVER STATE",
+        "polling sees a request only while it is active; very short statements can be missed",
+        "does not capture historical statements unless the statement is still active",
+        "integrated security or a connection string in an environment variable; no password is stored in config"
+      ],
+      "interval_ms": 30000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "saas.audit",
+      "name": "Third-party SaaS audit API",
+      "category": "C: Data stores and external services",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "https",
+        "format": "json"
+      },
+      "capabilities": [
+        "authenticated HTTPS pull from a SaaS audit endpoint",
+        "principal, source address, action, resource and failure outcome",
+        "cursor-based since parameter when the provider supports it"
+      ],
+      "limitations": [
+        "requires the operator to supply an API token in an environment variable; this build stores no SaaS credential",
+        "provider-specific pagination beyond the configured response path is not implemented",
+        "the provider must expose an audit/event endpoint authorized for the token"
+      ],
+      "interval_ms": 60000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "db.audit",
+      "name": "Database audit log (exported)",
+      "category": "C: Data stores and external services",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "file",
+        "format": "jsonl"
+      },
+      "capabilities": [
+        "bulk reads measured by rows_returned / rows_read",
+        "privilege changes (GRANT/REVOKE/role changes) when exported",
+        "database authentication failures when exported",
+        "principal, source host, statement type and target table"
+      ],
+      "limitations": [
+        "no live database connection: requires pgAudit / MySQL audit / provider audit log exported to JSONL",
+        "if database auditing is not enabled upstream, this adapter sees nothing and must report NOT CONFIGURED",
+        "does not inspect query result contents"
+      ],
+      "interval_ms": 5000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "proxy.access",
+      "name": "Reverse proxy / CDN / WAF access log",
+      "category": "C: Data stores and external services",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "file",
+        "format": "jsonl"
+      },
+      "capabilities": [
+        "edge request rate, status and byte counts",
+        "WAF action and rule identifiers when the provider exports them",
+        "source address as seen by the edge"
+      ],
+      "limitations": [
+        "requires the provider to export logs to a readable file; no provider API credentials are held by this service",
+        "log delivery latency varies by provider (Cloudflare Logpush is near-real-time but not synchronous)",
+        "requests dropped before the edge logger are invisible"
+      ],
+      "interval_ms": 5000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "network.sensor",
+      "name": "Network sensor flow, DNS and TLS metadata",
+      "category": "C: Data stores and external services",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "detail": {},
+      "source": {
+        "type": "file",
+        "format": "jsonl",
+        "sensors": [
+          "zeek",
+          "suricata"
+        ]
+      },
+      "capabilities": [
+        "per-flow byte counts and connection state (Zeek conn / Suricata flow)",
+        "DNS query names, types, answers and response codes",
+        "TLS SNI, negotiated version/cipher and certificate subject/issuer (not plaintext)",
+        "HTTP metadata and IDS alerts when the sensor emits them"
+      ],
+      "limitations": [
+        "requires a sensor (Zeek or Suricata) writing JSONL; this build is not a packet-capture driver",
+        "TLS is metadata only: payloads are not decrypted and no TLS interception is performed",
+        "encrypted traffic volume is visible, but content and intent are not",
+        "sensor placement determines whether east-west or only perimeter traffic is visible"
+      ],
+      "interval_ms": 5000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "webflow.logs",
+      "name": "Webflow (exported logs)",
+      "category": "C: Data stores and external services",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config; no Webflow audit integration is configured",
+      "detail": {},
+      "source": {
+        "type": "file",
+        "format": "jsonl"
+      },
+      "capabilities": [
+        "parses operator-exported request logs when a log_path is supplied"
+      ],
+      "limitations": [
+        "no authorized Webflow audit-log API integration exists in this build",
+        "no Webflow API token is collected or stored",
+        "without an exported log file this source is reported NOT CONFIGURED, not monitored"
+      ],
+      "interval_ms": 300000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    },
+    {
+      "id": "self.health",
+      "name": "Monitoring-service health",
+      "category": "B: Windows host",
+      "status": "ACTIVE",
+      "reason": "state directory is writable",
+      "detail": {
+        "state_dir": "/workspace/chats/3689be55ed17d6731ac0b22c/sentinel/state"
+      },
+      "source": {
+        "type": "in-process",
+        "method": "fs + process metrics"
+      },
+      "capabilities": [
+        "evidence store writability, chain head and size utilization",
+        "alert queue depth and delivery errors",
+        "process memory and event-loop lag proxy",
+        "disk free space on the state volume"
+      ],
+      "limitations": [
+        "reports the service's own health only; it cannot detect its own total failure (needs an external heartbeat)",
+        "disk free is read from the state directory volume only"
+      ],
+      "interval_ms": 30000,
+      "last_ok_at": null,
+      "last_error": null,
+      "consecutive_failures": 0,
+      "events_emitted": 0
+    }
+  ],
+  "summary": {
+    "active": 1,
+    "unavailable": 4,
+    "not_configured": 13
+  },
+  "blind_spots": [
+    {
+      "adapter": "http.access",
+      "status": "UNAVAILABLE",
+      "reason": "access log not found at /workspace/chats/3689be55ed17d6731ac0b22c/sentinel/logs/api-access.jsonl (ENOENT)",
+      "limitations": [
+        "only sees traffic that reaches an instrumented app or reverse proxy that writes an access log",
+        "cannot observe requests blocked upstream by a CDN/WAF unless those logs are also collected",
+        "log timestamps are trusted as supplied by the writer"
+      ]
+    },
+    {
+      "adapter": "host.listeners",
+      "status": "UNAVAILABLE",
+      "reason": "requires Windows (Get-NetTCPConnection); host is linux",
+      "limitations": [
+        "baseline is established on first successful poll; pre-existing listeners are not retroactively reported",
+        "UDP listeners are not covered",
+        "short-lived listeners between polls can be missed",
+        "process name can be null for protected processes without elevation"
+      ]
+    },
+    {
+      "adapter": "host.process",
+      "status": "UNAVAILABLE",
+      "reason": "requires Windows process telemetry; host is linux",
+      "limitations": [
+        "4688 requires \"Audit Process Creation\" success auditing and a Security log read permission",
+        "CIM fallback is a snapshot diff and misses processes that start and exit between polls",
+        "command lines are truncated and credential-shaped text is redacted before storage"
+      ]
+    },
+    {
+      "adapter": "host.security",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config; enable only where Security log access is authorized",
+      "limitations": [
+        "requires an elevated account with Security log read access",
+        "requires the matching audit policy subcategories to be enabled",
+        "cannot see domain-controller-side events unless this host is the DC"
+      ]
+    },
+    {
+      "adapter": "host.defender",
+      "status": "UNAVAILABLE",
+      "reason": "requires Windows Defender event log; host is linux",
+      "limitations": [
+        "only reports what the Defender operational log records",
+        "message parsing is best-effort because the event schema is not stable across Defender versions",
+        "does not replace EDR telemetry"
+      ]
+    },
+    {
+      "adapter": "host.files",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "polling, so a change that is reverted between polls is not seen",
+        "bounded to 5000 files and 32MB per file",
+        "does not use the Windows USN journal (no extra privilege requirement)"
+      ]
+    },
+    {
+      "adapter": "host.persistence",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "4657 requires Audit Registry and a SACL on the monitored key",
+        "4698/4702 require Audit Other Object Access Events",
+        "WMI-Activity operational log must be enabled and readable",
+        "Sysmon registry events are covered separately by host.sysmon"
+      ]
+    },
+    {
+      "adapter": "host.fileaudit",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "requires Audit File System policy and a SACL on each monitored path",
+        "4663 is generated only when the object SACL matches the access",
+        "security log volume can be high on busy file servers",
+        "does not capture file contents"
+      ]
+    },
+    {
+      "adapter": "host.sysmon",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "requires Sysmon installed and its operational log readable",
+        "event 3 is connection metadata, not packet contents",
+        "event 22 is DNS client telemetry, not a network sensor",
+        "Sysmon configuration controls which events exist at all"
+      ]
+    },
+    {
+      "adapter": "host.dns",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "the DNS Client log records client lookups, not all DNS traffic on the wire",
+        "requires the Microsoft-Windows-DNS-Client/Operational log to be enabled and readable",
+        "Sysmon event 22 is preferable when Sysmon is already deployed"
+      ]
+    },
+    {
+      "adapter": "cloud.audit",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "requires the provider audit export to be delivered to a readable file; this adapter holds no cloud credentials",
+        "export latency and retention are controlled by the provider",
+        "JSONL only: one audit record per line, or a single CloudTrail Records object per line"
+      ]
+    },
+    {
+      "adapter": "sqlserver.live",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "requires Windows, a SQL Server client assembly and an account with VIEW SERVER STATE",
+        "polling sees a request only while it is active; very short statements can be missed",
+        "does not capture historical statements unless the statement is still active",
+        "integrated security or a connection string in an environment variable; no password is stored in config"
+      ]
+    },
+    {
+      "adapter": "saas.audit",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "requires the operator to supply an API token in an environment variable; this build stores no SaaS credential",
+        "provider-specific pagination beyond the configured response path is not implemented",
+        "the provider must expose an audit/event endpoint authorized for the token"
+      ]
+    },
+    {
+      "adapter": "db.audit",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "no live database connection: requires pgAudit / MySQL audit / provider audit log exported to JSONL",
+        "if database auditing is not enabled upstream, this adapter sees nothing and must report NOT CONFIGURED",
+        "does not inspect query result contents"
+      ]
+    },
+    {
+      "adapter": "proxy.access",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "requires the provider to export logs to a readable file; no provider API credentials are held by this service",
+        "log delivery latency varies by provider (Cloudflare Logpush is near-real-time but not synchronous)",
+        "requests dropped before the edge logger are invisible"
+      ]
+    },
+    {
+      "adapter": "network.sensor",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config",
+      "limitations": [
+        "requires a sensor (Zeek or Suricata) writing JSONL; this build is not a packet-capture driver",
+        "TLS is metadata only: payloads are not decrypted and no TLS interception is performed",
+        "encrypted traffic volume is visible, but content and intent are not",
+        "sensor placement determines whether east-west or only perimeter traffic is visible"
+      ]
+    },
+    {
+      "adapter": "webflow.logs",
+      "status": "NOT_CONFIGURED",
+      "reason": "disabled in config; no Webflow audit integration is configured",
+      "limitations": [
+        "no authorized Webflow audit-log API integration exists in this build",
+        "no Webflow API token is collected or stored",
+        "without an exported log file this source is reported NOT CONFIGURED, not monitored"
+      ]
+    },
+    {
+      "adapter": "store.anchor",
+      "status": "NOT_CONFIGURED",
+      "reason": "store.anchor.path and store.anchor.url are empty; chain-head rollback is detectable only on this disk",
+      "limitations": [
+        "Configure store.anchor.path (for example a UNC share) or store.anchor.url so the evidence head is copied off-host"
+      ]
+    },
+    {
+      "adapter": "global",
+      "status": "LIMITATION",
+      "reason": "Thresholds are tuning values, not guarantees; an uninstrumented service whose logs are not collected remains outside visibility.",
+      "limitations": [
+        "Low-and-slow scraping that stays below every threshold is not detected",
+        "TLS metadata comes from network.sensor when configured; TLS payloads are never decrypted",
+        "Producer timestamps are compared with observed_at, not cryptographically attested"
+      ]
+    }
+  ]
+}

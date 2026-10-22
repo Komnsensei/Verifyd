@@ -1,0 +1,76 @@
+VERIFYD / SENTINEL - WINDOWS ONE-CLICK SETUP
+============================================
+
+This folder is the Windows download package — not the development tree. The
+editable source lives in the repository under sentinel/, and the CLI entry point
+is bin/sentinel.cjs. This is the copy you get when you download the zip and
+extract it on a Windows machine.
+
+Windows is required. Sentinel is a Windows host sensor: it reads Windows event
+logs and uses Windows-only cmdlets such as Get-NetTCPConnection, Get-WinEvent,
+Get-CimInstance, auditpol and wevtutil. It does not run on Linux, macOS,
+Android or iOS, and it is not a browser extension or a web app.
+
+- Download the zip from where you got this bundle, then save it somewhere easy
+  to find, such as your Downloads folder or your desktop.
+
+- If Windows warns about the downloaded zip, right-click the zip, choose
+  Properties, tick "Unblock", then extract. Do not run anything from inside the
+  zip yet.
+
+- Extract the whole zip to a folder you can see easily, for example:
+  C:\Verifyd
+
+  You can extract anywhere you have write access and then run the setup file
+  from that folder. A standard, non-admin Windows account can extract and
+  double-click SETUP-SENTINEL.cmd. The double-click itself asks for
+  administrator approval, so you do not need to be a permanent administrator on
+  the machine to start it.
+
+- Double-click:
+  C:\Verifyd\SETUP-SENTINEL.cmd
+
+  If you extracted to a different folder, double-click that folder's
+  SETUP-SENTINEL.cmd instead.
+
+- Windows will ask for administrator approval. Click through that prompt. The
+  setup window then shows each step:
+  - checks the bundle and Node.js
+  - installs Node.js LTS with winget if Node is missing
+  - installs Sentinel and registers the scheduled task
+  - enables Windows audit policy, 4688 command lines, WMI-Activity and SACLs
+  - creates a local diagnostics token (value is never displayed)
+  - starts the service and runs the validation checklist
+
+  From this point the setup runs with administrator rights. It is normal for
+  Consent / ConfirmAccount dialogs to appear during the install; respond to the
+  prompts the setup window itself raises. If your PC asks for an admin password
+  or for approval from another administrator account, complete that prompt too.
+
+- When it finishes, Explorer opens the evidence folder. Open report.json to see
+  the ACTIVE / UNAVAILABLE / NOT_CONFIGURED adapters and the captured samples in
+  the samples\ subfolder. A Sentinel status icon also appears in the
+  notification area.
+
+  Later, use Start Menu > Sentinel Status to reopen it. The window shows live
+  health, the adapter split and the latest alerts. Buttons run a fresh check,
+  open the evidence folder or open the latest report.
+
+  C:\ProgramData\Sentinel\validation\<timestamp>\
+
+  Review report.json and the samples for host names, account names and paths
+  before sharing them.
+
+No commands need to be typed.
+
+If double-clicking does nothing, right-click SETUP-SENTINEL.cmd and choose
+"Run as administrator". The full log is C:\ProgramData\Sentinel\setup.log.
+
+If Windows stops at the Consent / ConfirmAccount prompt instead of continuing:
+ - make sure the focus is on the elevation dialog the double-click opened, not a
+   separate "are you sure" prompt behind it;
+ - if your everyday account is not an administrator, use an administrator account
+   or ask the person who manages this PC to approve the elevation;
+ - otherwise see the manual path:
+       C:\Verifyd\sentinel\windows\README-WINDOWS.md
+       C:\Verifyd\sentinel\docs\WINDOWS-VALIDATION.md

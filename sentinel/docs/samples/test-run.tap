@@ -1,0 +1,436 @@
+TAP version 13
+# Subtest: actions are ineligible in detection-only mode
+ok 1 - actions are ineligible in detection-only mode
+  ---
+  duration_ms: 2.140054
+  type: 'test'
+  ...
+# Subtest: actions with no authorized target produce no intents
+ok 2 - actions with no authorized target produce no intents
+  ---
+  duration_ms: 0.544662
+  type: 'test'
+  ...
+# Subtest: dry-run plans a gateway and rotation intent without sending anything
+ok 3 - dry-run plans a gateway and rotation intent without sending anything
+  ---
+  duration_ms: 1.224537
+  type: 'test'
+  ...
+# Subtest: a low-severity alert cannot trigger a block or rotation
+ok 4 - a low-severity alert cannot trigger a block or rotation
+  ---
+  duration_ms: 0.626314
+  type: 'test'
+  ...
+# Subtest: missing action secret fails closed when not in dry-run
+ok 5 - missing action secret fails closed when not in dry-run
+  ---
+  duration_ms: 0.800301
+  type: 'test'
+  ...
+# Subtest: listener baseline: first poll is silent, new port raises one event
+ok 6 - listener baseline: first poll is silent, new port raises one event
+  ---
+  duration_ms: 2.542307
+  type: 'test'
+  ...
+# Subtest: listener baseline survives restore and does not re-alert
+ok 7 - listener baseline survives restore and does not re-alert
+  ---
+  duration_ms: 0.447199
+  type: 'test'
+  ...
+# Subtest: listener removals are recorded without a detection
+ok 8 - listener removals are recorded without a detection
+  ---
+  duration_ms: 0.34645
+  type: 'test'
+  ...
+# Subtest: allowlisted listener process is still recorded but not scored
+ok 9 - allowlisted listener process is still recorded but not scored
+  ---
+  duration_ms: 8.844306
+  type: 'test'
+  ...
+# Subtest: process adapter reads 4688 events and flags temp images
+ok 10 - process adapter reads 4688 events and flags temp images
+  ---
+  duration_ms: 1.078674
+  type: 'test'
+  ...
+# Subtest: process adapter without 4688 auditing degrades to snapshot mode
+ok 11 - process adapter without 4688 auditing degrades to snapshot mode
+  ---
+  duration_ms: 0.452108
+  type: 'test'
+  ...
+# Subtest: security adapter maps failed logons
+ok 12 - security adapter maps failed logons
+  ---
+  duration_ms: 0.729448
+  type: 'test'
+  ...
+# Subtest: security adapter reports inability without elevation
+ok 13 - security adapter reports inability without elevation
+  ---
+  duration_ms: 1.41301
+  type: 'test'
+  ...
+# Subtest: defender adapter maps detection events
+ok 14 - defender adapter maps detection events
+  ---
+  duration_ms: 0.90133
+  type: 'test'
+  ...
+# Subtest: file integrity adapter reports modified and deleted files
+ok 15 - file integrity adapter reports modified and deleted files
+  ---
+  duration_ms: 2.209754
+  type: 'test'
+  ...
+# Subtest: file integrity baseline survives a restart and detects offline changes
+ok 16 - file integrity baseline survives a restart and detects offline changes
+  ---
+  duration_ms: 2.100569
+  type: 'test'
+  ...
+# Subtest: http access adapter maps sentinel JSONL and caddy JSON
+ok 17 - http access adapter maps sentinel JSONL and caddy JSON
+  ---
+  duration_ms: 3.014823
+  type: 'test'
+  ...
+# Subtest: unconfigured sources report NOT_CONFIGURED, never ACTIVE
+ok 18 - unconfigured sources report NOT_CONFIGURED, never ACTIVE
+  ---
+  duration_ms: 0.685787
+  type: 'test'
+  ...
+# Subtest: windows adapters report UNAVAILABLE on a non-Windows host
+ok 19 - windows adapters report UNAVAILABLE on a non-Windows host
+  ---
+  duration_ms: 0.325751
+  type: 'test'
+  ...
+# Subtest: an adapter that cannot read its source does not stop the service
+ok 20 - an adapter that cannot read its source does not stop the service
+  ---
+  duration_ms: 3.572801
+  type: 'test'
+  ...
+# Subtest: persistence adapter maps registry 4657, scheduled-task 4698 and WMI 5861 events and raises rules
+ok 21 - persistence adapter maps registry 4657, scheduled-task 4698 and WMI 5861 events and raises rules
+  ---
+  duration_ms: 14.11454
+  type: 'test'
+  ...
+# Subtest: file audit adapter maps 4663 read/write/delete access flags
+ok 22 - file audit adapter maps 4663 read/write/delete access flags
+  ---
+  duration_ms: 1.082309
+  type: 'test'
+  ...
+# Subtest: sysmon adapter maps process 1, network 3, dns 22, wmi 20 and process tamper 25
+ok 23 - sysmon adapter maps process 1, network 3, dns 22, wmi 20 and process tamper 25
+  ---
+  duration_ms: 7.151852
+  type: 'test'
+  ...
+# Subtest: dns client and security 4673 adapters map events cleanly
+ok 24 - dns client and security 4673 adapters map events cleanly
+  ---
+  duration_ms: 1.142202
+  type: 'test'
+  ...
+# Subtest: cloud audit adapter maps CloudTrail, Azure Activity and GCP Audit and raises CLOUD_PRIVILEGE_CHANGE
+ok 25 - cloud audit adapter maps CloudTrail, Azure Activity and GCP Audit and raises CLOUD_PRIVILEGE_CHANGE
+  ---
+  duration_ms: 3.947633
+  type: 'test'
+  ...
+# Subtest: sqlserver live adapter maps active DMV sessions and raises DB_LIVE_BULK_READ
+ok 26 - sqlserver live adapter maps active DMV sessions and raises DB_LIVE_BULK_READ
+  ---
+  duration_ms: 3.43346
+  type: 'test'
+  ...
+# Subtest: saas audit adapter pulls events over authenticated loopback HTTP
+ok 27 - saas audit adapter pulls events over authenticated loopback HTTP
+  ---
+  duration_ms: 60.415274
+  type: 'test'
+  ...
+# Subtest: network sensor adapter maps Zeek and Suricata records and raises bulk/IDS alerts
+ok 28 - network sensor adapter maps Zeek and Suricata records and raises bulk/IDS alerts
+  ---
+  duration_ms: 8.483109
+  type: 'test'
+  ...
+# Subtest: HTTP middleware records body sha256 and JSON skeleton without storing raw body values
+ok 29 - HTTP middleware records body sha256 and JSON skeleton without storing raw body values
+  ---
+  duration_ms: 16.863156
+  type: 'test'
+  ...
+# Subtest: off-host anchor publishes chain head and detects rollback or head mismatch
+ok 30 - off-host anchor publishes chain head and detects rollback or head mismatch
+  ---
+  duration_ms: 7.582581
+  type: 'test'
+  ...
+# Subtest: signs payloads with HMAC over timestamp.body
+ok 31 - signs payloads with HMAC over timestamp.body
+  ---
+  duration_ms: 3.677306
+  type: 'test'
+  ...
+# Subtest: retries after failures and recovers when the receiver returns 200
+ok 32 - retries after failures and recovers when the receiver returns 200
+  ---
+  duration_ms: 1.844519
+  type: 'test'
+  ...
+# Subtest: dead-letters after max_attempts and keeps the record
+ok 33 - dead-letters after max_attempts and keeps the record
+  ---
+  duration_ms: 1.067582
+  type: 'test'
+  ...
+# Subtest: replays a pending alert after a process restart
+ok 34 - replays a pending alert after a process restart
+  ---
+  duration_ms: 1.404354
+  type: 'test'
+  ...
+# Subtest: refuses an insecure non-loopback webhook
+ok 35 - refuses an insecure non-loopback webhook
+  ---
+  duration_ms: 0.831189
+  type: 'test'
+  ...
+# Subtest: reports UNAVAILABLE when the signing secret is absent
+ok 36 - reports UNAVAILABLE when the signing secret is absent
+  ---
+  duration_ms: 0.978254
+  type: 'test'
+  ...
+# Subtest: compacts delivered alerts out of the queue and preserves pending retries
+ok 37 - compacts delivered alerts out of the queue and preserves pending retries
+  ---
+  duration_ms: 1.936411
+  type: 'test'
+  ...
+# Subtest: rejects payloads above the size cap without retrying
+ok 38 - rejects payloads above the size cap without retrying
+  ---
+  duration_ms: 4.863622
+  type: 'test'
+  ...
+# Subtest: normal browsing produces no alerts
+ok 39 - normal browsing produces no alerts
+  ---
+  duration_ms: 28.854623
+  type: 'test'
+  ...
+# Subtest: weird user agent or missing accept-language is not a detection
+ok 40 - weird user agent or missing accept-language is not a detection
+  ---
+  duration_ms: 5.393174
+  type: 'test'
+  ...
+# Subtest: repeated authentication failures raise AUTH_FAIL_BURST with evidence
+ok 41 - repeated authentication failures raise AUTH_FAIL_BURST with evidence
+  ---
+  duration_ms: 5.443179
+  type: 'test'
+  ...
+# Subtest: sequential pagination raises SEQUENTIAL_ENUMERATION
+ok 42 - sequential pagination raises SEQUENTIAL_ENUMERATION
+  ---
+  duration_ms: 6.794122
+  type: 'test'
+  ...
+# Subtest: single bulk response raises BULK_RESPONSE_VOLUME
+ok 43 - single bulk response raises BULK_RESPONSE_VOLUME
+  ---
+  duration_ms: 2.614544
+  type: 'test'
+  ...
+# Subtest: unauthenticated access to a protected route is critical
+ok 44 - unauthenticated access to a protected route is critical
+  ---
+  duration_ms: 2.219262
+  type: 'test'
+  ...
+# Subtest: denied then successful access correlates the same route
+ok 45 - denied then successful access correlates the same route
+  ---
+  duration_ms: 1.9462
+  type: 'test'
+  ...
+# Subtest: allowlisted source is stored but not scored
+ok 46 - allowlisted source is stored but not scored
+  ---
+  duration_ms: 1.918378
+  type: 'test'
+  ...
+# Subtest: duplicate detections within the cooldown are suppressed and counted
+ok 47 - duplicate detections within the cooldown are suppressed and counted
+  ---
+  duration_ms: 3.239435
+  type: 'test'
+  ...
+# Subtest: distinct rules for one entity correlate into a higher-severity alert
+ok 48 - distinct rules for one entity correlate into a higher-severity alert
+  ---
+  duration_ms: 4.571604
+  type: 'test'
+  ...
+# Subtest: database audit events raise bulk, privilege and identity rules
+ok 49 - database audit events raise bulk, privilege and identity rules
+  ---
+  duration_ms: 3.568653
+  type: 'test'
+  ...
+# Subtest: baseline suppresses volume noise for a steady route
+ok 50 - baseline suppresses volume noise for a steady route
+  ---
+  duration_ms: 9.94979
+  type: 'test'
+  ...
+# Subtest: local API traffic is collected, detected and redacted end to end
+ok 51 - local API traffic is collected, detected and redacted end to end
+  ---
+  duration_ms: 118.803625
+  type: 'test'
+  ...
+# Subtest: HTTP adapter reports a missing log and recovers when it appears
+ok 52 - HTTP adapter reports a missing log and recovers when it appears
+  ---
+  duration_ms: 1.582458
+  type: 'test'
+  ...
+# Subtest: state, baseline and chain recover across a service restart
+ok 53 - state, baseline and chain recover across a service restart
+  ---
+  duration_ms: 16.781712
+  type: 'test'
+  ...
+# Subtest: diagnostics health is public on loopback but status requires the token
+ok 54 - diagnostics health is public on loopback but status requires the token
+  ---
+  duration_ms: 76.176242
+  type: 'test'
+  ...
+# Subtest: remote diagnostics bind works only with a token
+ok 55 - remote diagnostics bind works only with a token
+  ---
+  duration_ms: 16.000899
+  type: 'test'
+  ...
+# Subtest: config validation rejects insecure and unsafe combinations
+ok 56 - config validation rejects insecure and unsafe combinations
+  ---
+  duration_ms: 1.61031
+  type: 'test'
+  ...
+# Subtest: end-to-end alert delivery to a local authenticated receiver
+ok 57 - end-to-end alert delivery to a local authenticated receiver
+  ---
+  duration_ms: 16.772907
+  type: 'test'
+  ...
+# Subtest: alert queue drains after a receiver outage without losing alerts
+ok 58 - alert queue drains after a receiver outage without losing alerts
+  ---
+  duration_ms: 23.33903
+  type: 'test'
+  ...
+# Subtest: a stalled adapter raises a missed-poll diagnostic
+ok 59 - a stalled adapter raises a missed-poll diagnostic
+  ---
+  duration_ms: 3.81754
+  type: 'test'
+  ...
+# Subtest: a service with no configured sources reports degradation, not false coverage
+ok 60 - a service with no configured sources reports degradation, not false coverage
+  ---
+  duration_ms: 1.454016
+  type: 'test'
+  ...
+# Subtest: an empty or missing store is reported explicitly, not as assurance
+ok 61 - an empty or missing store is reported explicitly, not as assurance
+  ---
+  duration_ms: 1.907788
+  type: 'test'
+  ...
+# Subtest: appends a verifiable hash chain and continues after restart
+ok 62 - appends a verifiable hash chain and continues after restart
+  ---
+  duration_ms: 2.998804
+  type: 'test'
+  ...
+# Subtest: detects a modified payload and reports the location
+ok 63 - detects a modified payload and reports the location
+  ---
+  duration_ms: 1.610129
+  type: 'test'
+  ...
+# Subtest: detects a reordered record
+ok 64 - detects a reordered record
+  ---
+  duration_ms: 1.831204
+  type: 'test'
+  ...
+# Subtest: tolerates a torn trailing line from a crash
+ok 65 - tolerates a torn trailing line from a crash
+  ---
+  duration_ms: 0.993052
+  type: 'test'
+  ...
+# Subtest: rotates by size and verifies across files
+ok 66 - rotates by size and verifies across files
+  ---
+  duration_ms: 4.871937
+  type: 'test'
+  ...
+# Subtest: retention drops old rotated files and enforces max_files
+ok 67 - retention drops old rotated files and enforces max_files
+  ---
+  duration_ms: 22.810519
+  type: 'test'
+  ...
+# Subtest: verification distinguishes retention from missing history
+ok 68 - verification distinguishes retention from missing history
+  ---
+  duration_ms: 12.225428
+  type: 'test'
+  ...
+# Subtest: redacts credentials before they reach the evidence file
+ok 69 - redacts credentials before they reach the evidence file
+  ---
+  duration_ms: 3.100484
+  type: 'test'
+  ...
+# Subtest: store files are created with restrictive permissions
+ok 70 - store files are created with restrictive permissions
+  ---
+  duration_ms: 0.743605
+  type: 'test'
+  ...
+# Subtest: canonical hashing is stable for equal payloads
+ok 71 - canonical hashing is stable for equal payloads
+  ---
+  duration_ms: 1.081318
+  type: 'test'
+  ...
+1..71
+# tests 71
+# suites 0
+# pass 71
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1406.382331

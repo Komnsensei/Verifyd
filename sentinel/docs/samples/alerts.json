@@ -1,0 +1,306 @@
+[
+  {
+    "scenario": "normal",
+    "events": 40,
+    "alerts": [],
+    "chain_valid": true,
+    "state_dir": "/tmp/sentinel-sim-87585-normal-1792552483536"
+  },
+  {
+    "scenario": "auth-fail",
+    "events": 7,
+    "alerts": [
+      {
+        "rule_id": "AUTH_FAIL_BURST",
+        "severity": "low",
+        "score": 15,
+        "title": "Repeated authentication failures",
+        "entity": {
+          "key": "principal:alice",
+          "principal": "alice",
+          "ip": "203.0.113.9",
+          "route": "/api/v1/session",
+          "process": null,
+          "host": "sim-web-01"
+        },
+        "evidence": {
+          "failures": 5,
+          "window_ms": 300000,
+          "statuses": [
+            401
+          ],
+          "routes": [
+            "/api/v1/session"
+          ],
+          "first_failure_at": "2026-01-15T09:00:00.000Z",
+          "last_failure_at": "2026-01-15T09:00:32.000Z"
+        },
+        "recommended_response": [
+          "Confirm the principal and source address are expected",
+          "Check identity-provider logs for the same pattern",
+          "Rotate credentials only if compromise is confirmed"
+        ]
+      },
+      {
+        "rule_id": "DENIED_THEN_SUCCESS",
+        "severity": "low",
+        "score": 20,
+        "title": "Access denied followed by successful access",
+        "entity": {
+          "key": "principal:alice",
+          "principal": "alice",
+          "ip": "203.0.113.9",
+          "route": "/api/v1/session",
+          "process": null,
+          "host": "sim-web-01"
+        },
+        "evidence": {
+          "route": "/api/v1/session",
+          "denied_at": "2026-01-15T09:00:40.000Z",
+          "denied_status": 401,
+          "success_at": "2026-01-15T09:00:52.000Z",
+          "elapsed_ms": 12000
+        },
+        "recommended_response": [
+          "Review the authorization decision for the successful request",
+          "Verify the principal was granted access legitimately"
+        ]
+      }
+    ],
+    "chain_valid": true,
+    "state_dir": "/tmp/sentinel-sim-87585-auth-fail-1792552483565"
+  },
+  {
+    "scenario": "enumeration",
+    "events": 12,
+    "alerts": [
+      {
+        "rule_id": "SEQUENTIAL_ENUMERATION",
+        "severity": "medium",
+        "score": 25,
+        "title": "Sequential record enumeration",
+        "entity": {
+          "key": "principal:contractor-7",
+          "principal": "contractor-7",
+          "ip": "203.0.113.44",
+          "route": "/api/v1/records",
+          "process": null,
+          "host": "sim-web-01"
+        },
+        "evidence": {
+          "mode": "pagination",
+          "distinct_pages": 5,
+          "longest_consecutive_run": 5,
+          "pages": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "window_ms": 300000,
+          "route": "/api/v1/records"
+        },
+        "recommended_response": [
+          "Identify the client and confirm the enumeration was authorized",
+          "Review data classification of the enumerated records",
+          "Consider scoped rate limits at the gateway"
+        ]
+      }
+    ],
+    "chain_valid": true,
+    "state_dir": "/tmp/sentinel-sim-87585-enumeration-1792552483570"
+  },
+  {
+    "scenario": "bulk",
+    "events": 1,
+    "alerts": [
+      {
+        "rule_id": "BULK_RESPONSE_VOLUME",
+        "severity": "medium",
+        "score": 30,
+        "title": "Unusual bulk response volume",
+        "entity": {
+          "key": "principal:contractor-7",
+          "principal": "contractor-7",
+          "ip": "203.0.113.44",
+          "route": "/api/v1/export",
+          "process": null,
+          "host": "sim-web-01"
+        },
+        "evidence": {
+          "mode": "single_response",
+          "bytes_out": 3145728,
+          "threshold_bytes": 2097152,
+          "route": "/api/v1/export",
+          "baseline_ratio": 1,
+          "baseline_established": false
+        },
+        "recommended_response": [
+          "Confirm the download was expected",
+          "Review egress volume for the same principal/source",
+          "Escalate if the data is regulated or customer-owned"
+        ]
+      }
+    ],
+    "chain_valid": true,
+    "state_dir": "/tmp/sentinel-sim-87585-bulk-1792552483577"
+  },
+  {
+    "scenario": "unauthorized",
+    "events": 1,
+    "alerts": [
+      {
+        "rule_id": "PROTECTED_UNAUTHENTICATED",
+        "severity": "critical",
+        "score": 100,
+        "title": "Protected endpoint accessed without authorization",
+        "entity": {
+          "key": "ip:203.0.113.77",
+          "principal": null,
+          "ip": "203.0.113.77",
+          "route": "/admin/users",
+          "process": null,
+          "host": "sim-web-01"
+        },
+        "evidence": {
+          "route": "/admin/users",
+          "status": 200,
+          "principal": null,
+          "authorized_flag": null,
+          "bytes_out": 88000,
+          "reason": "no authenticated principal on protected route"
+        },
+        "recommended_response": [
+          "Treat as a potential access-control failure",
+          "Verify gateway auth is enforced for this route",
+          "Preserve logs and escalate to incident response"
+        ]
+      }
+    ],
+    "chain_valid": true,
+    "state_dir": "/tmp/sentinel-sim-87585-unauthorized-1792552483579"
+  },
+  {
+    "scenario": "denied-then-success",
+    "events": 2,
+    "alerts": [
+      {
+        "rule_id": "DENIED_THEN_SUCCESS",
+        "severity": "low",
+        "score": 20,
+        "title": "Access denied followed by successful access",
+        "entity": {
+          "key": "principal:alice",
+          "principal": "alice",
+          "ip": "198.51.100.10",
+          "route": "/api/v1/payroll/:id",
+          "process": null,
+          "host": "sim-web-01"
+        },
+        "evidence": {
+          "route": "/api/v1/payroll/:id",
+          "denied_at": "2026-01-15T09:00:00.000Z",
+          "denied_status": 403,
+          "success_at": "2026-01-15T09:00:15.000Z",
+          "elapsed_ms": 15000
+        },
+        "recommended_response": [
+          "Review the authorization decision for the successful request",
+          "Verify the principal was granted access legitimately"
+        ]
+      }
+    ],
+    "chain_valid": true,
+    "state_dir": "/tmp/sentinel-sim-87585-denied-then-success-1792552483580"
+  },
+  {
+    "scenario": "host",
+    "events": 3,
+    "alerts": [
+      {
+        "rule_id": "NEW_LISTENER",
+        "severity": "low",
+        "score": 15,
+        "title": "New network listener appeared",
+        "entity": {
+          "key": "pid:8123",
+          "principal": null,
+          "ip": null,
+          "route": null,
+          "process": "unknown.exe",
+          "host": "sim-host"
+        },
+        "evidence": {
+          "address": "0.0.0.0",
+          "port": 4444,
+          "process": "unknown.exe",
+          "pid": 8123,
+          "baseline_ports": 12,
+          "first_seen": "2026-01-15T09:00:00.000Z"
+        },
+        "recommended_response": [
+          "Identify the process owning the port",
+          "Confirm the service was expected and is patched",
+          "Do not terminate the process until ownership is established"
+        ]
+      },
+      {
+        "rule_id": "PROCESS_FROM_TEMP",
+        "severity": "low",
+        "score": 20,
+        "title": "Process launched from a temporary directory",
+        "entity": {
+          "key": "pid:8123",
+          "principal": null,
+          "ip": null,
+          "route": "C:\\Users\\svc\\AppData\\Local\\Temp\\unknown.exe",
+          "process": "unknown.exe",
+          "host": "sim-host"
+        },
+        "evidence": {
+          "process": "unknown.exe",
+          "pid": 8123,
+          "parent": "cmd.exe",
+          "user": "svc",
+          "executable": "C:\\Users\\svc\\AppData\\Local\\Temp\\unknown.exe",
+          "reason": "image path is under a temp directory"
+        },
+        "recommended_response": [
+          "Identify the parent process and signer of the image",
+          "Collect the image hash for triage",
+          "Do not delete the binary before preserving evidence"
+        ]
+      },
+      {
+        "rule_id": "DEFENDER_DETECTION",
+        "severity": "medium",
+        "score": 40,
+        "title": "Windows Defender reported a detection",
+        "entity": {
+          "key": "adapter:host.defender",
+          "principal": null,
+          "ip": null,
+          "route": null,
+          "process": null,
+          "host": "sim-host"
+        },
+        "evidence": {
+          "threat": "Trojan:Win32/Simulated",
+          "severity": null,
+          "action": "Quarantine",
+          "process": null,
+          "path": null,
+          "defender_event_id": 1116
+        },
+        "recommended_response": [
+          "Follow Defender remediation status",
+          "Isolate the host if the threat is active",
+          "Preserve Defender event details"
+        ]
+      }
+    ],
+    "chain_valid": true,
+    "state_dir": "/tmp/sentinel-sim-87585-host-1792552483582"
+  }
+]

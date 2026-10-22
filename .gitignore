@@ -9,3 +9,7 @@ Thumbs.db
 auditdeck/*.verifyd-receipt.json
 auditdeck/*.verifyd-receipt.certificate.txt
 auditdeck/BATCH_SUMMARY.json
+# Sentinel runtime state and logs are never committed
+sentinel-state/
+sentinel/state/
+sentinel/logs/
