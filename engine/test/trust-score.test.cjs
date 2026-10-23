@@ -28,8 +28,11 @@ function readCorpus() {
   return fs.readFileSync(CORPUS, 'utf8').split('\n').filter(Boolean).map(line => JSON.parse(line));
 }
 
+// Match the calibration script: the digest is over the corpus lines, so a
+// checkout with CRLF endings names the same dataset as the LF blob.
 function sha256File(file) {
-  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+  const text = fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
+  return crypto.createHash('sha256').update(text, 'utf8').digest('hex');
 }
 
 // Recompute the held-out metrics from the corpus and the committed parameters,

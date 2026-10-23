@@ -92,8 +92,12 @@ function dot(a, b) {
   return sum;
 }
 
+// The corpus is text: hash its lines, not the checkout's line endings. A
+// Windows clone with autocrlf would otherwise change the digest of content the
+// model was fitted on and report drift that does not exist.
 function sha256File(file) {
-  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+  const text = fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
+  return crypto.createHash('sha256').update(text, 'utf8').digest('hex');
 }
 
 function round(value, places) {
