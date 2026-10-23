@@ -128,6 +128,48 @@ test('file audit adapter maps 4663 read/write/delete access flags', async () => 
   assert.strictEqual(res.events[1].facts.delete, true);
 });
 
+test('file audit classifies delete from the access list and both delete masks', async () => {
+  const adapter = new HostFileAuditAdapter({
+    config: { enabled: true, poll_interval_ms: 1000 },
+    deps: {
+      platform: 'win32',
+      hostname: 'win-host',
+      powershell: async (script) => {
+        if (script.includes('ListLog')) {
+          return { security: { enabled: true, records: 50 }, audit: 'File System Success and Failure' };
+        }
+        return [
+          { record_id: 21, access_mask: '', access_list: 'Delete' },
+          { record_id: 22, access_mask: '', access_list: 'DeleteChild' },
+          { record_id: 23, access_mask: '0x10000', access_list: '' },
+          { record_id: 24, access_mask: '0x40', access_list: '' },
+          { record_id: 25, access_mask: '0x1', access_list: 'ReadData (or ListDirectory)' }
+        ].map((row, i) => Object.assign({
+          ts: '2026-01-15T10:06:0' + i + '.000Z',
+          user: 'svc_app',
+          process: path.win32.join('C:', 'Program Files', 'App', 'svc.exe'),
+          object_name: path.win32.join('C:', 'Data', 'file-' + row.record_id + '.txt'),
+          object_type: 'File'
+        }, row));
+      }
+    }
+  });
+  await adapter.init();
+  assert.strictEqual(adapter.status, 'ACTIVE');
+  const res = await adapter.poll();
+
+  assert.strictEqual(res.events.length, 5);
+  const [byName, byChild, byMask, byChildMask, readOnly] = res.events;
+  for (const event of [byName, byChild, byMask, byChildMask]) {
+    assert.strictEqual(event.kind, 'host.file_access');
+    assert.strictEqual(event.facts.delete, true,
+      'delete should be classified for ' + JSON.stringify(event.facts.access_list) + ' / ' + event.facts.access_mask);
+    assert.strictEqual(event.outcome, 'removed');
+  }
+  assert.strictEqual(readOnly.facts.delete, false);
+  assert.strictEqual(readOnly.outcome, 'read');
+});
+
 test('sysmon adapter maps process 1, network 3, dns 22, wmi 20 and process tamper 25', async () => {
   const adapter = new HostSysmonAdapter({
     config: { enabled: true, poll_interval_ms: 1000 },

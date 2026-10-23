@@ -49,7 +49,7 @@ function accessFlags(item) {
   const list = String(item.access_list || '');
   const read = (mask != null && (mask & 0x1) !== 0) || /ReadData|ListDirectory|ReadAttributes|ReadExtendedAttributes/i.test(list);
   const write = (mask != null && (mask & (0x2 | 0x4 | 0x100)) !== 0) || /WriteData|AppendData|WriteAttributes|WriteExtendedAttributes|WriteDAC|WriteOwner/i.test(list);
-  const del = (mask != null && (mask & 0x10000) !== 0) || /\\bDelete\\b/i.test(list) || (mask != null && (mask & 0x40) !== 0);
+  const del = (mask != null && (mask & 0x10000) !== 0) || /\bDelete(?:Child)?\b/i.test(list) || (mask != null && (mask & 0x40) !== 0);
   return { mask, read, write, delete: del };
 }
 

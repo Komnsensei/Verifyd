@@ -249,7 +249,7 @@ Exit codes: `0` ok, `2` configuration error, `3` chain verification failed,
 npm run test:sentinel
 ```
 
-71 tests covering normal browsing, failed logins, pagination/enumeration, bulk
+72 tests covering normal browsing, failed logins, pagination/enumeration, bulk
 reads, unauthorized access, listeners/process/persistence/file-audit/Sysmon/DNS
 events, cloud/SQL Server/SaaS/network-sensor adapters, body-shape capture,
 off-host chain anchoring, dedupe, webhook failure and recovery,

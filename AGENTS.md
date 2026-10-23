@@ -142,7 +142,7 @@ and printed as a heuristic. Never write it as a probability or a trust score.
 npm test              # 165 node:test tests: signing, keyring creation race, rotation, receipts, RFC 3161, Merkle inclusion, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, certificates and batch summary agree with examples/keyring
 npm run demo          # engine demo
 npm run calibrate     # refit check for the assurance model
-npm run test:sentinel # 71 node:test tests for the monitoring service
+npm run test:sentinel # 72 node:test tests for the monitoring service
 ```
 
 ## Sentinel (monitoring subsystem)
@@ -159,7 +159,7 @@ sentinel/adapters/          10 collector adapters with ACTIVE/UNAVAILABLE/NOT_CO
 sentinel/rules.cjs          deterministic rubric, correlation, dedupe
 sentinel/store.cjs          hash-chained JSONL, rotation, retention, verification
 sentinel/dispatcher.cjs     durable HMAC webhook queue
-sentinel/test/              61 tests (node --test)
+sentinel/test/              72 tests (node --test)
 sentinel/windows/           install/control/uninstall/preflight PowerShell
 sentinel/docs/              coverage matrix, runbook, rubric, verification record
 ```
