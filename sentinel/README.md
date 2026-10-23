@@ -10,7 +10,8 @@ and SHA-256 primitives, and adds no runtime dependency.
 ## Status of this build
 
 - Engine, storage, detection, dispatch, diagnostics and tests: **executed** on
-  Ubuntu 24.04 with Node.js 24.21 (71 tests, 0 failures).
+  Ubuntu 24.04 with Node.js 24.21 (71 tests, 0 failures), as recorded at commit
+  `915b569` on 2026-10-21. The current suite emits 72 tests; see Tests.
 - Windows adapters: **implemented and unit-tested with injected telemetry**;
   they report `UNAVAILABLE` on any non-Windows host.
 - PowerShell install/control/uninstall/validate/enable-audit scripts: **not executed** in

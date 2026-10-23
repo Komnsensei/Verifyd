@@ -4,6 +4,10 @@ Date: 2026-10-21 (UTC)
 Workspace: Linux cloud worktree, branch `freebuff/3689be55ed17d6731ac0b22c`,
 base commit `915b569`.
 
+> Historical run record: the counts below (71 tests) describe the run at that
+> base commit on 2026-10-21. They are not a claim about the current suite,
+> which emits 72 tests.
+
 ## 1. Environment discovered
 
 | Item | Observed |

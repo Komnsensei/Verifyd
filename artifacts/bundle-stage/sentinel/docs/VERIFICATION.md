@@ -4,6 +4,9 @@ Date: 2026-10-21 (UTC)
 Workspace: Linux cloud worktree, branch `freebuff/3689be55ed17d6731ac0b22c`,
 base commit `915b569`.
 
+> Frozen bundle record: the counts below (61 tests) describe this bundle at
+> that base commit, not the live sentinel suite, which emits 72 tests.
+
 ## 1. Environment discovered
 
 | Item | Observed |

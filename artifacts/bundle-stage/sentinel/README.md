@@ -1,5 +1,9 @@
 # SENTINEL
 
+> Frozen bundle snapshot staged on 2026-10-21 (base commit `915b569`). The
+> counts below (61 tests) describe this bundle's own suite, not the live
+> sentinel suite, which emits 72 tests.
+
 Defensive data-access monitoring for Windows hosts and the APIs they serve.
 Detects, records, correlates and alerts on suspicious access patterns; starts in
 **detection-only** mode and never hides uncertainty.
