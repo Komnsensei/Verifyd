@@ -86,6 +86,9 @@ function writeReceipt(name, envelope) {
 
 test.before(async () => {
   fs.writeFileSync(doc, 'Witness identity proofing subject document.\n');
+  // ratifiedEnvelope() names this document; verification rehashes it beside
+  // the receipt, so the fixture has to exist with the exact recorded bytes.
+  fs.writeFileSync(path.join(workspace, 'ratified.txt'), 'ratified body');
   const audit = await run(['audit', doc, '--keyring', auditor]);
   assert.strictEqual(audit.status, 0, audit.out);
 

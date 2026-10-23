@@ -13,15 +13,20 @@
 //   batch         root signature, root time, identity checks, authenticated
 //   witnesses     the Witness.assess result (counted, rejected, quorum)
 //   determination the Determination.verify result and the parsed artifact
+//   artifact      the source document rehashed from disk and compared with the
+//                 digest the receipt recorded (changed/missing is a failure)
 //
 // Quorum comes from lattice-domains.json, the same configuration the display
 // reads. It is not a constant here.
 
 'use strict';
 
+const crypto = require('crypto');
+const fs = require('fs');
 const path = require('path');
 
 const Artifacts = require('./artifacts.cjs');
+const Extract = require('./extract.cjs');
 const Lattice = require('./lattice.cjs');
 const Merkle = require('./merkle.cjs');
 const Signing = require('./signing.cjs');
@@ -244,6 +249,63 @@ function collectDetermination(envelope, opts) {
   return record;
 }
 
+// A receipt binds the document text, not the file that held it. Rehash the
+// artifact the receipt names, next to the receipt unless the caller names a
+// path, so a document edited after sealing cannot pass as unchanged. A caller
+// that supplies neither receiptPath nor artifact gets status 'unchecked',
+// which the verdict ignores; the CLI always supplies the receipt path.
+function collectArtifact(envelope, opts) {
+  const doc = envelope && envelope.document && typeof envelope.document === 'object'
+    ? envelope.document
+    : null;
+  const recorded = doc && typeof doc.sha256 === 'string' ? doc.sha256 : null;
+  const file = doc && typeof doc.file === 'string' ? doc.file : null;
+  const record = { recorded, file, path: null, actual: null, status: 'unrecorded', reason: null };
+  if (!recorded || !file) return record;
+
+  const explicit = opts && opts.artifact ? path.resolve(opts.artifact) : null;
+  const receiptPath = opts && opts.receiptPath ? path.resolve(opts.receiptPath) : null;
+  if (!explicit && !receiptPath) {
+    record.status = 'unchecked';
+    record.reason = 'no receipt path supplied';
+    return record;
+  }
+
+  // basename() keeps a hostile document.file inside the receipt's directory:
+  // no absolute paths and no ../ traversal from a receipt's own contents.
+  const artifactPath = explicit || path.join(path.dirname(receiptPath), path.basename(file));
+  record.path = artifactPath;
+  let info;
+  try {
+    info = fs.statSync(artifactPath);
+  } catch (e) {
+    record.status = e.code === 'ENOENT' ? 'missing' : 'unreadable';
+    record.reason = e.code === 'ENOENT' ? 'document not found beside the receipt' : e.code;
+    return record;
+  }
+  if (!info.isFile()) {
+    record.status = 'missing';
+    record.reason = 'document path is not a regular file';
+    return record;
+  }
+
+  try {
+    record.actual = crypto.createHash('sha256').update(Extract.readText(artifactPath)).digest('hex');
+  } catch (e) {
+    record.status = 'unreadable';
+    record.reason = e.code || e.message;
+    return record;
+  }
+
+  if (record.actual === recorded) {
+    record.status = 'valid';
+  } else {
+    record.status = 'changed';
+    record.reason = 'document changed after sealing';
+  }
+  return record;
+}
+
 // The one place that turns the evidence pass into a pass/fail verdict. verify
 // uses this to set Status; certify uses the same call so a certificate can
 // never print a stronger outcome than verify would.
@@ -315,6 +377,20 @@ function verdict(envelope, evidence) {
   const determination = determinationVerdict(evidence);
   if (!determination.ok) reasons.push(determination.reason);
 
+  // A valid signature over a receipt whose document no longer matches it is
+  // not an integrity pass. Missing or unreadable artifacts are failures too:
+  // the binding cannot be checked, so it must not be reported as VALID.
+  const artifact = evidence && evidence.artifact;
+  if (artifact && artifact.status === 'changed') {
+    reasons.push('document changed after sealing: receipt records ' + artifact.recorded +
+      ', artifact is ' + artifact.actual);
+  } else if (artifact && artifact.status === 'missing') {
+    reasons.push('document not found beside the receipt: ' + artifact.file +
+      ' (pass --artifact <path> if it moved)');
+  } else if (artifact && artifact.status === 'unreadable') {
+    reasons.push('document could not be rechecked: ' + artifact.reason);
+  }
+
   return { ok: reasons.length === 0, reasons };
 }
 
@@ -341,6 +417,7 @@ async function collect(envelope, opts) {
     batch: collectBatch(opts.batch, inclusion, keyring, opts),
     witnesses: await collectWitnesses(envelope, opts.witnessKeys),
     determination: collectDetermination(envelope, opts),
+    artifact: collectArtifact(envelope, opts),
   };
   return evidence;
 }

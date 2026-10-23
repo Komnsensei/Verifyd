@@ -55,6 +55,13 @@ per command with `--keyring <dir>`, and pick a signer with `--key <key_id>`.
 by a key outside your keyring, signed over different bytes, internally
 inconsistent, or carrying a timestamp token that fails verification.
 
+It also rehashes the document the receipt names, looking beside the receipt
+unless `--artifact <path>` says otherwise. A document changed after sealing, or
+one that is missing or unreadable, makes the exit non-zero with `Status:
+REJECTED`; `Signature: VALID` and `Receipt hash: VALID` can still be printed,
+because those describe the receipt bytes and not the document on disk. `certify`
+runs the same check and refuses to issue a valid-looking certificate.
+
 Keyring creation is atomic: a first run builds the key in a sibling temporary
 directory and renames it into place, so concurrent creators produce exactly one
 key and a failed writer leaves no partial keyring behind. A process that loses
@@ -135,8 +142,8 @@ prove it was in that set:
 ```
 verifyd batch receipts/
 verifyd batch receipts/ --tsa https://freetsa.org/tsr
-verifyd verify receipts/doc.verifyd-receipt.json
-verifyd verify receipts/doc.verifyd-receipt.json --batch receipts/verifyd-batch.json
+verifyd verify receipts/doc.verifyd-receipt.json --artifact doc.pdf
+verifyd verify receipts/doc.verifyd-receipt.json --artifact doc.pdf --batch receipts/verifyd-batch.json
 ```
 
 `batch` seals the root with the active key of the keyring that signed the

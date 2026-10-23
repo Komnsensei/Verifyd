@@ -5,12 +5,12 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const v = require(path.join(ROOT, 'engine', 'verifyd.cjs'));
 const lattice = require(path.join(ROOT, 'engine', 'lattice.cjs'));
 const Artifacts = require(path.join(ROOT, 'engine', 'artifacts.cjs'));
+const Extract = require(path.join(ROOT, 'engine', 'extract.cjs'));
 
 const args = process.argv.slice(2);
 
@@ -43,6 +43,7 @@ const VALUE_FLAGS = {
   '--receipt': 'receipt',
   '--determination': 'determination',
   '--reviewer-keyring': 'reviewerKeyring',
+  '--artifact': 'artifact',
 };
 
 const MULTI_FLAGS = {
@@ -57,7 +58,7 @@ function parseOptions(argv) {
     witnessKey: null, into: null, method: null, statement: null, expires: null,
     jurisdiction: null, regime: null, reviewer: null, role: null, organization: null,
     conclusion: null, rationale: null, out: null, receipt: null, determination: null,
-    reviewerKeyring: null, facts: [], requirements: [], rest: [],
+    reviewerKeyring: null, artifact: null, facts: [], requirements: [], rest: [],
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -122,6 +123,7 @@ async function assessAssurance(envelope, evidence) {
       batch: OPTS.batch,
       determination: OPTS.determination,
       reviewerKeyring: reviewerKeysDir(),
+      artifact: OPTS.artifact ? path.resolve(OPTS.artifact) : null,
     });
   } catch (e) {
     return { error: e.code || e.message };
@@ -150,6 +152,30 @@ function shortKeyId(id) {
   if (!id) return '(none)';
   const s = String(id);
   return s.length > 24 ? s.slice(0, 20) + '...' : s;
+}
+
+function shortHash(value) {
+  const s = String(value || '(none)');
+  return s.length > 16 ? s.slice(0, 16) + '...' : s;
+}
+
+function describeArtifact(artifact) {
+  if (!artifact) return 'NOT CHECKED';
+  switch (artifact.status) {
+    case 'valid':
+      return 'VALID (' + artifact.file + ')';
+    case 'changed':
+      return 'CHANGED (receipt records ' + shortHash(artifact.recorded) +
+        ', artifact is ' + shortHash(artifact.actual) + ')';
+    case 'missing':
+      return 'NOT FOUND (' + artifact.path + ')';
+    case 'unreadable':
+      return 'UNCHECKED (' + artifact.reason + ')';
+    case 'unrecorded':
+      return 'NOT RECORDED';
+    default:
+      return 'NOT CHECKED';
+  }
 }
 
 function pad(text, width) {
@@ -190,6 +216,7 @@ function help() {
   console.log('  --witness-keys <dir>       Keyring of trusted witness keys (default: $VERIFYD_WITNESS_KEYS)');
   console.log('  --determination <file>     Determination to check alongside the receipt');
   console.log('  --reviewer-keyring <dir>   Keyring holding the reviewer key (default: --keyring)');
+  console.log('  --artifact <file>          Source document to rehash (default: beside the receipt)');
   console.log('');
   console.log('Witness subcommands:');
   console.log('  witness init                          Create a witness keyring (--keyring)');
@@ -215,21 +242,7 @@ function help() {
 }
 
 function extractText(file) {
-  const ext = path.extname(file).toLowerCase();
-  if (ext === '.pdf') {
-    const txtFile = file.replace(/\.pdf$/i, '.txt');
-    try {
-      execSync(`pdftotext -layout "${file}" "${txtFile}"`, { stdio: 'pipe' });
-      return { text: fs.readFileSync(txtFile, 'utf8'), extracted: txtFile };
-    } catch (e) {
-      throw new Error('pdftotext failed. Install Poppler or Git for Windows. ' + e.message);
-    }
-  }
-  const text = fs.readFileSync(file, 'utf8');
-  if (text.includes('\u0000')) {
-    throw new Error('not a text document (binary data); audit a text file or a PDF');
-  }
-  return { text, extracted: file };
+  return Extract.extractForAudit(file);
 }
 
 function tryResolveArxiv(arxivId) {
@@ -750,6 +763,8 @@ async function verify(receiptFile) {
     batch: OPTS.batch,
     determination: OPTS.determination,
     reviewerKeyring: reviewerKeysDir(),
+    receiptPath: receiptFile,
+    artifact: OPTS.artifact ? path.resolve(OPTS.artifact) : null,
   });
   const res = evidence.signature;
   const checks = res.checks;
@@ -766,6 +781,7 @@ async function verify(receiptFile) {
     : res.code;
   console.log('Signature:    ' + signatureLabel);
   console.log('Receipt hash: ' + hashLabel);
+  console.log('Artifact:     ' + describeArtifact(evidence.artifact));
   console.log('Signed at:    ' + (data.signed_at || '(not recorded)') + ' (self-asserted clock)');
 
   const time = evidence.time;
@@ -872,10 +888,23 @@ async function verify(receiptFile) {
   const verdict = v.AssuranceEvidence.verdict(data, evidence);
   const ok = verdict.ok;
   console.log('Status:       ' + (ok ? 'VALID' : 'REJECTED'));
-  if (!res.ok) console.log('Reason:       ' + res.message);
-  if (!batchOk) console.log('Reason:       ' + (evidence.batch.error || evidence.batch.reason || 'batch root is not authenticated'));
-  if (!witnessResult.ok) console.log('Reason:       ' + witnessResult.reason);
-  if (!determinationResult.ok) console.log('Reason:       ' + determinationResult.reason);
+  const printed = [];
+  if (!res.ok) { console.log('Reason:       ' + res.message); printed.push(res.message); }
+  if (!batchOk) {
+    const reason = evidence.batch.error || evidence.batch.reason || 'batch root is not authenticated';
+    console.log('Reason:       ' + reason);
+    printed.push(reason);
+  }
+  if (!witnessResult.ok) { console.log('Reason:       ' + witnessResult.reason); printed.push(witnessResult.reason); }
+  if (!determinationResult.ok) {
+    console.log('Reason:       ' + determinationResult.reason);
+    printed.push(determinationResult.reason);
+  }
+  // Every verdict reason is printed once. Artifact binding has no section of
+  // its own beyond the Artifact line, so it surfaces here.
+  for (const reason of verdict.reasons) {
+    if (!printed.includes(reason)) console.log('Reason:       ' + reason);
+  }
   process.exit(ok ? 0 : 1);
 }
 

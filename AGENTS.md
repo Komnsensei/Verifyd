@@ -46,7 +46,7 @@ node bin/verifyd.cjs verify demo.verifyd-receipt.json --witness-keys trusted-wit
 mkdir -p receipts
 cp demo.verifyd-receipt.json receipts/
 node bin/verifyd.cjs batch receipts/
-node bin/verifyd.cjs verify receipts/demo.verifyd-receipt.json --batch receipts/verifyd-batch.json
+node bin/verifyd.cjs verify receipts/demo.verifyd-receipt.json --artifact demo.txt --batch receipts/verifyd-batch.json
 
 # Folder batch: audit every PDF, write receipts + certificates, verify each one.
 node bin/batch-audit.cjs <folder-of-pdfs>
@@ -65,10 +65,18 @@ After any audit run, the signature and receipt hash must validate:
 node bin/verifyd.cjs verify <receipt.json>
 ```
 
-Expected output: `Signature: VALID`, `Receipt hash: VALID`, `Status: VALID`.
-Anything else is a non-zero exit with the reason (UNSIGNED, UNTRUSTED_KEY,
-SIGNATURE_INVALID, RECEIPT_HASH_MISMATCH). Verification needs the keyring that
-holds the signing key: `--keyring <dir>` or `$VERIFYD_KEYRING`.
+Expected output: `Signature: VALID`, `Receipt hash: VALID`, `Artifact: VALID`,
+`Status: VALID`. Anything else is a non-zero exit with the reason (UNSIGNED,
+UNTRUSTED_KEY, SIGNATURE_INVALID, RECEIPT_HASH_MISMATCH). Verification needs
+the keyring that holds the signing key: `--keyring <dir>` or
+`$VERIFYD_KEYRING`.
+
+Verification also rehashes the document named by the receipt, looking beside
+the receipt unless `--artifact <path>` says otherwise. A document that changed
+after sealing, or one that is missing or unreadable, is `Status: REJECTED` with
+a `Reason`, even though `Signature: VALID` and `Receipt hash: VALID` still
+describe the receipt bytes. The signature binds the receipt; only the artifact
+check binds the document.
 
 First use of a fresh keyring directory builds the key in a sibling temporary
 directory and renames it into place (engine/signing.cjs). Exactly one concurrent
@@ -167,7 +175,7 @@ and printed as a heuristic. Never write it as a probability or a trust score.
 ## Test
 
 ```
-npm test              # 169 node:test tests: signing, keyring creation race, rotation, receipts, RFC 3161, Merkle inclusion, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, end-to-end CLI lifecycle (audit, witnesses, determination, PDF batch), certificates and batch summary agree with examples/keyring
+npm test              # 176 node:test tests: signing, keyring creation race, rotation, receipts, artifact rehashing (changed/missing/unreadable), RFC 3161, Merkle inclusion, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, end-to-end CLI lifecycle (audit, witnesses, determination, PDF batch), certificates and batch summary agree with examples/keyring
 npm run demo          # engine demo
 npm run calibrate     # refit check for the assurance model
 npm run test:sentinel # 72 node:test tests for the monitoring service
@@ -206,6 +214,7 @@ engine/
   trust-score.cjs       # assurance probability (committed model) + uncalibrated document heuristic
   calibration/          # synthetic labeled corpus + fitted model artifact
   audit-chain.cjs       # SHA-256 + RFC 8785 canonical JSON + RFC 6962 append-only chain
+  extract.cjs           # shared text extraction so audit and verify hash the same text
   signing.cjs           # Ed25519 receipt signatures + keyring (generate/rotate/verify)
   asn1.cjs              # minimal DER reader/writer for RFC 3161
   tsa.cjs               # RFC 3161 timestamp client, token parser and verifier

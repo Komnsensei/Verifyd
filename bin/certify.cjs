@@ -307,6 +307,16 @@ function renderCertificate(data, opts) {
   out += kv('Type', color.dim(r.subject.type));
   out += kv('Size', r.subject.size);
   out += kv('Primary Hash', color.blue(short(r.subject.hash, 56)));
+  if (opts.integrity && opts.integrity.artifact) {
+    const label = {
+      valid: 'VALID',
+      changed: 'CHANGED',
+      missing: 'NOT FOUND',
+      unreadable: 'UNCHECKED',
+      unrecorded: 'NOT RECORDED',
+    }[opts.integrity.artifact] || 'NOT CHECKED';
+    out += kv('Artifact', color.status(label));
+  }
 
   out += section('Receipt Proof', color);
   out += kv('Receipt Hash', color.blue(short(r.this_hash, 56)));
@@ -443,6 +453,7 @@ function usage() {
   console.log('    --batch <root.json>     authenticate the inclusion root');
   console.log('    --determination <file>  include a signed compliance determination');
   console.log('    --reviewer-keyring <d>  keyring that must trust the reviewer');
+  console.log('    --artifact <file>       source document to rehash (default: beside the receipt)');
   console.log('');
   console.log('Default saves plain ASCII .txt. --color colors preview. --ansi saves colored ANSI file.');
 }
@@ -470,7 +481,8 @@ function checkIntegrity(data, evidence) {
       const signature = evidence
         ? (evidence.signature.ok ? 'VALID' : (evidence.signature.code || 'INVALID'))
         : 'NOT CHECKED';
-      return { hash, signature };
+      const artifact = evidence && evidence.artifact ? evidence.artifact.status : null;
+      return { hash, signature, artifact };
     }
 
     if (typeof data.this_hash === 'string') {
@@ -487,7 +499,7 @@ async function main(argv) {
   argv = argv || process.argv.slice(2);
   if (argv[0] === 'certify') argv = argv.slice(1);
 
-  const valueFlags = new Set(['--out', '--keyring', '--witness-keys', '--tsa-ca', '--batch', '--determination', '--reviewer-keyring']);
+  const valueFlags = new Set(['--out', '--keyring', '--witness-keys', '--tsa-ca', '--batch', '--determination', '--reviewer-keyring', '--artifact']);
   let receiptFile = null;
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -556,6 +568,8 @@ async function main(argv) {
         batch: argValue(argv, '--batch'),
         determination: argValue(argv, '--determination'),
         reviewerKeyring: argValue(argv, '--reviewer-keyring'),
+        receiptPath: receiptFile,
+        artifact: argValue(argv, '--artifact'),
       });
       assurance = await TrustScore.assess(data, { evidence });
     } catch (e) {
