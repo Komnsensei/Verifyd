@@ -14,20 +14,48 @@ That's it. No `npm install`. No build step. The engine is 24KB of plain CommonJS
 
 ## Run
 
+This block is one working sequence. It keeps its keys in a scratch directory,
+signs and verifies with that same keyring, and copies the example document so
+the shipped, verify-only receipt in `examples/` is left intact.
+
 ```
+export VERIFYD_KEYRING="$(mktemp -d)/demo-keys"
 node bin/verifyd.cjs demo
-node bin/verifyd.cjs audit "examples/Quantum Information Holography and the Born Rule.txt"
+node bin/verifyd.cjs keys init
+cp "examples/Quantum Information Holography and the Born Rule.txt" demo.txt
+node bin/verifyd.cjs audit demo.txt
+node bin/verifyd.cjs verify demo.verifyd-receipt.json
+node bin/verifyd.cjs certify demo.verifyd-receipt.json
+
+# The shipped receipts are verify-only: examples/keyring has no private key.
 node bin/verifyd.cjs verify "examples/Quantum Information Holography and the Born Rule.verifyd-receipt.json" --keyring examples/keyring
-node bin/verifyd.cjs audit doc.pdf --tsa https://freetsa.org/tsr
-node bin/verifyd.cjs batch examples --keyring examples/keyring
+
+# Witness identity proofing: a keyring per witness, trusted separately.
+node bin/verifyd.cjs witness init --keyring witnesses/alice
 node bin/verifyd.cjs witness prove alice@example.org --proof-out alice.proof.txt --keyring witnesses/alice
-node bin/verifyd.cjs witness attest receipt.json --identity alice@example.org --proof alice.proof.txt --keyring witnesses/alice
-node bin/verifyd.cjs verify receipt.json --keyring examples/keyring --witness-keys trusted-witnesses
-node bin/verifyd.cjs determination create receipt.json --keyring examples/keyring --jurisdiction EU --regime EU_AI_ACT_2024 --reviewer "Jane Doe" --role "Head of Compliance" --conclusion compliant --fact actor_role=provider --fact high_risk=no
-node bin/verifyd.cjs determination verify receipt.determination.json --receipt receipt.json --keyring examples/keyring
-node bin/verifyd.cjs verify receipt.json --keyring examples/keyring --determination receipt.determination.json
-node bin/batch-audit.cjs examples
+node bin/verifyd.cjs witness attest demo.verifyd-receipt.json --identity alice@example.org --proof alice.proof.txt --keyring witnesses/alice
+node bin/verifyd.cjs witness register witnesses/alice --into trusted-witnesses
+node bin/verifyd.cjs verify demo.verifyd-receipt.json --witness-keys trusted-witnesses
+
+# Determination: a signed record bound to the receipt digest.
+node bin/verifyd.cjs determination create demo.verifyd-receipt.json --jurisdiction EU --regime EU_AI_ACT_2024 --reviewer "Jane Doe" --role "Head of Compliance" --conclusion compliant --fact actor_role=provider --fact high_risk=no
+node bin/verifyd.cjs determination verify demo.verifyd-receipt.determination.json --receipt demo.verifyd-receipt.json
+node bin/verifyd.cjs verify demo.verifyd-receipt.json --witness-keys trusted-witnesses --determination demo.verifyd-receipt.determination.json
+
+# Merkle batch root over a folder of receipts, then anchored verification.
+mkdir -p receipts
+cp demo.verifyd-receipt.json receipts/
+node bin/verifyd.cjs batch receipts/
+node bin/verifyd.cjs verify receipts/demo.verifyd-receipt.json --batch receipts/verifyd-batch.json
+
+# Folder batch: audit every PDF, write receipts + certificates, verify each one.
+node bin/batch-audit.cjs <folder-of-pdfs>
 ```
+
+A met quorum needs four verified witnesses; one proof above demonstrates the
+flow. `batch` signs the root with the active key of the keyring that signed the
+receipts, so it needs that private key (the bundled example keyring cannot sign
+and fails with `PRIVATE_KEY_MISSING`).
 
 ## Verify
 
@@ -139,7 +167,7 @@ and printed as a heuristic. Never write it as a probability or a trust score.
 ## Test
 
 ```
-npm test              # 165 node:test tests: signing, keyring creation race, rotation, receipts, RFC 3161, Merkle inclusion, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, certificates and batch summary agree with examples/keyring
+npm test              # 169 node:test tests: signing, keyring creation race, rotation, receipts, RFC 3161, Merkle inclusion, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, end-to-end CLI lifecycle (audit, witnesses, determination, PDF batch), certificates and batch summary agree with examples/keyring
 npm run demo          # engine demo
 npm run calibrate     # refit check for the assurance model
 npm run test:sentinel # 72 node:test tests for the monitoring service
@@ -194,7 +222,6 @@ bin/
   batch-audit.cjs       # batch-process every PDF in a folder
 scripts/
   calibrate-trust.cjs   # deterministic fit, held-out metrics, drift check
-auditdeck/              # sample PDFs to audit
 RESULTS.md              # case study writeup
 README.md               # public face
 BUILD.md                # build/deploy instructions

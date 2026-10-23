@@ -12,7 +12,7 @@
     "demo": "node bin/verifyd.cjs demo",
     "audit": "node bin/verifyd.cjs audit",
     "verify": "node bin/verifyd.cjs verify",
-    "batch": "node bin/batch-audit.cjs auditdeck",
+    "batch": "node bin/batch-audit.cjs",
     "showcase": "node showcase/server.cjs",
     "showcase:seed": "node showcase/seed.cjs",
     "calibrate": "node scripts/calibrate-trust.cjs",

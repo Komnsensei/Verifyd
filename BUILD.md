@@ -35,10 +35,10 @@ Returns `Chain valid: true` if untampered, `false` if any byte changed.
 ## Batch audit a folder
 
 ```
-node bin/batch-audit.cjs auditdeck
+node bin/batch-audit.cjs <folder>
 ```
 
-Processes every PDF in `auditdeck/`, writes receipts + certificates next to each, plus `auditdeck/BATCH_SUMMARY.json`.
+Processes every PDF in `<folder>`, writes receipts + certificates next to each, plus `<folder>/BATCH_SUMMARY.json`. Each receipt is then verified with the same verifier a reader uses; the summary records `signed` and `verified` separately, and the command exits non-zero if any receipt fails verification.
 
 ## Requirements
 

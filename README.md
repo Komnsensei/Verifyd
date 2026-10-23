@@ -133,11 +133,15 @@ so the set can be signed (and timestamped) once and any single member can later
 prove it was in that set:
 
 ```
-verifyd batch receipts/ --keyring examples/keyring
+verifyd batch receipts/
 verifyd batch receipts/ --tsa https://freetsa.org/tsr
-verifyd verify receipts/doc.verifyd-receipt.json --keyring examples/keyring
-verifyd verify receipts/doc.verifyd-receipt.json --keyring examples/keyring --batch receipts/verifyd-batch.json
+verifyd verify receipts/doc.verifyd-receipt.json
+verifyd verify receipts/doc.verifyd-receipt.json --batch receipts/verifyd-batch.json
 ```
+
+`batch` seals the root with the active key of the keyring that signed the
+receipts, so it needs that private key. The bundled `examples/keyring` is
+verify-only: pointing `batch` at it fails with `PRIVATE_KEY_MISSING` by design.
 
 `batch` writes `verifyd-batch.json` in the folder and stores a proof inside each
 receipt under `inclusion`. Leaves are the SHA-256 of each receipt's signed

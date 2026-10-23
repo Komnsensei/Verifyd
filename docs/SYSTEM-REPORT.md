@@ -60,7 +60,7 @@ node bin/verifyd.cjs demo
 node bin/verifyd.cjs audit path/to/document.pdf
 node bin/verifyd.cjs verify path/to/document.verifyd-receipt.json
 node bin/verifyd.cjs lattice
-node bin/batch-audit.cjs auditdeck
+node bin/batch-audit.cjs <folder-of-pdfs>
 node bin/certify.cjs path/to/document.verifyd-receipt.json
 ```
 
