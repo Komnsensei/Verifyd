@@ -2126,3 +2126,25 @@ policy.
   leaves no sidecar and the commitment unpaired rather than reporting a repair.
   The suite is 295 tests, exit 0. No D3 cosignature, no D4 successor ledger, no
   Phase E.
+
+**Revision 2s** (2026-10-24) - The restore repair is one critical section.
+
+- **Defect.** 2r verified the ledger before the write and again after it, but
+  both checks and the rollback ran outside the store lock. Another writer could
+  append between the pre-check and the write, leaving a sidecar restored for a
+  head that had already moved; a second writer could also append between the
+  write and a rollback, and the rollback would then overwrite that writer's
+  sidecar. The authority verdict was right, the window around it was not.
+- **Fix.** `Store.restoreRevocations` accepts an opaque `verify(phase)` callback
+  from the facade and calls it under the lock it already holds, once before the
+  write and once after. The rollback copy is read and the rollback written in
+  the same critical section, so a failed post-check puts the previous bytes
+  back before the lock is released. The store never learns what the check
+  means; the facade still owns the whole-ledger authority verdict, so the layer
+  direction is unchanged.
+- **Tests:** two cases in `engine/test/ledger-revocation.test.cjs`. A second
+  process attempts one append during the pre-check and is refused
+  `LEDGER_LOCKED`; the same append succeeds after the restore releases the
+  lock. The second case injects a post-check failure and asserts the previous
+  sidecar bytes (or its absence) are restored with the lock released. Both fail
+  against 2r code. The suite is 297 tests, exit 0. D3, D4 and Phase E untouched.

@@ -23,11 +23,13 @@ const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
+const Format = require('../ledger-format.cjs');
 const Ledger = require('../ledger.cjs');
 const Policy = require('../ledger-policy.cjs');
 const Store = require('../ledger-store.cjs');
 const Merkle = require('../merkle.cjs');
 const Signing = require('../signing.cjs');
+const Verify = require('../ledger-verify.cjs');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const CLI = path.join(ROOT, 'bin', 'verifyd.cjs');
@@ -79,6 +81,37 @@ function appendAt(env, label, seconds, signer, keyring) {
     keyring: keyring || env.keyring,
     payload_digest: digestOf(label),
     now: env.at(seconds),
+  });
+}
+
+// One append attempt from a second process, with no retry: the question is
+// whether the write is refused while a restore holds the lock, not whether it
+// would eventually win. Exit 7 means LEDGER_LOCKED; 8 is any other failure.
+function tryAppend(env, label) {
+  const script = [
+    "const L = require(process.env.LEDGER_MODULE);",
+    "try {",
+    "  L.append(process.env.LEDGER_PATH, {",
+    "    signer: L.keyringSigner({ dir: process.env.LEDGER_KEYRING }),",
+    "    keyring: process.env.LEDGER_KEYRING,",
+    "    payload_digest: process.env.LEDGER_DIGEST,",
+    "    receipt_id: 'contender',",
+    "  });",
+    "  process.exit(0);",
+    "} catch (e) {",
+    "  console.error(e.code || e.message);",
+    "  process.exit(e.code === 'LEDGER_LOCKED' ? 7 : 8);",
+    "}",
+  ].join('\n');
+  return spawnSync(process.execPath, ['-e', script], {
+    encoding: 'utf8',
+    timeout: 20000,
+    env: Object.assign({}, process.env, {
+      LEDGER_MODULE: path.join(ROOT, 'engine', 'ledger.cjs'),
+      LEDGER_PATH: env.ledger,
+      LEDGER_KEYRING: env.keyring,
+      LEDGER_DIGEST: digestOf(label),
+    }),
   });
 }
 
@@ -1062,6 +1095,104 @@ test('restore refuses to report a ledger it cannot verify as repaired', (t) => {
     trustedKeys: trusted,
   }), (e) => e.code === 'LEDGER_POLICY_MISMATCH');
   assert.equal(fs.existsSync(env.paths.revocations), false, 'the refused restore writes nothing');
+});
+
+test('restore verifies under the ledger lock, so no writer can append inside the window', (t) => {
+  const env = makeEnv(t);
+  appendAt(env, 'first', 1);
+  Ledger.revokeWriter(env.ledger, {
+    signer: env.signer,
+    keyring: env.keyring,
+    key_id: env.otherKeyId,
+    revoked_at: env.plus(20),
+    now: env.at(10),
+  });
+
+  const backup = path.join(env.root, 'backup.revocations.jsonl');
+  fs.copyFileSync(env.paths.revocations, backup);
+  const original = fs.readFileSync(backup, 'utf8');
+  fs.unlinkSync(env.paths.revocations);
+
+  const verifyLocal = Verify.verifyLocal;
+  const phases = [];
+  let contender = null;
+  Verify.verifyLocal = function (ledger, opts) {
+    phases.push(phases.length ? 'post' : 'pre');
+    assert.equal(fs.existsSync(env.paths.lock), true, 'the check runs while the ledger is locked');
+    // A second process gets exactly one attempt while the pre-check is running.
+    // With verification outside the lock this append succeeds, and the restore
+    // then writes a sidecar for a head the contender already moved.
+    if (!contender) contender = tryAppend(env, 'contender');
+    return verifyLocal.call(this, ledger, opts);
+  };
+
+  let restored;
+  try {
+    restored = Ledger.restoreRevocations(env.ledger, { file: backup, keyring: env.keyring });
+  } finally {
+    Verify.verifyLocal = verifyLocal;
+  }
+
+  assert.equal(restored.restored, 1);
+  assert.deepEqual(phases, ['pre', 'post']);
+  assert.equal(contender.status, 7, contender.stderr);
+  assert.match(contender.stderr, /LEDGER_LOCKED/);
+  assert.equal(entries(env).length, 2, 'the contender wrote no entry');
+  assert.equal(fs.readFileSync(env.paths.revocations, 'utf8'), original);
+  assert.equal(fs.existsSync(env.paths.lock), false);
+
+  // The same append is admitted once the restore has released the lock, so the
+  // refusal above was exclusion, not a broken writer.
+  const after = tryAppend(env, 'after');
+  assert.equal(after.status, 0, after.stderr);
+  assert.equal(entries(env).length, 3);
+  const verified = Ledger.verifyLocal(env.ledger, { keyring: env.keyring });
+  assert.equal(verified.ok, true, verified.code + ': ' + verified.message);
+});
+
+test('a failed post-write check restores the previous sidecar under the lock', (t) => {
+  const env = makeEnv(t);
+  appendAt(env, 'first', 1);
+  Ledger.revokeWriter(env.ledger, {
+    signer: env.signer,
+    keyring: env.keyring,
+    key_id: env.otherKeyId,
+    revoked_at: env.plus(20),
+    now: env.at(10),
+  });
+
+  const backup = path.join(env.root, 'backup.revocations.jsonl');
+  fs.copyFileSync(env.paths.revocations, backup);
+
+  // A sentinel makes the rollback observable: the post-check fails, so the
+  // bytes that were there before the write must be the bytes after it.
+  const sentinel = '{"sentinel":"previous sidecar"}\n';
+  fs.writeFileSync(env.paths.revocations, sentinel);
+
+  const phases = [];
+  assert.throws(() => Store.restoreRevocations(env.ledger, {
+    file: backup,
+    keyring: env.keyring,
+    verify(phase) {
+      phases.push(phase);
+      if (phase === 'post') throw Format.fail('LEDGER_POLICY_MISMATCH', 'injected post-check');
+    },
+  }), (e) => e.code === 'LEDGER_POLICY_MISMATCH');
+  assert.deepEqual(phases, ['pre', 'post']);
+  assert.equal(fs.readFileSync(env.paths.revocations, 'utf8'), sentinel);
+  assert.equal(fs.existsSync(env.paths.lock), false, 'the lock is released after a rollback');
+
+  // With no previous sidecar, the rollback removes the one it wrote.
+  fs.unlinkSync(env.paths.revocations);
+  assert.throws(() => Store.restoreRevocations(env.ledger, {
+    file: backup,
+    keyring: env.keyring,
+    verify(phase) {
+      if (phase === 'post') throw Format.fail('LEDGER_POLICY_MISMATCH', 'injected post-check');
+    },
+  }), (e) => e.code === 'LEDGER_POLICY_MISMATCH');
+  assert.equal(fs.existsSync(env.paths.revocations), false);
+  assert.equal(fs.existsSync(env.paths.lock), false);
 });
 
 test('a failed sidecar write leaves the commitment unpaired and reports the I/O error', (t) => {

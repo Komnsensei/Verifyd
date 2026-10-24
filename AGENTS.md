@@ -133,8 +133,9 @@ refused. A supplied backup that is missing or unreadable is `LEDGER_IO`, and one
 that holds no records is `LEDGER_REVOCATION_MALFORMED`;
 `LEDGER_REVOCATION_MISSING` is reserved for a ledger that commits a record with
 no sidecar. Restore verifies the whole ledger with the backup in place before
-writing and rolls the sidecar back if the restored ledger does not verify, so a
-repair that did not hold is never reported as one that did. `chain fsck`
+writing and rolls the sidecar back if the restored ledger does not verify, all
+under the ledger lock, so no writer can append between the check and the write;
+a repair that did not hold is never reported as one that did. `chain fsck`
 re-seals a lost checkpoint tail, including the commitment checkpoint of a
 sole-writer ledger: the admin that sealed the commitment may re-sign it under
 the same narrow act, and gains no append authority. The marker is outside the
@@ -258,7 +259,7 @@ and printed as a heuristic. Never write it as a probability or a trust score.
 ## Test
 
 ```
-npm test              # 295 node:test tests: signing, keyring creation race, rotation, receipts, artifact rehashing (changed/missing/unreadable), RFC 3161, Merkle inclusion and consistency proofs, ledger membership/anchoring/fork rules, writer revocation and commitment, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, end-to-end CLI lifecycle (audit, ledger, witnesses, determination, PDF batch), certificates and batch summary agree with examples/keyring
+npm test              # 297 node:test tests: signing, keyring creation race, rotation, receipts, artifact rehashing (changed/missing/unreadable), RFC 3161, Merkle inclusion and consistency proofs, ledger membership/anchoring/fork rules, writer revocation and commitment, restore locking and rollback, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, end-to-end CLI lifecycle (audit, ledger, witnesses, determination, PDF batch), certificates and batch summary agree with examples/keyring
 npm run demo          # engine demo
 npm run calibrate     # refit check for the assurance model
 npm run test:sentinel # 72 node:test tests for the monitoring service

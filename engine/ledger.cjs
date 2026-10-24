@@ -16,22 +16,20 @@
 
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 
 const Format = require('./ledger-format.cjs');
 const Store = require('./ledger-store.cjs');
 const Recovery = require('./ledger-recovery.cjs');
 const Verify = require('./ledger-verify.cjs');
-const Signing = require('./signing.cjs');
 
 // A restore is a repair, so it is all-or-nothing and its success means the
 // ledger verifies. The supplied file is authenticated by the store, but a
 // store-level check alone cannot see authority: a ledger can hold a structurally
-// valid, correctly committed, badly authorized chain. So verify the ledger with
-// the backup in place first and write nothing when that fails; write atomically;
-// then verify again and put the previous sidecar back if the result does not
-// stand. Only then is "Restored" an honest report.
+// valid, correctly committed, badly authorized chain. The store therefore calls
+// back for a whole-ledger verification before it writes and again after; both
+// run while it holds the lock, and a failure in either leaves the previous
+// sidecar in place. Only then is "Restored" an honest report.
 function restoreRevocations(ledgerPath, opts) {
   opts = opts || {};
   if (typeof opts.file !== 'string' || !opts.file.length) {
@@ -40,43 +38,17 @@ function restoreRevocations(ledgerPath, opts) {
     return Store.restoreRevocations(ledgerPath, opts);
   }
 
-  const io = opts.fs || fs;
-  const pathsOf = Store.ledgerPaths(ledgerPath);
   const file = path.resolve(opts.file);
+  const before = Object.assign({}, opts, { revocations: file });
+  const after = Object.assign({}, opts);
+  delete after.revocations;
 
-  const pre = Verify.verifyLocal(ledgerPath, Object.assign({}, opts, { revocations: file }));
-  if (!pre.ok) throw Format.fail(pre.code, pre.message);
-
-  // Read the rollback copy before the write. If the existing sidecar cannot be
-  // read, refuse rather than overwrite something we could not put back.
-  let previous = null;
-  try {
-    previous = io.readFileSync(pathsOf.revocations);
-  } catch (e) {
-    if (e.code !== 'ENOENT') {
-      throw Format.fail('LEDGER_IO',
-        'cannot read the existing revocation file ' + pathsOf.revocations
-        + '; refusing to overwrite it without a rollback copy: ' + (e.code || e.message));
-    }
-  }
-
-  const out = Store.restoreRevocations(ledgerPath, opts);
-
-  const postOpts = Object.assign({}, opts);
-  delete postOpts.revocations;
-  const post = Verify.verifyLocal(ledgerPath, postOpts);
-  if (post.ok) return out;
-
-  try {
-    if (previous === null) io.unlinkSync(pathsOf.revocations);
-    else Signing.writeAtomic(pathsOf.revocations, previous, { fs: io, fsync: true });
-    Store.fsyncDir(pathsOf.dir, io);
-  } catch (rollback) {
-    throw Format.fail(post.code, post.message
-      + '; the previous revocation file could not be restored ('
-      + (rollback.code || rollback.message) + ')');
-  }
-  throw Format.fail(post.code, post.message);
+  return Store.restoreRevocations(ledgerPath, Object.assign({}, opts, {
+    verify(phase) {
+      const result = Verify.verifyLocal(ledgerPath, phase === 'pre' ? before : after);
+      if (!result.ok) throw Format.fail(result.code, result.message);
+    },
+  }));
 }
 
 module.exports = {

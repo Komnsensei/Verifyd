@@ -262,8 +262,10 @@ committed to. A supplied backup that is missing or unreadable is `LEDGER_IO`,
 and one that holds no records is `LEDGER_REVOCATION_MALFORMED`;
 `LEDGER_REVOCATION_MISSING` is reserved for a ledger that commits a record with
 no sidecar. Restore verifies the whole ledger with the backup in place before
-writing, and rolls the sidecar back if the restored ledger does not verify, so
-"Restored" is never printed for a repair that did not hold. The marker is
+writing, and rolls the sidecar back if the restored ledger does not verify. Both
+checks and the rollback run under the ledger lock, so no writer can append
+inside the repair window, and "Restored" is never printed for a repair that did
+not hold. The marker is
 reserved: an ordinary append naming a receipt id that begins
 `verifyd-revocation:v1:` is refused with `LEDGER_RECEIPT_ID_RESERVED` before any
 byte is written, so a receipt cannot claim to be a commitment. Revoking a key

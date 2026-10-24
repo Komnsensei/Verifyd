@@ -1349,11 +1349,19 @@ function revokeWriter(ledgerPath, opts) {
 // commitment entries before a byte is written, so restoration can only
 // reproduce what the ledger already committed to. Adding, removing or altering
 // a record relative to those commitments is refused.
+//
+// The whole repair runs under one lock. `opts.verify(phase)` is the facade's
+// whole-ledger check ("pre" before the write, "post" after it), called here
+// rather than by the caller so no writer can append between the check and the
+// write, or between the write and the rollback. The store does not know what
+// the check means; it only knows that a throw means "undo the write", which
+// keeps the authority verdict in the layer that can reach it.
 function restoreRevocations(ledgerPath, opts) {
   opts = opts || {};
   const io = opts.fs || fs;
   const pathsOf = ledgerPaths(ledgerPath);
   const file = path.resolve(requireText(opts.file, 'revocations file'));
+  const check = typeof opts.verify === 'function' ? opts.verify : null;
 
   return withLock(pathsOf.ledger, opts, (lock) => {
     const read = readLedger(pathsOf, io);
@@ -1385,9 +1393,49 @@ function restoreRevocations(ledgerPath, opts) {
       revocations: file,
     });
 
+    // The authority verdict runs while this writer holds the lock. A failure
+    // here writes nothing, so there is no rollback to make.
+    if (check) check('pre');
+
+    // Read the rollback copy under the same lock. An existing sidecar that
+    // cannot be read is refused rather than overwritten without a way back.
+    let previous = null;
+    if (check) {
+      try {
+        previous = io.readFileSync(pathsOf.revocations);
+      } catch (e) {
+        if (e.code !== 'ENOENT') {
+          throw fail('LEDGER_IO',
+            'cannot read the existing revocation file ' + pathsOf.revocations
+            + '; refusing to overwrite it without a rollback copy: ' + (e.code || e.message));
+        }
+      }
+    }
+
     assertLockOwned(lock, io);
     Signing.writeAtomic(pathsOf.revocations, text, { fs: io, fsync: true });
     fsyncDir(pathsOf.dir, io);
+
+    if (check) {
+      try {
+        check('post');
+      } catch (e) {
+        // Put the previous bytes back while the lock is still held. If the lock
+        // changed hands or the rollback itself fails, say so in the same error
+        // instead of reporting a clean refusal.
+        try {
+          assertLockOwned(lock, io);
+          if (previous === null) io.unlinkSync(pathsOf.revocations);
+          else Signing.writeAtomic(pathsOf.revocations, previous, { fs: io, fsync: true });
+          fsyncDir(pathsOf.dir, io);
+        } catch (rollback) {
+          throw fail(e.code || 'LEDGER_IO', e.message
+            + '; the previous revocation file could not be restored ('
+            + (rollback.code || rollback.message) + ')');
+        }
+        throw e;
+      }
+    }
 
     return { restored: records.size, path: pathsOf.revocations, source: file };
   });
