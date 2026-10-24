@@ -111,8 +111,9 @@ test.after(() => {
 
 test('the committed model is fitted, not hand-set', () => {
   assert.strictEqual(Score.SCHEME, 'verifyd-trust-assurance-v1');
-  assert.strictEqual(Score.MODEL.features.length, 10);
-  assert.strictEqual(Score.MODEL.parameters.weights.length, 10);
+  assert.strictEqual(Score.MODEL.features.length, 11);
+  assert.strictEqual(Score.MODEL.features[Score.MODEL.features.length - 2], 'ledger');
+  assert.strictEqual(Score.MODEL.parameters.weights.length, 11);
   assert.strictEqual(Score.MODEL.dataset.labels_origin, 'synthetic');
   assert.ok(Number.isFinite(Score.MODEL.parameters.intercept));
   assert.ok(Score.MODEL.parameters.weights.every(w => Number.isFinite(w) && w !== 0));
@@ -162,7 +163,7 @@ test('scoring is deterministic and fits nothing at inference time', () => {
   const modelAfter = JSON.stringify(JSON.parse(fs.readFileSync(MODEL_FILE, 'utf8')));
   assert.strictEqual(modelAfter, modelBefore, 'inference never rewrites the model');
 
-  assert.throws(() => Score.probability([1, 0]), /expected 10 feature values/);
+  assert.throws(() => Score.probability([1, 0]), /expected 11 feature values/);
 });
 
 test('a verified signature is the only signature state that pays', async () => {
@@ -463,4 +464,65 @@ test('the legacy heuristic is labelled uncalibrated and is not a probability', (
   assert.strictEqual(quality.scale, '0-100-heuristic');
   assert.ok(quality.value >= 0 && quality.value <= 100);
   assert.strictEqual(v.TrustScoreCalculator.compute, undefined, 'the old calibrated-looking entry point is gone');
+});
+
+test('only anchored ledger membership pays, and only when it was asked for', async () => {
+  const Ledger = require('../ledger.cjs');
+  const Evidence = v.AssuranceEvidence;
+  const { dir, sealed } = makeEnvelope();
+
+  const ledger = path.join(dir, 'audit.ledger');
+  const signer = Ledger.keyringSigner({ dir });
+  Ledger.initLedger(ledger, {
+    signer,
+    policy: { writer_keys: [signer.key_id], admin_keys: [signer.key_id] },
+  });
+  const digest = crypto.createHash('sha256').update(v.Signing.signingPayload(sealed)).digest('hex');
+  Ledger.append(ledger, {
+    signer,
+    payload_digest: digest,
+    writeReceipt: (block) => {
+      sealed.ledger = {
+        scheme: 'verifyd-ledger-v1',
+        ledger_id: block.ledger_id,
+        seq: block.seq,
+        checkpoint: block.checkpoint,
+        path: block.path,
+      };
+    },
+  });
+
+  const notAsked = await Score.assess(sealed, { evidence: await Evidence.collect(sealed, { keyring: dir }) });
+  const unanchored = await Score.assess(sealed, {
+    evidence: await Evidence.collect(sealed, { keyring: dir, ledger }),
+  });
+
+  const checkpoints = fs.readFileSync(Ledger.ledgerPaths(ledger).checkpoints, 'utf8')
+    .split('\n').filter(Boolean).map(JSON.parse);
+  const anchorFile = path.join(dir, 'anchor.json');
+  fs.writeFileSync(anchorFile, JSON.stringify(checkpoints.find(c => c.tree_size === 1), null, 2) + '\n');
+  const anchored = await Score.assess(sealed, {
+    evidence: await Evidence.collect(sealed, { keyring: dir, ledger, anchor: anchorFile }),
+  });
+
+  assert.strictEqual(notAsked.features.ledger, 0);
+  assert.ok(!notAsked.absent.includes('authenticated_ledger_membership'),
+    'a receipt checked without --ledger makes no claim and is not named absent');
+  assert.strictEqual(anchored.features.ledger, 1);
+  assert.strictEqual(unanchored.features.ledger, 0, 'proof without a trusted checkpoint pays nothing');
+  assert.ok(unanchored.absent.includes('authenticated_ledger_membership'));
+  assert.match(unanchored.notes.map(n => n.code).join(','), /ledger_membership_unanchored/);
+  assert.ok(anchored.probability > unanchored.probability);
+
+  // A block that claims membership it cannot prove scores like absent evidence,
+  // not like a pass: the signature on the receipt does not cover the block.
+  const forged = JSON.parse(JSON.stringify(sealed));
+  forged.ledger.seq = 9;
+  const falseClaim = await Score.assess(forged, {
+    evidence: await Evidence.collect(forged, { keyring: dir, ledger }),
+  });
+  assert.strictEqual(falseClaim.features.ledger, 0);
+  assert.strictEqual(falseClaim.evidence.ledger.status, 'invalid',
+    'a claim that cannot be proven is a failed check, not a pass');
+  assert.ok(falseClaim.absent.includes('authenticated_ledger_membership'));
 });

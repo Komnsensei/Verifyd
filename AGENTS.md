@@ -50,6 +50,12 @@ node bin/verifyd.cjs verify receipts/demo.verifyd-receipt.json --artifact demo.t
 
 # Folder batch: audit every PDF, write receipts + certificates, verify each one.
 node bin/batch-audit.cjs <folder-of-pdfs>
+
+# Receipt ledger: init, audit into it, check membership and the log itself.
+node bin/verifyd.cjs chain init --ledger demo.ledger.jsonl
+node bin/verifyd.cjs audit demo.txt --ledger demo.ledger.jsonl
+node bin/verifyd.cjs verify demo.verifyd-receipt.json --ledger demo.ledger.jsonl
+node bin/verifyd.cjs chain verify --ledger demo.ledger.jsonl
 ```
 
 A met quorum needs four verified witnesses; one proof above demonstrates the
@@ -77,6 +83,82 @@ after sealing, or one that is missing or unreadable, is `Status: REJECTED` with
 a `Reason`, even though `Signature: VALID` and `Receipt hash: VALID` still
 describe the receipt bytes. The signature binds the receipt; only the artifact
 check binds the document.
+
+With `--ledger <path>`, `verify` prints one `Ledger:` line. The `ledger` block
+is outside the signed payload (it is computed from the signed bytes after
+sealing), so it is a claim until a checkpoint under a trusted key is the one the
+proof lands in: `IN CHAIN (UNANCHORED)` proves position, not publication. A
+receipt with no block is `NOT RECORDED` and exits 0; a claimed membership that
+cannot be proven (`NOT IN CHAIN`, `INCONSISTENT`, `UNKNOWN LEDGER`) is REJECTED
+and exits 1 even though `Signature: VALID`. `--anchor <checkpoint.json>`
+supplies the trusted head, and `--require-anchor` makes unrecorded or unanchored
+membership a failure. `chain verify --anchor` also refuses a rollback (observed
+head smaller than the anchor) and an equivocation (two checkpoint hashes at one
+size), and `--heads <file>` applies the same rules against retained heads.
+Consistency is checked with `Merkle.verifyConsistency`; proofs carry
+`prefix_mth` because roots commit to the tree size. Plain verification writes
+nothing: recording a head needs `--record-head`.
+
+The policy body travels beside the ledger as `<ledger>.policy.json`, written by
+`chain init`; append and verification hash it and refuse a body that does not
+match the `policy_hash` in genesis (`LEDGER_POLICY_MISMATCH`) or that is missing
+(`LEDGER_POLICY_MISSING`). If the sidecar is lost, `--policy <file>` supplies the
+same body to `chain verify|append|fsck` and passes the same hash check, never a
+bypass; an unreadable explicit file is a caller error, not a missing policy. A
+trusted key is not enough to append: the signer must
+be a listed writer under that policy, and its key status is re-read from the
+keyring it names at append time. A revoked or expired record fails at the
+record's own signed timestamp (`LEDGER_KEY_NOT_ACTIVE`), a signer whose status
+cannot be established is refused rather than assumed active, and a retiredkey still proves what it signed. `chain verify` prints `writer_authorization`
+separately from the signature checks.
+
+Revocations live in `<ledger>.revocations.jsonl`: `chain revoke-writer <key_id>`
+records an admin-signed statement (admin_keys only) bound to the head it was
+issued against, and seals it as a ledger entry (payload digest = digest of the
+record, `receipt_id` `verifyd-revocation:v1:<key_id>`) signed by a writer, or
+by the admin who signed the record when the admin is not a writer and no
+`--writer-keyring` is given. That seal is authorized as an admin act and grants
+no append authority. The exemption is personal: a writer may use it only for
+the seal of its own revocation, an admin only for a record it signed, and a
+different listed writer seals the same entry as an ordinary append at its own
+position. A revoked key therefore writes nothing past its boundary except the
+seal of its own revocation. The sealing entry is the
+commitment: deleting or truncating the file cannot restore authority, because
+verification finds the entry and fails `LEDGER_REVOCATION_MISSING`; a record
+with no commitment is `LEDGER_REVOCATION_UNCOMMITTED`. A lost sidecar can be
+read with `chain verify --revocations <file>` (no writes) and restored with
+`chain restore-revocations <file>`, which re-authenticates every record against
+the commitment digests before writing; a record the ledger did not commit to is
+refused. A supplied backup that is missing or unreadable is `LEDGER_IO`, and one
+that holds no records is `LEDGER_REVOCATION_MALFORMED`;
+`LEDGER_REVOCATION_MISSING` is reserved for a ledger that commits a record with
+no sidecar. Restore verifies the whole ledger with the backup in place before
+writing and rolls the sidecar back if the restored ledger does not verify, all
+under the ledger lock, so no writer can append between the check and the write;
+a repair that did not hold is never reported as one that did. `chain fsck`
+re-seals a lost checkpoint tail, including the commitment checkpoint of a
+sole-writer ledger: the admin that sealed the commitment may re-sign it under
+the same narrow act, and gains no append authority. The marker is outside the
+receipt-id vocabulary: `append` and `chain
+append` refuse any receipt id beginning `verifyd-revocation:v1:`
+(`LEDGER_RECEIPT_ID_RESERVED`) before writing, so a receipt can never be read
+back as a commitment.
+
+Authority is decided by position, not by the writer's clock. `revoked_at` dates
+the statement and must postdate every record up to the head the record names,
+so entries up to that head stay valid. Any entry that appears past that head is
+outside the history the admin saw, so it is refused `LEDGER_WRITER_REVOKED`
+whatever its `recorded_at` claims - a turned-back clock cannot place a new
+entry before the boundary. `revoke-writer` binds the current head and cannot
+backdate; a hand-written record bound to an older retained head can refuse an
+entry that already existed past it, so the guarantee is about the head, not
+about wall-clock history. `revoked_at` must be strictly after records up to the
+bound head and after the record's own `recorded_at`
+(`LEDGER_REVOCATION_BACKDATED`), a second revocation for one key is
+`LEDGER_REVOCATION_DUPLICATE`, an unlisted
+target is `LEDGER_REVOCATION_UNKNOWN_WRITER`, and a file that is present but
+cannot be authenticated fails `LEDGER_REVOCATION_UNAUTHORIZED` or
+`LEDGER_REVOCATION_MALFORMED` - never treated as empty.
 
 First use of a fresh keyring directory builds the key in a sibling temporary
 directory and renames it into place (engine/signing.cjs). Exactly one concurrent
@@ -156,9 +238,11 @@ Every scored dimension is binary: it pays only when checked and passed. A
 failed or unverifiable result (untrusted signer key, token chain unchecked,
 proof without an authenticated root, partial witness quorum, warning, skipped or
 untraceable policy result, unresolved anchor, adverse or unverifiable
-determination) scores exactly what that evidence absent scores. The five
-verification dimensions are counted by `missing`; never add partial credit for a
-failed check. Policy pays only when every recorded result is `pass`, carries a
+determination, membership without an anchored trusted checkpoint) scores exactly
+what that evidence absent scores. The five verification dimensions are counted
+by `missing`; `ledger` is a separate fitted feature that pays only for anchored
+membership, and is neither a sixth missing dimension nor partial credit. Never
+add partial credit for a failed check. Policy pays only when every recorded result is `pass`, carries a
 `checked_at`, and its citations trace to `engine/citations.json`; anchors pay
 only when every external anchor has a known resolver, resolution time, title,
 and a URI host matching that resolver. Policy and anchor results are audit-time
@@ -175,7 +259,7 @@ and printed as a heuristic. Never write it as a probability or a trust score.
 ## Test
 
 ```
-npm test              # 176 node:test tests: signing, keyring creation race, rotation, receipts, artifact rehashing (changed/missing/unreadable), RFC 3161, Merkle inclusion, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, end-to-end CLI lifecycle (audit, witnesses, determination, PDF batch), certificates and batch summary agree with examples/keyring
+npm test              # 297 node:test tests: signing, keyring creation race, rotation, receipts, artifact rehashing (changed/missing/unreadable), RFC 3161, Merkle inclusion and consistency proofs, ledger membership/anchoring/fork rules, writer revocation and commitment, restore locking and rollback, witness quorum, determinations, calibration reproduction, evidence agreement, failed-dimension monotonicity, shipped example receipts, end-to-end CLI lifecycle (audit, ledger, witnesses, determination, PDF batch), certificates and batch summary agree with examples/keyring
 npm run demo          # engine demo
 npm run calibrate     # refit check for the assurance model
 npm run test:sentinel # 72 node:test tests for the monitoring service
@@ -210,7 +294,12 @@ engine/
   citations.json        # 14 standards (NIST, EU AI Act, ISO, FIPS, RFC, OWASP, FAIR, OECD, FTC, Reg.B)
   legal-regimes.json    # jurisdictions/regimes, every requirement traced to citations.json
   policy.cjs            # 4 compliance checks, each cited
-  evidence.cjs          # one verification pass: signature, time, inclusion, batch root, witnesses, determination
+  evidence.cjs          # one verification pass: signature, time, inclusion, batch root, ledger, witnesses, determination
+  ledger-format.cjs     # frozen ledger shapes, tags, hashes, signing preimages (no I/O)
+  ledger-store.cjs      # lock, fsync-ordered append, state cache, one read model
+  ledger-recovery.cjs   # fsck: findings in, repairs and a verdict out
+  ledger-verify.cjs     # local walk, receipt membership, anchored verification
+  ledger.cjs            # public ledger facade (55 exports)
   trust-score.cjs       # assurance probability (committed model) + uncalibrated document heuristic
   calibration/          # synthetic labeled corpus + fitted model artifact
   audit-chain.cjs       # SHA-256 + RFC 8785 canonical JSON + RFC 6962 append-only chain
@@ -244,7 +333,7 @@ verifyd.bat             # Windows shortcut
 3. **Source anchors** (arXiv / DOI / file URI)
 4. **Confidence with exponential decay** (60-day half-life default)
 5. **Policy checks** (no_coercion / transparency / audit_trail / independent_oversight) — each cites real regulation
-6. **Assurance probability** (logistic model over signature, time, inclusion, witness quorum/tier, policy, ratification, anchors, determination, missing evidence) and a separate uncalibrated document-quality heuristic for promotion gates
+6. **Assurance probability** (logistic model over signature, time, inclusion, witness quorum/tier, policy, ratification, anchors, determination, anchored ledger membership, missing evidence) and a separate uncalibrated document-quality heuristic for promotion gates
 7. **Lattice walk** (DRAFT -> PROVISIONAL -> DEPOSITED -> RATIFIED, with >=4/7 Oversight Board quorum counted over verified witness keys, not labels)
 8. **Receipt sealing** (VALF-1 = SHA-256 over canonical JSON, then an Ed25519 signature over the whole envelope)
 9. **Batch commitment** (optional: SHA-256 leaf digests over signed payloads -> binary Merkle root, root signed with the same key and optionally timestamped)
