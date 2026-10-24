@@ -1,0 +1,55 @@
+name: lifecycle
+
+# Runs the receipt engine, the sentinel service and the end-to-end artifact
+# lifecycle on both hosted platforms. The end-to-end test skips its PDF subtests
+# with an explicit reason when pdftotext is unavailable, so a missing Poppler
+# install is visible in the log rather than silently passing.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [22]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install pdftotext (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Install pdftotext (Windows)
+        if: runner.os == 'Windows'
+        continue-on-error: true
+        run: choco install poppler -y --no-progress
+
+      - name: Show pdftotext version
+        continue-on-error: true
+        run: pdftotext -v
+
+      - name: Engine suite
+        run: npm test
+
+      - name: Sentinel suite
+        run: npm run test:sentinel
+
+      - name: End-to-end lifecycle
+        run: node --test engine/test/end-to-end-cli.test.cjs
