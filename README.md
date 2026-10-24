@@ -194,12 +194,115 @@ timestamped. Together with the receipt's own signature, an auditor holding one
 receipt and the root can check membership without seeing the other receipts.
 
 Does not prove: that the other leaves are what they claim, that the batch is
-complete, that the content is true, or that history was not rewritten. There is
-no consistency proof between successive roots, so whoever holds the signing key
-can publish a new root over a different set and each old receipt still verifies
-on its own. Treat a root as a commitment to one set at one time, not as an
-append-only log. RFC 6962-style consistency proofs are deliberately not
-implemented in this pass.
+complete, that the content is true, or that history was not rewritten. A batch
+publishes no consistency proof between successive roots, so whoever holds the
+signing key can publish a new root over a different set and each old receipt
+still verifies on its own. Treat a batch root as a commitment to one set at one
+time, not as an append-only log.
+
+The Merkle primitive itself exists (`Merkle.consistency` / `verifyConsistency`),
+and the receipt ledger below uses it to connect two signed heads. A consistency
+proof here also carries `prefix_mth` (the subtree hash of the first m leaves),
+because these roots commit to the tree size and the prefix hash cannot be
+recovered from a size-prefixed commitment. It is public tree data, not a secret.
+
+---
+
+## Receipt ledger: membership and append-only evidence
+
+A receipt can carry an unsigned `ledger` block: which ledger, which sequence
+number, which signed checkpoint, and the inclusion path into its root. The
+block is excluded from the signed payload for the same reason `inclusion` and
+`attestations` are, so attaching it never invalidates the receipt signature --
+and for the same reason it proves nothing on its own. It is a claim until a
+checkpoint the verifier trusts is the one the proof lands in.
+
+```
+verifyd chain init --ledger audit.ledger.jsonl
+verifyd audit paper.pdf --ledger audit.ledger.jsonl
+verifyd verify paper.verifyd-receipt.json --ledger audit.ledger.jsonl
+verifyd chain revoke-writer <key_id> --ledger audit.ledger.jsonl --reason "left the team"
+verifyd chain verify --ledger audit.ledger.jsonl
+verifyd chain restore-revocations revocations.backup.jsonl --ledger audit.ledger.jsonl
+verifyd chain verify --ledger audit.ledger.jsonl --anchor head.json --heads retained-heads.jsonl
+verifyd chain fsck --ledger audit.ledger.jsonl --dry-run
+```
+
+`chain init` writes the committed policy body beside the ledger as
+`<ledger>.policy.json`. Append and verification recompute its hash and refuse a
+body that does not match the `policy_hash` in genesis. If that file is lost,
+`--policy <file>` supplies the same body to `chain verify`, `chain append` and
+`chain fsck`, and is held to the same hash check. A trusted key is not
+enough: the signer must be a writer under the policy the ledger committed to,
+and its key status must be readable from the keyring the signer names. An
+append whose signer cannot be tied to a keyring record is refused rather than
+assumed authorized. `chain verify` prints the authority verdict as a separate
+`writer_authorization` line.
+
+A revocation is an admin-signed record in `<ledger>.revocations.jsonl`, and it
+counts only once the ledger commits to it: `revoke-writer` seals the record's
+digest as a normal entry before writing the file. A writer seals it, or the
+admin itself when the admin does not write and no `--writer-keyring` is given;
+that one seal grants no append authority and keeps the revoked key from
+writing anything but that seal. The exemption is personal: a writer may skip
+the position rule only for the seal of its own revocation, and an admin may
+seal only a record it signed; a different listed writer seals at its own
+position. The record binds the head it was issued against, so `revoke-writer`
+can never reach back behind entries that already exist. Everything past that
+head is refused `LEDGER_WRITER_REVOKED` by position, whatever timestamp the
+writer claims; within the head, `revoked_at` orders the records. A hand-written
+record bound to an older retained head can therefore refuse entries already
+written past it: the guarantee is against a backdated seal, not against an
+admin moving the boundary. Deleting or truncating the revocation file leaves
+the commitment behind and fails `LEDGER_REVOCATION_MISSING` rather than reading
+as "no revocation". `chain verify --revocations <file>` reads a backup without
+writing, and `chain restore-revocations <file>` re-authenticates it against the
+commitments and restores the sidecar; neither can add a record the ledger never
+committed to. A supplied backup that is missing or unreadable is `LEDGER_IO`,
+and one that holds no records is `LEDGER_REVOCATION_MALFORMED`;
+`LEDGER_REVOCATION_MISSING` is reserved for a ledger that commits a record with
+no sidecar. Restore verifies the whole ledger with the backup in place before
+writing, and rolls the sidecar back if the restored ledger does not verify, so
+"Restored" is never printed for a repair that did not hold. The marker is
+reserved: an ordinary append naming a receipt id that begins
+`verifyd-revocation:v1:` is refused with `LEDGER_RECEIPT_ID_RESERVED` before any
+byte is written, so a receipt cannot claim to be a commitment. Revoking a key
+ends its authority, it does not rewrite what it signed.
+
+`chain fsck` re-seals a lost checkpoint tail; for a sole-writer ledger the
+admin that sealed the commitment may re-sign that checkpoint under the same
+narrow act, and gains no append authority.
+
+`verify --ledger` prints one line and the exit code follows it:
+
+```
+Ledger:       NOT CHECKED (no --ledger)       exit 0   (receipt integrity only; no ledger claim)
+Ledger:       NOT RECORDED                    exit 0   (a receipt may predate the ledger)
+Ledger:       IN CHAIN (UNANCHORED)           exit 0   (proof valid, no trusted head supplied)
+Ledger:       IN CHAIN (ANCHORED)             exit 0   (the proof lands in the supplied checkpoint)
+Ledger:       NOT IN CHAIN (...reason...)     exit 1   (a claim that cannot be proven)
+Ledger:       INCONSISTENT (...reason...)     exit 1
+Ledger:       UNKNOWN LEDGER (...reason...)   exit 1
+```
+
+`--require-anchor` turns `NOT RECORDED` and unanchored membership into failures.
+`chain verify --anchor` checks that the ledger's prefix at the anchor's tree
+size still hashes to the anchored root, and refuses a rollback (the observed
+head is smaller than the anchor) or an equivocation (two checkpoint hashes at
+one size). `--heads` applies the same rules against retained heads; recording a
+new head is opt-in (`--record-head`) because verification otherwise writes
+nothing.
+
+What this proves: these signed receipt bytes are at that position in that
+checkpoint, signed by a trusted key, and (with an anchor) extend a head the
+verifier already trusted -- nothing was removed or reordered before it.
+
+What it does not prove: that the checkpoint was published anywhere (Phase E),
+that the ledger is complete after the anchor, that the signer held an admin or
+witness role rather than writer membership (Phases D2-D4), or that the
+receipt's contents are true.
+A ledger held entirely by one party can be rebuilt with a fresh key; the anchor
+is what makes rewriting detectable, and only if somebody else kept it.
 
 ---
 
@@ -368,8 +471,8 @@ logistic model with committed parameters, not a weighted sum of hand-picked
 numbers.
 
 ```
-Assurance:    0.659 (probability; model 1.3.0)
-Model:        verifyd-trust-assurance-v1 1.3.0, synthetic labels, data 03233e80b378
+Assurance:    0.247 (probability; model 1.4.0)
+Model:        verifyd-trust-assurance-v1 1.4.0, synthetic labels, data deebd9994e62
 ```
 
 ### What it is, and is not
@@ -377,7 +480,7 @@ Model:        verifyd-trust-assurance-v1 1.3.0, synthetic labels, data 03233e80b
 - **It is** an estimate that the evidence attached to these bytes is what it
   claims to be. The features are exactly that evidence: `signature`, `time`,
   `inclusion`, `witness_count`, `witness_tier`, `policy`, `ratification`,
-  `anchors`, `determination`, and `missing`.
+  `anchors`, `determination`, `ledger`, and `missing`.
 - **It is not** a probability that the document's contents are true. Verifyd
   cannot see truth; it sees sealed bytes and the evidence attached to them.
 - **It is not calibrated against real audit outcomes.** The committed corpus is
@@ -398,8 +501,10 @@ Model:        verifyd-trust-assurance-v1 1.3.0, synthetic labels, data 03233e80b
   result, or an untraceable citation scores what no policy result scores.
   Anchors pay only when every external anchor records a resolution that matches
   its resolver; an unresolved or unverifiable anchor scores what no anchor
-  scores. Failures are named in `absent` and counted by the same `missing` term
-  as absence. This is per dimension: a failed check scores the same as that
+  scores. Receipt membership pays only when the proof lands in a checkpoint
+  under a trusted key that is also anchored; a verified signature on the block
+  is not enough, because the block sits outside the signed receipt. Failures are
+  named in `absent` and counted by the same `missing` term as absence. This is per dimension: a failed check scores the same as that
   evidence being absent, not the same as a receipt with no evidence at all; the
   dimensions that did pass still count. Policy and anchor evidence is recorded
   in the signed receipt at audit time: verification checks that the record is
@@ -414,7 +519,7 @@ and no external anchor a known resolver recognizes. It cannot reach a high
 probability, and the result says which evidence would move it:
 
 ```
-Assurance:    0.181 (probability; model 1.3.0); absent: attested_time, proven_inclusion, witness_quorum, compliant_determination, resolved_anchor
+Assurance:    0.247 (probability; model 1.4.0); absent: attested_time, proven_inclusion, witness_quorum, compliant_determination, resolved_anchor
 ```
 
 `absent` names each failed or missing dimension, and the model's fitted
@@ -442,10 +547,10 @@ the committed metrics and the numbers in this section.
 | Held-out metric | Value |
 |---|---|
 | Rows (train / held-out) | 840 / 360, from 1,200 synthetic receipts |
-| Brier 0.168260 | mean squared error of the probability |
-| ECE 0.045279 | expected calibration error over 10 bins |
-| AUC 0.810033 | discrimination between positive and negative labels |
-| Log loss 0.503107 | cross-entropy on the held-out split |
+| Brier 0.178887 | mean squared error of the probability |
+| ECE 0.058479 | expected calibration error over 10 bins |
+| AUC 0.807756 | discrimination between positive and negative labels |
+| Log loss 0.534744 | cross-entropy on the held-out split |
 
 Model artifact: [engine/calibration/trust-model.json](engine/calibration/trust-model.json)
 (version, parameters, training settings, corpus SHA-256, metrics, label rule).

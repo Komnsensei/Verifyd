@@ -172,6 +172,25 @@ function inclusionFeature(evidence) {
   return { value: 1, status: 'proven', detail: batch.reason };
 }
 
+// Ledger membership pays only when a trusted checkpoint is the one the proof
+// lands in. Unanchored membership is arithmetic over an unsigned block, the
+// same distinction inclusion-without-a-batch-root already makes.
+function ledgerFeature(raw) {
+  const ledger = raw && raw.ledger;
+  if (!ledger || !ledger.requested) return { value: 0, status: 'absent', detail: null };
+  if (ledger.status !== 'IN CHAIN') {
+    return {
+      value: 0,
+      status: ledger.status === 'NOT RECORDED' ? 'not_recorded' : 'invalid',
+      detail: ledger.reason,
+    };
+  }
+  if (!ledger.anchored) {
+    return { value: 0, status: 'unanchored', detail: 'membership proven, checkpoint not anchored' };
+  }
+  return { value: 1, status: 'anchored', detail: null };
+}
+
 function witnessFeature(evidence) {
   const envelope = evidence.envelope;
   const listed = envelope && Array.isArray(envelope.attestations) ? envelope.attestations : [];
@@ -383,6 +402,11 @@ function absentDimensions(evidence) {
   const absent = missingDimensions(evidence);
   if (evidence.policy.value === 0) absent.push('verified_policy');
   if (evidence.anchors.value === 0) absent.push('resolved_anchor');
+  // Named only when the question was asked: a receipt checked without --ledger
+  // makes no membership claim, so there is no absent evidence to report.
+  if (evidence.ledger.status !== 'absent' && evidence.ledger.value === 0) {
+    absent.push('authenticated_ledger_membership');
+  }
   return absent;
 }
 
@@ -397,6 +421,7 @@ function buildVector(evidence) {
     evidence.ratification.value,
     evidence.anchors.value,
     evidence.determination.value,
+    evidence.ledger.value,
     round(missingDimensions(evidence).length / 5, 2),
   ];
 }
@@ -412,6 +437,7 @@ function featureEvidence(envelope, raw) {
     ratification: ratificationFeature(envelope, witnesses),
     anchors: anchorFeature(envelope),
     determination: determinationFeature(raw.determination),
+    ledger: ledgerFeature(raw),
   };
 }
 
@@ -453,6 +479,9 @@ async function assess(envelope, opts) {
   }
   if (evidence.anchors.status === 'unresolved') {
     notes.push({ code: 'anchors_unresolved', detail: evidence.anchors.detail });
+  }
+  if (evidence.ledger.status === 'unanchored') {
+    notes.push({ code: 'ledger_membership_unanchored', detail: evidence.ledger.detail });
   }
 
   return {

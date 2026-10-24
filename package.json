@@ -16,6 +16,7 @@
     "showcase": "node showcase/server.cjs",
     "showcase:seed": "node showcase/seed.cjs",
     "calibrate": "node scripts/calibrate-trust.cjs",
+    "bench:ledger": "node scripts/ledger-bench.cjs",
     "test": "node --test \"engine/test/*.test.cjs\"",
     "sentinel": "node bin/sentinel.cjs",
     "test:sentinel": "node --test sentinel/test/*.test.cjs"

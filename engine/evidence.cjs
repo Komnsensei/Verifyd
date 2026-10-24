@@ -28,6 +28,7 @@ const path = require('path');
 const Artifacts = require('./artifacts.cjs');
 const Extract = require('./extract.cjs');
 const Lattice = require('./lattice.cjs');
+const LedgerVerify = require('./ledger-verify.cjs');
 const Merkle = require('./merkle.cjs');
 const Signing = require('./signing.cjs');
 const TSA = require('./tsa.cjs');
@@ -213,6 +214,47 @@ async function collectWitnesses(envelope, witnessKeys) {
   });
 }
 
+// Ledger membership (Phase C). No --ledger means the question was not asked,
+// which is not the same as "not recorded": the display must not imply a check
+// that never ran.
+function collectLedger(envelope, opts) {
+  const absent = {
+    requested: false, status: null, label: null, reason: null,
+    record: null, checkpoint: null, anchored: false,
+  };
+  if (!opts || !opts.ledger) return absent;
+  try {
+    const result = LedgerVerify.verifyReceipt(envelope, {
+      ledger: opts.ledger,
+      keyring: opts.keyring,
+      anchor: opts.anchor || null,
+    });
+    const label = result.status === 'IN CHAIN'
+      ? 'IN CHAIN (' + (result.anchored ? 'ANCHORED' : 'UNANCHORED') + ')'
+      : result.status + (result.reason ? ' (' + result.reason + ')' : '');
+    return {
+      requested: true,
+      status: result.status,
+      label,
+      reason: result.reason,
+      record: result.record,
+      checkpoint: result.checkpoint,
+      anchored: result.anchored,
+    };
+  } catch (e) {
+    const reason = e.code || e.message;
+    return {
+      requested: true,
+      status: 'INCONSISTENT',
+      label: 'INCONSISTENT (' + reason + ')',
+      reason,
+      record: null,
+      checkpoint: null,
+      anchored: false,
+    };
+  }
+}
+
 function collectDetermination(envelope, opts) {
   if (!opts || !opts.determination) {
     return { requested: false, file: null, det: null, result: null, error: null };
@@ -333,6 +375,32 @@ function witnessVerdict(envelope, evidence) {
   return { ok: true, reason: null };
 }
 
+// A membership claim that cannot be proven is a false claim, the same rule the
+// RATIFIED ladder already applies. A receipt with no block pays nothing and is
+// not penalised; --require-anchor turns "not recorded" and an unanchored
+// membership into failures because the caller asked for publication-grade
+// evidence.
+function ledgerVerdict(evidence) {
+  const record = evidence && evidence.ledger;
+  if (!record || !record.requested) return { ok: true, reason: null };
+  if (record.status === 'IN CHAIN') {
+    if (evidence.requireAnchor && !record.anchored) {
+      return { ok: false, reason: 'ledger membership is not anchored (--require-anchor)' };
+    }
+    return { ok: true, reason: null };
+  }
+  if (record.status === 'NOT RECORDED') {
+    return evidence.requireAnchor
+      ? { ok: false, reason: 'receipt is not recorded in the supplied ledger (--require-anchor)' }
+      : { ok: true, reason: null };
+  }
+  return {
+    ok: false,
+    reason: 'ledger ' + String(record.status || 'unknown').toLowerCase()
+      + (record.reason ? ': ' + record.reason : ''),
+  };
+}
+
 function determinationVerdict(evidence) {
   const record = evidence && evidence.determination;
   if (!record || !record.requested) return { ok: true, reason: null };
@@ -370,6 +438,9 @@ function verdict(envelope, evidence) {
   if (batch && batch.present && !batch.authenticated) {
     reasons.push(batch.error || batch.reason || 'batch root is not authenticated');
   }
+
+  const ledger = ledgerVerdict(evidence);
+  if (!ledger.ok) reasons.push(ledger.reason);
 
   const witnesses = witnessVerdict(envelope, evidence);
   if (!witnesses.ok) reasons.push(witnesses.reason);
@@ -415,6 +486,8 @@ async function collect(envelope, opts) {
     time: collectTime(envelope, opts),
     inclusion,
     batch: collectBatch(opts.batch, inclusion, keyring, opts),
+    ledger: collectLedger(envelope, opts),
+    requireAnchor: !!(opts && opts.requireAnchor),
     witnesses: await collectWitnesses(envelope, opts.witnessKeys),
     determination: collectDetermination(envelope, opts),
     artifact: collectArtifact(envelope, opts),
@@ -427,5 +500,6 @@ module.exports = {
   quorumRequired,
   verdict,
   witnessVerdict,
+  ledgerVerdict,
   determinationVerdict,
 };

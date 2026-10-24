@@ -326,6 +326,19 @@ function renderCertificate(data, opts) {
   out += kv('Signer Key ID', color.dim(short(r.signer_key_id, 48)));
   out += kv('Time Token', color.status(r.time_token));
   if (r.time_authority) out += kv('Time Authority', color.dim(short(r.time_authority, 48)));
+  // Same evidence object verify prints from; the certificate never runs its
+  // own ledger check.
+  const ledgerEvidence = opts.evidence && opts.evidence.ledger;
+  if (ledgerEvidence && ledgerEvidence.requested) {
+    out += kv('Ledger', color.status(ledgerEvidence.status === 'IN CHAIN' ? 'IN CHAIN' : ledgerEvidence.status) +
+      color.dim(ledgerEvidence.status === 'IN CHAIN'
+        ? '  (' + (ledgerEvidence.anchored ? 'ANCHORED' : 'UNANCHORED') + ')'
+        : (ledgerEvidence.reason ? '  ' + short(ledgerEvidence.reason, 40) : '')));
+  } else if (ledgerEvidence) {
+    // No --ledger: say so, so a PASSED certificate is never mistaken for an
+    // anchored ledger verdict.
+    out += kv('Ledger', color.status('NOT CHECKED') + color.dim('  (no --ledger)'));
+  }
   out += kv('Stage Trace', r.core.engine_trace ? color.status('RECORDED') : color.status('MISSING'));
 
   out += section('Audit Result', color);
@@ -570,6 +583,9 @@ async function main(argv) {
         reviewerKeyring: argValue(argv, '--reviewer-keyring'),
         receiptPath: receiptFile,
         artifact: argValue(argv, '--artifact'),
+        ledger: argValue(argv, '--ledger'),
+        anchor: argValue(argv, '--anchor'),
+        requireAnchor: argv.includes('--require-anchor'),
       });
       assurance = await TrustScore.assess(data, { evidence });
     } catch (e) {
@@ -580,8 +596,8 @@ async function main(argv) {
   const integrity = checkIntegrity(data, evidence);
   const verdict = evidence ? v.AssuranceEvidence.verdict(data, evidence) : null;
 
-  const saved = renderCertificate(data, { color: ansiFile, assurance, integrity, verdict });
-  const preview = renderCertificate(data, { color: colorOut, assurance, integrity, verdict });
+  const saved = renderCertificate(data, { color: ansiFile, assurance, integrity, verdict, evidence });
+  const preview = renderCertificate(data, { color: colorOut, assurance, integrity, verdict, evidence });
 
   fs.writeFileSync(outFile, saved, 'utf8');
 

@@ -22,8 +22,8 @@ const CORPUS = path.join(ROOT, 'engine', 'calibration', 'corpus.jsonl');
 const MODEL = path.join(ROOT, 'engine', 'calibration', 'trust-model.json');
 
 const SCHEME = 'verifyd-trust-assurance-v1';
-const MODEL_VERSION = '1.3.0';
-const CREATED_AT = '2026-10-22T00:00:00.000Z';
+const MODEL_VERSION = '1.4.0';
+const CREATED_AT = '2026-10-23T00:00:00.000Z';
 const FEATURES = [
   'signature',
   'time',
@@ -34,6 +34,7 @@ const FEATURES = [
   'ratification',
   'anchors',
   'determination',
+  'ledger',
   'missing',
 ];
 const TOTAL_ROWS = 1200;
@@ -51,11 +52,12 @@ const LABEL_RULE = [
   '1 only when checked and passed, 0 when absent, failed or unverifiable; a failed check never pays.',
   'witness_count is 1 only for a met quorum, and then tier is 0.5 or 1; policy is 1 only when every',
   'result passed and traced to a registered citation; anchors is 1 only when every external anchor has',
-  'a verified resolution; ratification is 0 unless witness_count is 1.',
+  'a verified resolution; ratification is 0 unless witness_count is 1; ledger is 1 only when receipt membership was checked',
+  'against a trusted checkpoint (anchored), 0 when not recorded, unanchored or unverifiable.',
   'missing counts the five zero verification dimensions (signature, time, inclusion, witness, determination).',
   'z = -3.20 + 1.80*signature + 0.90*time + 0.70*inclusion + 1.10*witness_count',
   '+ 0.55*witness_tier + 0.70*policy + 0.50*ratification + 0.35*anchors',
-  '+ 0.80*determination - 0.90*missing; label ~ Bernoulli(sigmoid(z)) with a seeded PRNG.',
+  '+ 0.80*determination + 0.60*ledger - 0.90*missing; label ~ Bernoulli(sigmoid(z)) with a seeded PRNG.',
 ].join(' ');
 
 // ----- deterministic PRNG and maths -----
@@ -122,11 +124,12 @@ function generateRows() {
     const ratification = witnessCount === 1 ? draw(rng, [0, 1], [0.30, 0.70]) : 0;
     const anchors = draw(rng, [0, 1], [0.50, 0.50]);
     const determination = draw(rng, [0, 1], [0.62, 0.38]);
+    const ledger = draw(rng, [0, 1], [0.72, 0.28]);
     const missing = ((signature === 0 ? 1 : 0) + (time === 0 ? 1 : 0) +
       (inclusion === 0 ? 1 : 0) + (witnessCount === 0 ? 1 : 0) +
       (determination === 0 ? 1 : 0)) / 5;
 
-    const x = [signature, time, inclusion, witnessCount, witnessTier, policy, ratification, anchors, determination, missing]
+    const x = [signature, time, inclusion, witnessCount, witnessTier, policy, ratification, anchors, determination, ledger, missing]
       .map(v => round(v, 2));
     const z = -3.20 +
       1.80 * signature +
@@ -137,7 +140,8 @@ function generateRows() {
       0.70 * policy +
       0.50 * ratification +
       0.35 * anchors +
-      0.80 * determination -
+      0.80 * determination +
+      0.60 * ledger -
       0.90 * missing;
     const label = rng() < sigmoid(z) ? 1 : 0;
 

@@ -11,6 +11,7 @@ const v = require(path.join(ROOT, 'engine', 'verifyd.cjs'));
 const lattice = require(path.join(ROOT, 'engine', 'lattice.cjs'));
 const Artifacts = require(path.join(ROOT, 'engine', 'artifacts.cjs'));
 const Extract = require(path.join(ROOT, 'engine', 'extract.cjs'));
+const Ledger = require(path.join(ROOT, 'engine', 'ledger.cjs'));
 
 const args = process.argv.slice(2);
 
@@ -44,6 +45,22 @@ const VALUE_FLAGS = {
   '--determination': 'determination',
   '--reviewer-keyring': 'reviewerKeyring',
   '--artifact': 'artifact',
+  '--ledger': 'ledger',
+  '--anchor': 'anchor',
+  '--heads': 'heads',
+  '--policy': 'policy',
+  '--revoked-at': 'revokedAt',
+  '--reason': 'reason',
+  '--writer-keyring': 'writerKeyring',
+  '--revocations': 'revocations',
+};
+
+const BOOL_FLAGS = {
+  '--require-anchor': 'requireAnchor',
+  '--record-head': 'recordHead',
+  '--repair-tail': 'repairTail',
+  '--dry-run': 'dryRun',
+  '--force-unlock': 'forceUnlock',
 };
 
 const MULTI_FLAGS = {
@@ -58,7 +75,10 @@ function parseOptions(argv) {
     witnessKey: null, into: null, method: null, statement: null, expires: null,
     jurisdiction: null, regime: null, reviewer: null, role: null, organization: null,
     conclusion: null, rationale: null, out: null, receipt: null, determination: null,
-    reviewerKeyring: null, artifact: null, facts: [], requirements: [], rest: [],
+    reviewerKeyring: null, artifact: null, ledger: null, anchor: null, heads: null,
+    policy: null, revokedAt: null, reason: null, writerKeyring: null, revocations: null,
+    requireAnchor: false, recordHead: false, repairTail: false,
+    dryRun: false, forceUnlock: false, facts: [], requirements: [], rest: [],
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -81,6 +101,8 @@ function parseOptions(argv) {
       i++;
       continue;
     }
+    const boolField = BOOL_FLAGS[a];
+    if (boolField) { opts[boolField] = true; continue; }
     const field = VALUE_FLAGS[a];
     if (field) {
       const value = argv[i + 1];
@@ -107,6 +129,42 @@ function keyringDir() {
 function witnessKeysDir() {
   const raw = OPTS.witnessKeys || process.env.VERIFYD_WITNESS_KEYS;
   return raw ? path.resolve(raw) : null;
+}
+
+// Default ledger path: $VERIFYD_LEDGER or <keyring>/ledger.jsonl, so the ledger
+// and the signing key share one custody boundary (section 9).
+function ledgerPath() {
+  if (OPTS.ledger) return path.resolve(OPTS.ledger);
+  if (process.env.VERIFYD_LEDGER) return path.resolve(process.env.VERIFYD_LEDGER);
+  return path.join(keyringDir(), 'ledger.jsonl');
+}
+
+// A supplied revocation file is an alternate source for a lost sidecar, never a
+// trust input: every record is still checked against the ledger's commitment
+// digests. It is also the input to `chain restore-revocations`.
+function revocationsFile() {
+  return OPTS.revocations ? path.resolve(OPTS.revocations) : null;
+}
+
+// An explicitly supplied policy body is transport for the genesis commitment,
+// never a trust input: the ledger still compares policyHash(body) with the
+// policy_hash inside the signed genesis line. Reading the file here only turns
+// an I/O or JSON failure into a named caller error instead of a ledger verdict.
+function policyBodyOption(verb) {
+  if (!OPTS.policy) return undefined;
+  const file = path.resolve(OPTS.policy);
+  const read = Artifacts.readJsonObject(file, {
+    messages: {
+      notFound: 'policy file not found',
+      invalidJson: 'policy is not valid JSON',
+      notObject: 'policy is not a JSON object',
+    },
+  });
+  if (!read.ok) {
+    console.error('verifyd chain ' + verb + ': ' + read.message + ': ' + file);
+    process.exit(1);
+  }
+  return read.value;
 }
 
 // Assurance is recomputed from the envelope every time; no score is trusted
@@ -201,6 +259,7 @@ function help() {
   console.log('  verifyd keys rotate        Generate a new signing key, retire the old one');
   console.log('  verifyd keys path          Print the keyring directory');
   console.log('  verifyd certify <receipt>  Create pretty human certificate');
+  console.log('  verifyd chain <verb>       Ledger: init / append / proof / verify / fsck');
   console.log('  verifyd lattice            Show Lattice structure');
   console.log('  verifyd demo               Run end-to-end demo');
   console.log('  verifyd help               This help');
@@ -217,6 +276,9 @@ function help() {
   console.log('  --determination <file>     Determination to check alongside the receipt');
   console.log('  --reviewer-keyring <dir>   Keyring holding the reviewer key (default: --keyring)');
   console.log('  --artifact <file>          Source document to rehash (default: beside the receipt)');
+  console.log('  --ledger <path>            Ledger to append to / check membership against (default: $VERIFYD_LEDGER)');
+  console.log('  --anchor <checkpoint.json> Trusted checkpoint for anchored verification');
+  console.log('  --require-anchor           Fail when membership is not recorded or not anchored');
   console.log('');
   console.log('Witness subcommands:');
   console.log('  witness init                          Create a witness keyring (--keyring)');
@@ -519,6 +581,38 @@ async function audit(file) {
   const receiptFile = file.replace(/\.[^.]+$/, '') + '.verifyd-receipt.json';
   fs.writeFileSync(receiptFile, JSON.stringify(sealed, null, 2) + '\n');
 
+  // --ledger appends after sealing and attaches the block in place. The block
+  // is excluded from the signed payload, so the receipt keeps its signature.
+  // A failed append leaves the receipt written and this command non-zero: a
+  // receipt that exists but was not recorded is not a success.
+  let ledgerLine = null;
+  if (OPTS.ledger) {
+    try {
+      const digest = crypto.createHash('sha256').update(v.Signing.signingPayload(sealed)).digest('hex');
+      const appended = Ledger.append(ledgerPath(), {
+        signer: Ledger.keyringSigner({ dir }),
+        keyring: dir,
+        payload_digest: digest,
+        receipt_id: receipt.receipt_id,
+        writeReceipt: (block) => {
+          sealed.ledger = {
+            scheme: 'verifyd-ledger-v1',
+            ledger_id: block.ledger_id,
+            seq: block.seq,
+            checkpoint: block.checkpoint,
+            path: block.path,
+          };
+          fs.writeFileSync(receiptFile, JSON.stringify(sealed, null, 2) + '\n');
+        },
+      });
+      ledgerLine = 'IN CHAIN (seq ' + appended.entry.seq + ', tree ' + appended.checkpoint.tree_size +
+        ', UNANCHORED)';
+    } catch (e) {
+      ledgerLine = 'NOT RECORDED (' + (e.code || e.message) + ')';
+      process.exitCode = 1;
+    }
+  }
+
   // Assurance is derived from the sealed bytes and the evidence attached to
   // them. It is not stored in the receipt: verify recomputes it from the same
   // committed model, so no unverified score travels inside the envelope.
@@ -547,6 +641,7 @@ async function audit(file) {
   console.log('Signer:       ' + sealed.signature.key_id);
   console.log('Keyring:      ' + dir + (hadKey ? '' : ' (created new key)'));
   console.log('Time token:   ' + timeNote);
+  if (ledgerLine) console.log('Ledger:       ' + ledgerLine);
   if (!hadKey) warnWindowsModes();
   console.log('');
   console.log('Receipt saved: ' + receiptFile);
@@ -765,6 +860,9 @@ async function verify(receiptFile) {
     reviewerKeyring: reviewerKeysDir(),
     receiptPath: receiptFile,
     artifact: OPTS.artifact ? path.resolve(OPTS.artifact) : null,
+    ledger: OPTS.ledger ? ledgerPath() : null,
+    anchor: OPTS.anchor ? path.resolve(OPTS.anchor) : null,
+    requireAnchor: OPTS.requireAnchor,
   });
   const res = evidence.signature;
   const checks = res.checks;
@@ -864,6 +962,13 @@ async function verify(receiptFile) {
 
     console.log('Batch check:  ' + (batch.authenticated ? 'VALID' : 'INVALID (' + batch.reason + ')'));
   }
+
+  // Ledger membership. The line is always printed so VALID can never be read
+  // as ledger trust: without --ledger the ledger was not checked at all, and an
+  // unanchored membership says so in the same vocabulary.
+  console.log('Ledger:       ' + (evidence.ledger.requested
+    ? evidence.ledger.label
+    : 'NOT CHECKED (no --ledger)'));
 
   const witnessResult = reportWitnesses(data, evidence);
   const determinationResult = OPTS.determination
@@ -1490,9 +1595,252 @@ function witnessCommand(sub, rest) {
   process.exit(1);
 }
 
+// The `chain` command group is the ledger's own surface. Phase C covers the
+// verbs that read or extend a ledger; revoke-writer and restore-revocations are
+// the D2 revocation surface. Seal, authorize and publish belong to later
+// phases and are not implemented here.
+async function chainCommand(sub, rest) {
+  const ledgerFile = ledgerPath();
+
+  if (!sub || sub === 'help') {
+    console.log('Usage: verifyd chain <verb>');
+    console.log('  init                       Create a ledger at --ledger (default $VERIFYD_LEDGER)');
+    console.log('  append <receipt.json>      Append a receipt digest and attach its ledger block');
+    console.log('  revoke-writer <key_id>     Write an admin-signed writer revocation, sealed by a writer');
+    console.log('                             or by the admin when no writer can seal');
+    console.log('                             [--revoked-at <iso>] [--reason <text>] [--writer-keyring <dir>]');
+    console.log('  restore-revocations <file> Restore a lost revocation file from an authenticated backup');
+    console.log('  proof <receipt.json>       Print the receipt\'s ledger block');
+    console.log('  verify                     Verify the ledger [--anchor <checkpoint.json>] [--heads <file>]');
+    console.log('                             [--revocations <file>]');
+    console.log('  fsck                       Check and repair a ledger [--dry-run] [--repair-tail]');
+    return;
+  }
+
+  if (sub === 'init') {
+    const signer = Ledger.keyringSigner({ dir: keyringDir() });
+    let policy = { writer_keys: [signer.key_id], admin_keys: [signer.key_id] };
+    if (OPTS.policy) {
+      const read = Artifacts.readJsonObject(path.resolve(OPTS.policy), {
+        messages: {
+          notFound: 'policy file not found',
+          invalidJson: 'policy is not valid JSON',
+          notObject: 'policy is not a JSON object',
+        },
+      });
+      if (!read.ok) { console.error('verifyd chain init: ' + read.message); process.exit(1); }
+      policy = read.value;
+    }
+    try {
+      const out = Ledger.initLedger(ledgerFile, { signer, policy });
+      console.log('Ledger:       ' + ledgerFile);
+      console.log('Ledger ID:    ' + out.ledger_id);
+      console.log('Writer:       ' + signer.key_id);
+    } catch (e) {
+      console.error('verifyd chain init: ' + (e.code || e.message));
+      process.exit(1);
+    }
+    return;
+  }
+
+  if (sub === 'append') {
+    const receiptFile = rest[0];
+    if (!receiptFile || !fs.existsSync(receiptFile)) {
+      console.error('verifyd chain append: receipt not found');
+      process.exit(1);
+    }
+    const read = Artifacts.readJsonObject(receiptFile, {
+      messages: {
+        notFound: 'receipt not found',
+        directory: 'not a receipt file',
+        invalidJson: 'receipt is not valid JSON',
+        notObject: 'not a receipt',
+      },
+    });
+    if (!read.ok) { console.error('verifyd chain append: ' + read.message); process.exit(1); }
+    const data = read.value;
+    const digest = crypto.createHash('sha256').update(v.Signing.signingPayload(data)).digest('hex');
+    try {
+      const appended = Ledger.append(ledgerFile, {
+        signer: Ledger.keyringSigner({ dir: keyringDir() }),
+        keyring: keyringDir(),
+        policy: policyBodyOption('append'),
+        revocations: revocationsFile(),
+        payload_digest: digest,
+        receipt_id: data.receipt && data.receipt.receipt_id ? data.receipt.receipt_id : null,
+        writeReceipt: (block) => {
+          data.ledger = {
+            scheme: 'verifyd-ledger-v1',
+            ledger_id: block.ledger_id,
+            seq: block.seq,
+            checkpoint: block.checkpoint,
+            path: block.path,
+          };
+          fs.writeFileSync(receiptFile, JSON.stringify(data, null, 2) + '\n');
+        },
+      });
+      console.log('Ledger:       IN CHAIN (seq ' + appended.entry.seq + ', tree ' +
+        appended.checkpoint.tree_size + ')');
+      console.log('Checkpoint:   ' + appended.checkpoint.checkpoint_hash);
+      console.log('Block:        attached to ' + receiptFile + ' (outside the signature)');
+    } catch (e) {
+      console.error('verifyd chain append: ' + (e.code || e.message));
+      process.exit(1);
+    }
+    return;
+  }
+
+  if (sub === 'revoke-writer') {
+    const keyId = rest[0];
+    if (!keyId) {
+      console.error('verifyd chain revoke-writer: a writer key id is required');
+      process.exit(1);
+    }
+    try {
+      // A writer is used only when the caller names one; otherwise the admin
+      // seals, and revokeWriter falls back to the writer role when the admin is
+      // itself a writer. Passing an unconditional writer signer would defeat
+      // the admin-only case.
+      const writerDir = OPTS.writerKeyring ? path.resolve(OPTS.writerKeyring) : null;
+      const out = Ledger.revokeWriter(ledgerFile, {
+        signer: Ledger.keyringSigner({ dir: keyringDir() }),
+        keyring: keyringDir(),
+        writerSigner: writerDir ? Ledger.keyringSigner({ dir: writerDir }) : undefined,
+        writerKeyring: writerDir || undefined,
+        policy: policyBodyOption('revoke-writer'),
+        revocations: revocationsFile(),
+        key_id: keyId,
+        revoked_at: OPTS.revokedAt || undefined,
+        reason: OPTS.reason || undefined,
+      });
+      console.log('Revoked:      ' + out.record.key_id);
+      console.log('Effective:    ' + out.revoked_at);
+      console.log('Signed at:    ' + out.record.recorded_at);
+      console.log('Head:         tree ' + out.record.head_tree_size + ', ' + out.record.head_checkpoint_hash);
+      console.log('Committed:    entry ' + out.commitment.seq + ', tree ' + out.commitment.seq);
+      console.log('Record:       ' + out.paths.revocations);
+      console.log('Signature:    VALID (' + out.record.signature.key_id + ')');
+    } catch (e) {
+      console.error('verifyd chain revoke-writer: ' + (e.code || e.message));
+      process.exit(1);
+    }
+    return;
+  }
+
+  if (sub === 'restore-revocations') {
+    const file = rest[0] ? path.resolve(rest[0]) : revocationsFile();
+    if (!file) {
+      console.error('verifyd chain restore-revocations: pass the backup file');
+      process.exit(1);
+    }
+    try {
+      const out = Ledger.restoreRevocations(ledgerFile, {
+        file,
+        keyring: keyringDir(),
+        policy: policyBodyOption('restore-revocations'),
+      });
+      console.log('Restored:     ' + out.restored + ' record(s)');
+      console.log('File:         ' + out.path);
+      const verified = Ledger.verifyChain(ledgerFile, {
+        keyring: keyringDir(),
+        policy: policyBodyOption('restore-revocations'),
+      });
+      console.log('Ledger:       ' + (verified.ok ? 'VALID' : (verified.code || 'REJECTED')));
+      if (!verified.ok) process.exitCode = 1;
+    } catch (e) {
+      console.error('verifyd chain restore-revocations: ' + (e.code || e.message));
+      process.exit(1);
+    }
+    return;
+  }
+
+  if (sub === 'proof') {
+    const receiptFile = rest[0];
+    if (!receiptFile || !fs.existsSync(receiptFile)) {
+      console.error('verifyd chain proof: receipt not found');
+      process.exit(1);
+    }
+    const data = JSON.parse(fs.readFileSync(receiptFile, 'utf8'));
+    if (!data.ledger) {
+      console.error('verifyd chain proof: receipt has no ledger block');
+      process.exit(1);
+    }
+    console.log(JSON.stringify(data.ledger, null, 2));
+    return;
+  }
+
+  if (sub === 'verify') {
+    let result;
+    try {
+      result = Ledger.verifyChain(ledgerFile, {
+        keyring: keyringDir(),
+        anchor: OPTS.anchor ? path.resolve(OPTS.anchor) : null,
+        heads: OPTS.heads ? path.resolve(OPTS.heads) : null,
+        recordHead: OPTS.recordHead,
+        policy: policyBodyOption('verify'),
+        revocations: revocationsFile(),
+      });
+    } catch (e) {
+      console.error('verifyd chain verify: ' + (e.code || e.message));
+      process.exit(1);
+    }
+    for (const check of result.checks) {
+      console.log((check.ok ? 'ok   ' : 'FAIL ') + check.name + (check.detail ? ': ' + check.detail : ''));
+    }
+    // Authority is a separate verdict from signature validity: a trusted key
+    // that is not a writer fails here while every signature still verifies.
+    if (result.authorization) {
+      const auth = result.authorization;
+      console.log((auth.ok ? 'ok   ' : 'FAIL ') + 'writer_authorization: '
+        + (auth.ok
+          ? auth.writers + ' listed writer key(s), policy ' + auth.source
+          : auth.reason));
+    }
+    if (result.ok) {
+      console.log('Ledger:       VALID (' + result.mode + ', tree ' + result.head.tree_size +
+        (result.anchor ? ', anchor ' + result.anchor.tree_size : ', UNANCHORED') + ')');
+      return;
+    }
+    const label = result.code === 'LEDGER_FORK' || result.code === 'LEDGER_FORK_EQUIVOCATION'
+      ? 'FORK'
+      : (result.code || 'REJECTED').replace(/^LEDGER_/, '');
+    console.log('Ledger:       ' + label + ' (' + result.message + ')');
+    process.exit(1);
+  }
+
+  if (sub === 'fsck') {
+    let result;
+    try {
+      result = Ledger.fsck(ledgerFile, {
+        signer: Ledger.keyringSigner({ dir: keyringDir() }),
+        keyring: keyringDir(),
+        policy: policyBodyOption('fsck'),
+        revocations: revocationsFile(),
+        dryRun: OPTS.dryRun,
+        repairTail: OPTS.repairTail,
+        forceUnlock: OPTS.forceUnlock,
+      });
+    } catch (e) {
+      console.error('verifyd chain fsck: ' + (e.code || e.message));
+      process.exit(1);
+    }
+    for (const action of result.actions) console.log('action:       ' + action.event + ' ' + JSON.stringify(action));
+    for (const need of result.requirements) console.log('requires:     ' + need);
+    console.log('Ledger:       ' + (result.ok ? 'VALID' : result.code) +
+      (result.ok ? '' : ' (' + result.message + ')'));
+    if (!result.ok) process.exitCode = 1;
+    return;
+  }
+
+  console.error('Unknown chain verb: ' + sub);
+  console.error('Use: init / append / revoke-writer / restore-revocations / proof / verify / fsck');
+  process.exit(1);
+}
+
 (async () => {
   const positional = OPTS.rest.slice(1);
   if (cmd === 'audit') return audit(positional[0]);
+  if (cmd === 'chain') return chainCommand(positional[0], positional.slice(1));
   if (cmd === 'verify') return verify(positional[0]);
   if (cmd === 'batch') return batchCommand(positional);
   if (cmd === 'witness') return witnessCommand(positional[0], positional.slice(1));

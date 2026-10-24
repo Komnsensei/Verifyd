@@ -86,10 +86,19 @@ function restrictFile(file) {
   try { fs.chmodSync(file, 0o600); } catch (_) { /* Windows: inherited ACL */ }
 }
 
-function writeAtomic(file, contents) {
+// One atomic-replace implementation for the whole project. The keyring calls it
+// with no options, which keeps the existing write-then-rename behavior. A
+// caller that needs the temporary file fsynced before the rename asks for it
+// explicitly, and may pass a filesystem facade so a test can observe the order.
+function writeAtomic(file, contents, opts) {
+  const io = (opts && opts.fs) || fs;
   const tmp = file + '.tmp-' + process.pid;
-  fs.writeFileSync(tmp, contents);
-  fs.renameSync(tmp, file);
+  io.writeFileSync(tmp, contents);
+  if (opts && opts.fsync) {
+    const fd = io.openSync(tmp, 'r+');
+    try { io.fsyncSync(fd); } finally { io.closeSync(fd); }
+  }
+  io.renameSync(tmp, file);
 }
 
 function generateKeyPair() {
@@ -309,8 +318,8 @@ function signingKey(opts) {
 }
 
 // The signed payload is a single canonical document: the envelope with the
-// `signature`, `timestamp`, `inclusion` and `attestations` members removed,
-// prefixed with a protocol domain tag.
+// `signature`, `timestamp`, `inclusion`, `attestations` and `ledger` members
+// removed, prefixed with a protocol domain tag.
 //
 // `timestamp` is excluded because an RFC 3161 token covers the hash of these
 // bytes; putting the token inside them would be circular. The token is bound
@@ -321,12 +330,16 @@ function signingKey(opts) {
 // `attestations` is excluded because each witness attestation signs these same
 // bytes itself (see engine/witness.cjs); collecting signatures must not require
 // re-signing the receipt, and must not invalidate its batch proof or token.
+// `ledger` is excluded for the same reason as `inclusion`: the membership block
+// is computed from the digest of these bytes after sealing, so attaching it
+// must not change what was signed. Receipts without the member canonicalize
+// exactly as before, which is why every existing signature still verifies.
 //
 // `opts.domain` lets a caller sign a different object (the Merkle root) with
 // its own domain tag, so a root can never be replayed as a receipt.
 function signingPayload(envelope, opts) {
   const domain = (opts && opts.domain) || DOMAIN;
-  return Buffer.from(domain + Canonical.canonicalJSON(envelope, { omitKeys: ['signature', 'timestamp', 'inclusion', 'attestations'] }), 'utf8');
+  return Buffer.from(domain + Canonical.canonicalJSON(envelope, { omitKeys: ['signature', 'timestamp', 'inclusion', 'attestations', 'ledger'] }), 'utf8');
 }
 
 function seal(envelope, opts) {
@@ -471,6 +484,7 @@ module.exports = {
   rotateKey,
   signingKey,
   signingPayload,
+  writeAtomic,
   seal,
   open,
   openFile,

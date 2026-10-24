@@ -1,5 +1,13 @@
 // Verifyd Audit Chain - VALF-1 Section 8
 // Append-only ledger of audit receipts.
+//
+// SUPERSEDED by engine/ledger.cjs (CHAIN-DESIGN.md phases A and B). This class
+// has no lock, no fsync, no read-back and no recovery, and nothing constructs it
+// with a path, so it is not a durable ledger and must not be presented as one.
+// It is kept only because four call sites still reference it (bin/verifyd.cjs,
+// examples/audit-paper.cjs, examples/run-example.cjs, and the tracked
+// artifacts/bundle-stage copy); retiring it belongs with the Phase F CLI work.
+// Do not add ledger features here.
 
 const fs = require('fs');
 
